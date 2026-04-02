@@ -1,0 +1,100 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  background: #1a2a44; /* Темно-синий фон */
+  color: white;
+}
+
+.logo { font-size: 24px; font-weight: bold; }
+.logo span { color: #f4d03f; } /* Желтый акцент */
+
+nav a {
+  margin: 0 15px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.login-btn {
+  background: #f4d03f;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hero {
+  display: flex;
+  padding: 60px 10%;
+  background: #f0f4f8; /* Светло-голубой фон */
+  align-items: center;
+}
+
+.hero h1 { font-size: 48px; color: #1a2a44; }
+
+.search-box input {
+  padding: 15px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px 0 0 8px;
+}
+
+.search-box button {
+  padding: 15px 25px;
+  background: #f4d03f;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+}
+
+/* Общие настройки секции */
+.categories-section {
+  padding: 60px 10%;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.section-title {
+  font-size: 28px;
+  color: #1a2a44;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* Сетка (Grid) */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+/* Карточка категории */
+.category-card {
+  padding: 30px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.category-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.category-icon {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.category-name {
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}

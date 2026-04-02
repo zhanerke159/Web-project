@@ -1,0 +1,36 @@
+<header class="navbar">
+  <div class="logo">Recipe<span>Hub</span></div>
+  <nav>
+    <a routerLink="/">Home</a>
+    <a routerLink="/recipes">Recipes</a>
+    <a routerLink="/categories">Categories</a>
+    <a routerLink="/add">Add Recipe</a>
+  </nav>
+  <button class="login-btn" routerLink="/login">Login</button>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Find Your Favorite Recipes</h1>
+    <p>Discover delicious recipes from around the world</p>
+    <div class="search-box">
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Search recipes...">
+      <button (click)="onSearch()">Browse Recipes</button>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="assets/hero-food.png" alt="Delicious Food">
+  </div>
+</section>
+
+<section class="categories-section">
+  <h2 class="section-title">Browse by Category</h2>
+  <div class="categories-grid">
+    @for (cat of categories; track cat.name) {
+      <div class="category-card" [style.background-color]="cat.color">
+        <span class="category-icon">{{ cat.icon }}</span>
+        <p class="category-name">{{ cat.name }}</p>
+      </div>
+    }
+  </div>
+</section>
