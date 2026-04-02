@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router'; // Добавь этот импорт
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
+  standalone: true,
+  imports: [RouterOutlet], // Убедись, что RouterOutlet здесь прописан
+  templateUrl: './app.component.html',
   styleUrl: './app.css'
 })
 export class AppComponent {
-  protected readonly title = signal('recipe-site');
+  title = 'recipe-site';
 }
