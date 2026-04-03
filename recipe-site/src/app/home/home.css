@@ -1,10 +1,10 @@
 
 .navbar {
   display: flex;
-  justify-content: space-between; /* Лого слева, навигация в центре, кнопка справа */
+  justify-content: space-between;
   align-items: center;
   padding: 15px 8%;
-  background-color: #1a2a44 !important; /* Темно-синий фон */
+  background-color: #1a2a44; 
   color: white;
 }
 .logo {
@@ -14,7 +14,7 @@
 }
 
 .logo span {
-  color: #f4d03f; /* Желтый акцент для Hub */
+  color: #f4d03f; 
 }
 nav {
   display: flex;
@@ -22,13 +22,13 @@ nav {
 }
 
 .nav-link {
-  color: #e0e0e0 !important;
+  color: #e0e0e0;
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
 }
 .navbar nav a.nav-link {
-  color: white !important;
+  color: white;
   text-decoration: none;
   margin: 0 10px;
 }
@@ -38,8 +38,8 @@ nav a:hover {
 }
 
 .navbar .login-btn {
-  background-color: #f4d03f !important; /* Желтый цвет */
-  color: #1a2a44 !important; /* Темно-синий текст */
+  background-color: #f4d03f;
+  color: #1a2a44;
   border: none;
   padding: 10px 25px;
   border-radius: 10px;
@@ -59,7 +59,7 @@ nav a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 60px 10%;
-  background-color: #f0f7ff; /* Нежно-голубой фон */
+  background-color: #f0f7ff; 
   min-height: 400px;
 }
 
