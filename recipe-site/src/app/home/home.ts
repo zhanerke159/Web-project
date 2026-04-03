@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Добавь этот импорт
 import { CommonModule } from '@angular/common'; // Добавь этот импорт для @for и @if
 
@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common'; // Добавь этот имп�
   standalone: true, // Проверь, стоит ли тут true
   imports: [FormsModule, CommonModule], // ОБЯЗАТЕЛЬНО добавь это сюда
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrl: './home.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent {
   searchQuery: string = '';
