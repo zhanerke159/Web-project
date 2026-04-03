@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router'; // Добавь этот импорт
+import { RouterOutlet, RouterLink } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet], // Убедись, что RouterOutlet здесь прописан
-  templateUrl: './app.component.html',
+  imports: [RouterOutlet, RouterLink], 
+  templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class AppComponent {
+export class App {
   title = 'recipe-site';
 }
