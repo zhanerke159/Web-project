@@ -1,7 +1,19 @@
-
 <section class="hero">
-  <h2>Find Your Favorite Recipes</h2>
-  <p>Discover delicious recipes from around the world</p>
-  <input type="text" placeholder="Search recipes..." />
-  <button>Browse Recipes</button>
+  <div class="slider-container">
+    <div class="slides">
+      <img *ngFor="let slide of slides; let i = index" [src]="slide" alt="Delicious Food"
+        [ngClass]="{'active': i === currentSlideIndex}" />
+    </div>
+
+    <div class="slider-overlay"></div>
+
+    <div class="hero-content">
+      <h2 class="simply">SIMPLY</h2>
+      <h2 class="delicious">DELICIOUS</h2>
+    </div>
+  </div>
+</section>
+
+<section class="txt">
+  <h1>Discover delicious recipes from around the world.</h1>
 </section>

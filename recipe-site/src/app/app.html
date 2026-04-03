@@ -1,14 +1,19 @@
 <header>
+  <div class="top-auth">
+    <a routerLink="/register" class="btn-signup">sign up</a>
+    <a routerLink="/login" class="btn-signin">sign in</a>
+  </div>
+  
   <div class="logo">
     <h1>FoodieBook</h1>
   </div>
-  <nav>
-    <a routerLink="/" class="nav-link">Home</a>
-    <a routerLink="/category" class="nav-link">Categories</a>
-    <a routerLink="/add-recipe" class="nav-link">Add Recipe</a>
-    <a routerLink="/login" class="nav-link">Login</a>
-    <a routerLink="/register" class="nav-link">Register</a>
-    <a routerLink="/account" class="nav-link">Account</a>
-  </nav>
+  <div class="box">
+    <input type="text" placeholder="Search recipes..." class="search-input" />
+    <nav class="search-nav">
+      <a routerLink="/" class="nav-link">Home</a>
+      <a routerLink="/category" class="nav-link">Categories</a>
+      <a routerLink="/account" class="nav-link">Account</a>
+    </nav>
+  </div>
 </header>
 <router-outlet></router-outlet>
