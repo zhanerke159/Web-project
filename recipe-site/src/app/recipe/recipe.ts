@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe',
@@ -6,4 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './recipe.html',
   styleUrl: './recipe.css',
 })
-export class RecipeComponent {}
+export class RecipeComponent implements OnInit {
+  categoryName: string | null = '';
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.categoryName = this.route.snapshot.paramMap.get('name');
+  }
+}

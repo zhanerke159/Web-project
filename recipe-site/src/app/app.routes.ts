@@ -15,7 +15,7 @@ export const routes: Routes = [{
     {path: 'category', component: CategoryComponent},
     {path: 'own-recipe', component: OwnRecipeComponent},
     {path: 'popular-recipe', component: PopularRecipesComponent},
-    {path: 'recipe', component: RecipeComponent},
+    {path: 'recipe/:name', component: RecipeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'steps', component: StepsComponent}
