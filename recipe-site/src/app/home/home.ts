@@ -16,14 +16,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   private slideTimer: any;
 
   categories = [
-    { name: 'Fast Food', icon: '🍔', color: '#FDE68A' },
-    { name: 'Desserts', icon: '🍰', color: '#E0E7FF' },
-    { name: 'Drinks', icon: '🍹', color: '#FEF3C7' },
-    { name: 'Healthy', icon: '🥗', color: '#D1FAE5' },
-    { name: 'Breakfast', icon: '🍳', color: '#DBEAFE' },
-    { name: 'Main Dishes', icon: '🍝', color: '#F3E8FF' }
+    { name: 'Fast Food', image: 'https://i.pinimg.com/736x/72/6a/57/726a57da3fb47a280dc1131790848fc9.jpg' },
+    { name: 'Desserts', image: 'https://i.pinimg.com/736x/4b/b9/8b/4bb98b8eb28c027087aad8b164ae3b03.jpg' },
+    { name: 'Drinks', image: 'https://i.pinimg.com/736x/d2/88/28/d28828f724f103296937917acd48988e.jpg' },
+    { name: 'Salads', image: 'https://i.pinimg.com/736x/a0/e1/86/a0e186e9f46b4de9cbed7ee4f172abd8.jpg' },
+    { name: 'Main dishes', image: 'https://i.pinimg.com/736x/2e/ef/c2/2eefc20ea967eb58909a1864beebed27.jpg' },
+    { name: ' Chinese cuisine', image: 'https://i.pinimg.com/736x/09/08/b7/0908b72c952b9a1c6399a1a29bafe36f.jpg' }
   ];
-
+   
   slides = [
     'https://i.pinimg.com/1200x/86/2b/a7/862ba759d5444daddbf03bd07e94eb4d.jpg',
     'https://i.pinimg.com/1200x/e3/0e/56/e30e5616b2b6abc44dff773d15539614.jpg',
@@ -53,4 +53,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       clearInterval(this.slideTimer);
     }
   }
+
+  
 }
