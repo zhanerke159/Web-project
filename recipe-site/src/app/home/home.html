@@ -1,8 +1,7 @@
 <section class="hero">
   <div class="slider-container">
-    <div class="slides">
-      <img *ngFor="let slide of slides; let i = index" [src]="slide" alt="Delicious Food"
-        [ngClass]="{'active': i === currentSlideIndex}" />
+    <div class="slides" [style.transform]="'translateX(-' + currentSlideIndex * 100 + '%)'">
+      <img *ngFor="let slide of slides" [src]="slide" alt="Delicious Food" />
     </div>
 
     <div class="slider-overlay"></div>
@@ -11,8 +10,20 @@
       <h2 class="simply">SIMPLY</h2>
       <h2 class="delicious">DELICIOUS</h2>
     </div>
+
+    <button class="arrow left-arrow" (click)="prevSlide()">&#10094;</button>
+    <button class="arrow right-arrow" (click)="nextSlideManual()">&#10095;</button>
+    <div class="dots">
+      <span *ngFor="let slide of slides; let i = index" class="dot" [class.active-dot]="i === currentSlideIndex"
+        (click)="goToSlide(i)">
+      </span>
+    </div>
   </div>
 </section>
+
+
+
+
 
 <section class="txt">
   <div class="line"></div>
@@ -28,28 +39,28 @@
     <span>pizza</span>
   </div>
 
-  <div class="category-item"  [routerLink]="['/recipe', 'ceasar']">
+  <div class="category-item" [routerLink]="['/recipe', 'ceasar']">
     <div class="circle-img">
       <img src="https://i.pinimg.com/1200x/21/b7/90/21b790f325afe3e574ccf65783f1bf09.jpg" alt="Caesar">
     </div>
-    <span>Caesar</span>
+    <span>caesar</span>
   </div>
 
-  <div class="category-item"  [routerLink]="['/recipe', 'pasta']">
+  <div class="category-item" [routerLink]="['/recipe', 'pasta']">
     <div class="circle-img">
       <img src="https://i.pinimg.com/1200x/46/43/27/4643272b80e0da1c64b6d36ed7ada357.jpg" alt="pasta">
     </div>
     <span>pasta</span>
   </div>
 
-  <div class="category-item"  [routerLink]="['/recipe', 'mojito']">
+  <div class="category-item" [routerLink]="['/recipe', 'mojito']">
     <div class="circle-img">
       <img src="https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg" alt="mojito">
     </div>
     <span>mojito</span>
   </div>
 
-  <div class="category-item"  [routerLink]="['/recipe', 'apple pie']">
+  <div class="category-item" [routerLink]="['/recipe', 'apple pie']">
     <div class="circle-img">
       <img src="https://i.pinimg.com/736x/bf/d2/39/bfd239d78b130687d3262b6bb2520cfe.jpg" alt="apple pie">
     </div>
@@ -57,7 +68,9 @@
   </div>
 </div>
 
-<section class="cat">
+
+
+<section class="cat" id="categories">
   <div class="tit">
     <h1>Categories</h1>
   </div>
@@ -68,4 +81,5 @@
       <p>{{ category.name }}</p>
     </div>
   </div>
+
 </section>

@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  standalone: true, 
-  imports: [FormsModule, CommonModule, RouterModule], 
+  standalone: true,
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
   encapsulation: ViewEncapsulation.None
@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 export class HomeComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   currentSlideIndex = 0;
-  private slideTimer: any;
+  private slideInterval: any;
 
   categories = [
     { name: 'Fast Food', image: 'https://i.pinimg.com/736x/72/6a/57/726a57da3fb47a280dc1131790848fc9.jpg' },
@@ -24,36 +24,50 @@ export class HomeComponent implements OnInit, OnDestroy {
     { name: 'Main dishes', image: 'https://i.pinimg.com/736x/2e/ef/c2/2eefc20ea967eb58909a1864beebed27.jpg' },
     { name: ' Chinese cuisine', image: 'https://i.pinimg.com/736x/09/08/b7/0908b72c952b9a1c6399a1a29bafe36f.jpg' }
   ];
-   
+
   slides = [
     'https://i.pinimg.com/1200x/86/2b/a7/862ba759d5444daddbf03bd07e94eb4d.jpg',
     'https://i.pinimg.com/1200x/e3/0e/56/e30e5616b2b6abc44dff773d15539614.jpg',
     'https://i.pinimg.com/1200x/ba/b3/18/bab31873cf89cde0aae2635159ca508a.jpg'
   ];
 
-  ngOnInit() {
-    this.startCarousel();
+  ngOnInit(): void {
+    this.startAutoSlide();
   }
 
-  startCarousel() {
-    this.slideTimer = setInterval(() => {
+  startAutoSlide(): void {
+    this.slideInterval = setInterval(() => {
       this.nextSlide();
     }, 3000);
   }
 
-  nextSlide() {
+  resetAutoSlide(): void {
+    clearInterval(this.slideInterval);
+    this.startAutoSlide();
+  }
+
+  nextSlide(): void {
     this.currentSlideIndex = (this.currentSlideIndex + 1) % this.slides.length;
   }
 
-  onSearch() {
-    console.log('Searching for:', this.searchQuery);
+  prevSlide(): void {
+    this.currentSlideIndex =
+      (this.currentSlideIndex - 1 + this.slides.length) % this.slides.length;
+    this.resetAutoSlide();
+  }
+  goToSlide(index: number): void {
+    this.currentSlideIndex = index;
+    this.resetAutoSlide();
   }
 
-  ngOnDestroy() {
-    if (this.slideTimer) {
-      clearInterval(this.slideTimer);
-    }
+  ngOnDestroy(): void {
+    clearInterval(this.slideInterval);
   }
 
-  
+  nextSlideManual(): void {
+    this.nextSlide();
+    this.resetAutoSlide();
+  }
+
+
 }
