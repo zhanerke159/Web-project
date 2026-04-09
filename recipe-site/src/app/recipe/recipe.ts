@@ -1,18 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-recipe',
-  imports: [],
+  standalone: true, 
+  imports: [CommonModule], 
   templateUrl: './recipe.html',
-  styleUrl: './recipe.css',
+  styleUrls: ['./recipe.css']
 })
-export class RecipeComponent implements OnInit {
-  categoryName: string | null = '';
+export class RecipeComponent {
+  recipes = [
+    {
+      id: 1,
+      title: 'Lagman',
+      time: '1.15 minutes',
+      description: 'A flavorful dish with hand-pulled noodles, tender beef, and veggies.',
+      image: 'assets/lagman.jpg'
+    },
+    {
+      id: 2,
+      title: 'Soup',
+      time: '50 minutes',
+      description: 'A comforting and flavorful dish made with vegetables to meats, simmered in a rich broth',
+      image: 'assets/soup.jpg'
+    }
+  ];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.categoryName = this.route.snapshot.paramMap.get('name');
+  seeIngredients(id: number): void {
+    this.router.navigate(['/ingredients', id]);
+  }
+
+  addToFavorites(id: number): void {
+    console.log('Added to favorites:', id);
   }
 }

@@ -1,1 +1,32 @@
-<p>recipe works!</p>
+<div class="page-wrapper">
+  <div class="category-header">
+    <div class="decorative-line"></div>
+    <h1 class="category-title">Main dishes</h1>
+    <div class="decorative-line"></div>
+  </div>
+
+  <div class="recipe-grid">
+    <div class="recipe-card" *ngFor="let recipe of recipes">
+      <div class="image-box">
+        <img [src]="recipe.image" [alt]="recipe.title">
+      </div>
+      
+      <div class="content-box">
+        <div class="info-header">
+          <span class="recipe-name">{{ recipe.title }}</span>
+          <span class="recipe-duration">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            {{ recipe.time }}
+          </span>
+        </div>
+        
+        <p class="recipe-text">{{ recipe.description }}</p>
+        
+        <div class="button-container">
+          <button class="action-btn" (click)="seeIngredients(recipe.id)">See the ingredients</button>
+          <button class="action-btn" (click)="addToFavorites(recipe.id)">Add to Favorites</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
