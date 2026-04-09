@@ -13,10 +13,7 @@ import { Category } from '../models/category';
 })
 export class CategoryComponent implements OnInit {
   categoryName: string = '';
-  filteredProducts: Products[] = []; // Список продуктов для отображения
-
-  // 1. Твой массив всех продуктов (имитация базы данных)
-  // В поле category мы пишем ID категории, к которой относится продукт
+  filteredProducts: Products[] = []; 
   allProducts: Products[] = [
     { 
       id: 1, 
@@ -54,11 +51,8 @@ export class CategoryComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Подписываемся на параметры маршрута :name
     this.route.params.subscribe(params => {
       const nameFromUrl = params['name']; // Например, "Fast Food"
-      
-      // Находим нужную категорию в нашем списке по имени
       const foundCategory = this.categories.find(
         c => c.name.toLowerCase() === nameFromUrl.toLowerCase()
       );
@@ -66,12 +60,10 @@ export class CategoryComponent implements OnInit {
       if (foundCategory) {
         this.categoryName = foundCategory.name;
         
-        // Фильтруем продукты: оставляем только те, чей category (ID) совпадает с найденным
         this.filteredProducts = this.allProducts.filter(
           p => p.category === foundCategory.id
         );
       } else {
-        // Если категория не найдена
         this.categoryName = 'Category Not Found';
         this.filteredProducts = [];
       }

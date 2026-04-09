@@ -1,17 +1,21 @@
 <div class="categories-page">
-  <h1 class="categories-title">Categories</h1>
+  <h1 class="categories-title">{{ categoryName }}</h1>
 
   <div class="categories-grid">
-    <div class="category-box" *ngFor="let cat of categories" [routerLink]="['/recipe', cat.id]">
+    <div class="category-box" *ngFor="let product of filteredProducts" [routerLink]="['/recipe', product.id]">
       
       <div class="image-wrapper">
-        <img [src]="allProducts.image" [alt]="cat.name">
+        <img [src]="product.image" [alt]="product.name">
       </div>
 
       <div class="category-name">
-        {{ cat.name }}
+        {{ product.name }}
       </div>
 
     </div>
+  </div>
+
+  <div *ngIf="filteredProducts.length === 0" style="text-align: center; margin-top: 20px;">
+    <p>No products found in this category.</p>
   </div>
 </div>
