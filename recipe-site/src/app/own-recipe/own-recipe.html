@@ -1,1 +1,43 @@
-<p>own-recipe works!</p>
+<div class="overlay">
+    <div class="main">
+        <span class="t">
+            <h2 class="title">Add recipe</h2>
+        </span>
+
+        <form #recipeForm="ngForm">
+            <div class="form">
+                <label class="txt">Male name:</label>
+                <input type="text" [(ngModel)]="recipe.name" name="foodName" class="styled-input" placeholder="">
+            </div>
+
+            <div class="form">
+                <label>Upload photo:</label>
+                <div class="file" (click)="fileInput.click()">
+                    <span *ngIf="!selectedFileName" class="click">Click to upload photos...</span>
+                    <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+
+                    <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" multiple
+                        style="display: none;">
+                </div>
+            </div>
+
+            <div class="form">
+                <label class="txt">Ingredients:</label>
+                <input type="text" [(ngModel)]="recipe.ingredients" name="ingredients" class="styled-input">
+            </div>
+
+            <div class="steps-container">
+                <h3>Cooking steps</h3>
+                <div class="step-card">
+                    <div class="step-item">
+                        <label>Step 1:</label>
+                        <div class="step-input-wrapper">
+                            <input type="text" [(ngModel)]="recipe.steps[0]" name="step1">
+                            <button type="button" class="add-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
