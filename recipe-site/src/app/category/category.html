@@ -1,1 +1,17 @@
-<p>category works!</p>
+<div class="categories-page">
+  <h1 class="categories-title">Categories</h1>
+
+  <div class="categories-grid">
+    <div class="category-box" *ngFor="let cat of categories" [routerLink]="['/recipe', cat.id]">
+      
+      <div class="image-wrapper">
+        <img [src]="allProducts.image" [alt]="cat.name">
+      </div>
+
+      <div class="category-name">
+        {{ cat.name }}
+      </div>
+
+    </div>
+  </div>
+</div>
