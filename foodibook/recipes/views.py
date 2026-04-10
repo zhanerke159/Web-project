@@ -1,10 +1,12 @@
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
+from django.contrib.auth.models import User
 from .models import Product, Category, Recipe, Review, UserProfile
-from .serializers import RecipeSerializers, ReviewSerializers, UserSerializers, ProductSerializers, CategorySerializers, RecipeSearchSerializer
+from .serializers import RecipeSerializers, ReviewSerializers, UserSerializers, ProductSerializers, CategorySerializers, RecipeSearchSerializer, UserRegistrationSerializers
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -62,6 +64,20 @@ def update_recipe(request, pk):
 
     serializer = RecipeSerializers(recipe, data=request.data)
     if serializer.is_valid():
-        serializer.save()  # Сохраняем обновленный рецепт
+        serializer.save() 
         return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register_user(request):
+    serializer = UserRegistrationSerializers(data=request.data)
+    if serializer.is_valid():
+        user = User.objects.create_user(
+            username=serializer.validated_data['username'],
+            email=serializer.validated_data['email'],
+            password=serializer.validated_data['password']
+        )
+        return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
