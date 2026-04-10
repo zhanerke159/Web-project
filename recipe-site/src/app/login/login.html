@@ -12,13 +12,13 @@
         <div class="card">
             <form class="login">
                 <label for="email">Email address:</label>
-                <input type="email" placeholder="Enter email address..." name="email">
+                <input type="email" [(ngModel)]="loginData.username" placeholder="Enter email address..." name="email">
 
 
                 <label for="password">Password:</label>
-                <input type="password" id="password" placeholder="Enter password..." name="password">
+                <input type="password" [(ngModel)]="loginData.password" id="password" placeholder="Enter password..." name="password">
                 <div class="but">
-                    <button type="submit" class="submit">Login</button>
+                    <button type="button" (click) = "onLogin()" class="submit">Login</button>
                 </div>
             </form>
         </div>
