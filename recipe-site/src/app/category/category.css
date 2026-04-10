@@ -1,0 +1,41 @@
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 колонки в ряд */
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.category-box {
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.category-box:hover {
+  transform: translateY(-10px); /* Всплытие при наведении */
+}
+
+.image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Делает блок идеально квадратным */
+  border-radius: 40px; /* Сильное скругление как на фото */
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  background-color: #000; /* Фон, если картинка не прогрузится */
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Картинка заполнит весь квадрат без искажений */
+}
+
+.category-name {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #000;
+}

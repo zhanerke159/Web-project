@@ -4,21 +4,23 @@
   --primary-font: 'Instrument Serif', serif;
   --logo-font: 'Great Vibes', cursive;
   --bg-yellow: #fce166;
-  /* Тот самый желтый с макета */
+  --main-bg-color: #fff7c9;
 }
 
-body {
-  background-color: #ffffff;
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-}
-
-html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+  min-height: 100%;
+  background-color: var(--main-bg-color) !important;
   scroll-behavior: smooth;
+}
+
+app-root, mat-sidenav-container, .page-wrapper, main {
+  background-color: var(--main-bg-color) !important;
+  display: block;
+}
+
+header, nav {
+  background-color: transparent !important;
 }
