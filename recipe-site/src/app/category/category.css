@@ -1,41 +1,102 @@
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 колонки в ряд */
-  gap: 40px;
-  max-width: 1000px;
+.page-wrapper {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 40px 20px;
 }
 
-.category-box {
-  cursor: pointer;
-  text-align: center;
-  transition: transform 0.3s ease;
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 50px;
 }
 
-.category-box:hover {
-  transform: translateY(-10px); /* Всплытие при наведении */
+.line {
+  flex-grow: 1;
+  height: 1px;
+  border-bottom: 2px dashed #ccc;
+  max-width: 250px;
 }
 
-.image-wrapper {
+.main-title {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.recipe-card {
+  background-color: #fdf5b7; /* Желтый фон как на макете */
+  border-radius: 40px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.recipe-image {
   width: 100%;
-  aspect-ratio: 1 / 1; /* Делает блок идеально квадратным */
-  border-radius: 40px; /* Сильное скругление как на фото */
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  height: 220px;
   margin-bottom: 15px;
-  background-color: #000; /* Фон, если картинка не прогрузится */
 }
 
-.image-wrapper img {
+.recipe-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Картинка заполнит весь квадрат без искажений */
+  object-fit: cover;
+  border-radius: 30px;
 }
 
-.category-name {
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.recipe-name {
   font-family: 'Arial Black', sans-serif;
   font-size: 18px;
+  margin: 0;
+}
+
+.recipe-time {
+  font-size: 12px;
   font-weight: 900;
   color: #000;
+}
+
+.recipe-description {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.btn {
+  flex: 1;
+  background-color: transparent;
+  border: 1.5px solid #000;
+  border-radius: 20px;
+  padding: 8px 2px;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: rgba(255,255,255,0.4);
 }
