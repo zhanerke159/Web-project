@@ -1,0 +1,463 @@
+/* Island Moments логотип үшін, Days One негізгі мәтін үшін */
+@import url('https://fonts.googleapis.com/css2?family=Island+Moments&family=Days+One&display=swap');
+
+/* Бүкіл беттің сары фоны */
+:host {
+  display: block;
+  background-color: #FCD81B; /* СЕНІҢ САРЫ ТҮСІҢ */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Days One', sans-serif;
+}
+
+/* Контейнер */
+.account-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  padding-left: 100px; /* Сол жақтағы сары жолақ */
+  box-sizing: border-box;
+  background-color: #FCD81B;
+  overflow: hidden; /* Элементтер шетінен шығып кетпеуі үшін */
+}
+
+/* СОЛ ЖАҚТАҒЫ НЕГІЗГІ АҚ БӨЛІМ */
+.account-main {
+  flex: 1;
+  order: 1;
+  padding: 18px 85px;
+  padding-left: 20px;
+  background-color: #FFFFFF;
+  border-radius: 50px 0 0 50px; /* Сол жақ бұрышы домалақ */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1; /* Көк панель үстінде тұруы үшін қабатын белгілеу */
+}
+
+/* ЛОГОТИП СТИЛІ */
+.logo {
+  font-family: 'Island Moments', cursive;
+  font-size: 65px;
+  color: #031521; /* Көк түс */
+  margin-bottom: -15px;
+  font-weight: 400;
+}
+/* Логотип пен поискті қатар қою */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Іздеу блогының стилі */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #000000;
+  border-radius: 20px; /* Сопақша пішін */
+  padding: 6px 10px;
+  width: 220px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+  padding: 5px;
+  font-family: 'Inter', sans-serif; /* Негізгі шрифтің */
+}
+
+
+
+/* Кішкене сұрлау жазу (placeholder) */
+.search-input::placeholder {
+  color: #999;
+  font-size: 12px;
+}
+
+/* БАННЕР */
+.user-banner {
+  height: 400px;
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+              url('https://img.freepik.com/premium-psd/indian-food-feast-delicious-spread-flavors_957244-29994.jpg?semt=ais_hybrid&w=740') center/cover;
+  border-radius: 30px;
+  display: flex;
+  align-items: flex-start;
+  padding: 50px 0 0 40px; 
+  color: white;
+  margin-bottom: 30px;
+}
+
+/* Мәтін блогы */
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.banner-text h1 {
+  font-size: 55px;
+  line-height: 1.1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-weight: normal;
+  gap: 10px;
+}
+
+.banner-text h1 span {
+  display: block;
+}
+
+.banner-text p {
+  font-size: 16px;
+  color: #ffffff;
+  margin: 0;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+/* ОҢ ЖАҚТАҒЫ КӨК ПАНЕЛЬ - САҚЫЛАУДЫ ЖОЮ ҮШІН ЖАҢАРТЫЛДЫ */
+.profile-sidebar {
+  width: 340px;
+  order: 2;
+  background-color: #031521; 
+  color: white;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  
+  /* Бұрыштарды домалақтау */
+  border-radius: 60px 0 0 60px; 
+  
+  /* Сары сызықты жабу үшін солға жылжытып, ақ блоктың үстіне шығару */
+  margin-left: -60px; 
+  position: relative;
+  z-index: 10;
+}
+
+
+.image-circle {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%; /* Сырты дөңгелек */
+  border: 4px solid #FCD81B;
+  overflow: hidden; /* Шетінен шыққанның бәрін кесіп тастайды */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* Бос жердің түсі */
+  background-image: url('https://img.freepik.com/premium-vector/people-avatar-icons-cook_755164-20671.jpg');
+  background-repeat: no-repeat;
+  background-position: center; /* Ортаға қою */
+  background-size: contain;
+}
+
+/* Ішіндегі суреттің стилі */
+.image-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Суретті созбай, дөңгелекке лайықтап толтырады */
+  border-radius: 50%; /* Суреттің өзін де дөңгелектейміз */
+  display: block;
+}
+
+.edit-icon {
+  z-index: 2; /* Өңдеу белгісі ең үстінде тұруы керек */
+}
+/* Сары дөңгелек батырманың стилі */
+/* Батырманың өзі (сары шеңбер) */
+/* Аватар тұрған блок */
+.avatar-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px; /* Аватардың енімен бірдей */
+  margin: 0 auto;
+}
+.image-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin-bottom: 15px;
+}
+
+/* Сары дөңгелек батырма (Edit Button) */
+.edit-icon-btn {
+  position: absolute;
+  /* Контейнердің төменгі оң жақ бұрышына байлау */
+  bottom: 5px; 
+  right: 5px; 
+  
+  background: #FCD81B;
+  border: 2px solid #031521;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20; /* Ең үстінде тұруы үшін */
+}
+
+/* Ішіндегі қалам иконкасы */
+.pen-icon-img {
+  width: 18px; 
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Басқанда эффект беру */
+.edit-icon-btn:active {
+  transform: scale(0.9);
+}
+.user-name {
+  color: #FCD81B;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.user-name { color: #FCD81B; font-size: 20px; text-align: center; margin-bottom: 40px; }
+
+/* МӘЗІР */
+/* Жалпы мәзір элементтерінің стилі */
+/* Мәзір элементтерінің негізгі стилі */
+.menu-item {
+  width: 280px; 
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 25px;
+  color: #FCD81B; /* Мәтін түсі */
+  cursor: pointer;
+  border-radius: 30px; /* Сопақша пішін */
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+/* Иконкалардың өлшемі */
+/* 1. Иконканың негізгі түсі (Сары қылу) */
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background-color: #FCD81B; /* Сары түс */
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* 2. Ақ фонды жою (Personal Information үшін) */
+/* Егер суреттің өз фоны болса, оны мына кодпен сәл жасыруға болады */
+
+
+/* "Personal Information" иконкасының квадратын жою (араластыру арқылы) */
+.personal-icon {
+  -webkit-mask-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/User_%2889041%29_-_The_Noun_Project.svg/1200px-User_%2889041%29_-_The_Noun_Project.svg.png');
+  mask-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/User_%2889041%29_-_The_Noun_Project.svg/1200px-User_%2889041%29_-_The_Noun_Project.svg.png');
+  width: 30px;
+  height: 30px;
+}
+
+/* 2. Change Password иконкасы */
+.password-icon {
+  -webkit-mask-image: url('https://cdn-icons-png.flaticon.com/512/61/61457.png');
+  mask-image: url('https://cdn-icons-png.flaticon.com/512/61/61457.png');
+}
+
+/* 3. Log Out иконкасы */
+.logout-icon {
+  -webkit-mask-image: url('https://cdn-icons-png.flaticon.com/512/126/126467.png');
+  mask-image: url('https://cdn-icons-png.flaticon.com/512/126/126467.png');
+}
+
+/* Батырма басылғанда (Active) иконка түсін қара-көкке ауыстыру */
+.menu-item.active .menu-icon {
+  background-color: #031521;
+}
+
+/* 4. Батырманың өзі (Active кезіндегі сары фон) */
+.menu-item.active {
+  background-color: #FCD81B;
+  color: #031521;
+}
+
+/* 5. Баспай тұрғандағы мәтін түсі */
+.menu-item:not(.active) {
+  color: #FCD81B;
+}
+
+
+.name-input {
+  background: transparent;
+  border: none;
+  color: #FCD81B;
+  width: 100%;
+  outline: none;
+  font-size: 14px;
+}
+
+/* РЕЦЕПТ КАРТОЧКАЛАРЫ */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.recipe-card {
+  background: #FCD81B;
+  border-radius: 30px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.see-ingredients {
+  background: none;
+  border: 1.5px solid #000;
+  border-radius: 15px;
+  padding: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.empty-favorites {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  border: 2px dashed #eee;
+  border-radius: 20px;
+  color: #999;
+}
+/* СЕКЦИЯ ТАҚЫРЫПТАРЫ (СЫЗЫҚПЕН) */
+.section-header {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 20px;
+}
+
+.title-with-lines {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
+  gap: 15px;
+}
+
+.title-with-lines::before, .title-with-lines::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+/* VIEW ALL БАТЫРМАСЫ */
+.view-all-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.view-all-btn {
+  background: #031521;
+  color: #FCD81B;
+  border: none;
+  border-radius: 6px;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* "Add my recipes" контейнері */
+.add-recipe-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  white-space: nowrap; /* Мәтін келесі жолға түсіп кетпеуі үшін */
+}
+
+/* Көк жиекті қара батырма */
+.add-recipe-btn {
+  background-color: #031521; /* Негізгі қара-көк түс */
+  border-radius: 8px; /* Сәл домалақ квадрат */
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Сары плюс белгісі */
+.plus-icon {
+  color: #F3E38B; /* Мәзірдегідей сары түс */
+  font-size: 24px;
+  line-height: 1;
+  font-weight: bold;
+}
+
+/* "Add my recipes" мәтіні */
+.add-text {
+  font-family: 'Days One', sans-serif;
+  font-size: 14px;
+  color: #031521;
+}
+
+/* Эффекттер */
+.add-recipe-btn:hover {
+  background-color: #052336;
+  transform: scale(1.05);
+}
+
+.add-recipe-btn:active {
+  transform: scale(0.95);
+}
+
+/* Тақырыпты ортаға бағыттау үшін түзету */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Элементтерді шетке жаю */
+  margin: 30px 0 20px 0;
+}
+
+.title-with-lines {
+  flex: 1; /* Ортадағы бос орынды толтыру */
+  text-align: center;
+}

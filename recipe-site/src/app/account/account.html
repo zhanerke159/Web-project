@@ -1,1 +1,125 @@
-<p>account works!</p>
+<div class="account-container">
+  
+  <main class="account-main">
+    <div class="header-top">
+      <div class="logo">FoodieBook</div>
+      <div class="search-box">
+        <input type="text" placeholder="Search favorites recipes..." class="search-input">
+        </div>
+    </div>
+
+    <section class="user-banner">
+      <div class="banner-text">
+        <h1>
+          <span>Hi,</span>
+          <span>{{ user.name || 'Chef' }}!</span>
+        </h1>
+        <p>Ready to cook something delicious today?</p>
+      </div>
+    </section>
+
+    <section class="favorites-section">
+      <div class="section-header">
+        <div class="title-with-lines">Favorites</div>
+        <a href="javascript:void(0)" class="view-all-container" (click)="showAllFavorites = !showAllFavorites">
+          <span class="view-all-text">{{ showAllFavorites ? 'Hide' : 'View all' }}</span>
+          <button class="view-all-btn">{{ showAllFavorites ? '▲' : '➔' }}</button>
+        </a>
+      </div>
+      
+      <div class="recipe-grid">
+        @if (favorites.length > 0) {
+          @for (recipe of (showAllFavorites ? favorites : favorites.slice(0, 3)); track recipe.title) {
+            <div class="recipe-card">
+              <img [src]="recipe.img">
+              <div class="recipe-info">
+                <h3>{{ recipe.title }}</h3>
+                <p>{{ recipe.desc }}</p>
+                <button class="see-ingredients">See the ingredients</button>
+              </div>
+            </div>
+          }
+        } @else {
+          <div class="empty-favorites"><p>You haven't added any favorite recipes yet.</p></div>
+        }
+      </div>
+    </section>
+
+    <section class="my-recipes-section">
+      <div class="section-header">
+        <div class="add-recipe-container">
+          <button class="add-recipe-btn">
+          <span class="plus-icon">+</span>
+          </button>
+          <span class="add-text"><a routerLink="/add-recipe">Add my recipes</a></span>
+        </div>
+        <div class="title-with-lines">My recipes</div>
+        <a href="javascript:void(0)" class="view-all-container" (click)="showAllMyRecipes = !showAllMyRecipes">
+          <span class="view-all-text">{{ showAllMyRecipes ? 'Hide' : 'View all' }}</span>
+          <button class="view-all-btn">{{ showAllMyRecipes ? '▲' : '➔' }}</button>
+        </a>
+      </div>
+      
+      <div class="recipe-grid">
+        @if (myRecipes.length > 0) {
+          @for (recipe of (showAllMyRecipes ? myRecipes : myRecipes.slice(0, 3)); track recipe.title) {
+            <div class="recipe-card">
+              <img [src]="recipe.img">
+              <div class="recipe-info">
+                <h3>{{ recipe.title }}</h3>
+                <p>{{ recipe.desc }}</p>
+                <button class="see-ingredients">See the ingredients</button>
+              </div>
+            </div>
+          }
+        } @else {
+          <div class="empty-favorites"><p>You haven't created any recipes yet.</p></div>
+        }
+      </div>
+    </section>
+  </main>
+
+  <aside class="profile-sidebar">
+
+    <div class="avatar-section">
+      <div class="image-container">
+        <div class="image-circle">
+
+        @if (user.avatar) {
+
+          <img [src]="user.avatar" alt="User Avatar">
+
+        }
+
+        </div>
+        <button class="edit-icon-btn">
+          <img src="https://iconsvg.co/icon/08dbb3cd-1438-4934-8f33-71be3e0411fc.svg" 
+          alt="edit" 
+          class="pen-icon-img">
+        </button>
+      </div>
+
+    
+
+      <h2 class="user-name">{{ user.name || '' }}</h2>
+
+    </div>
+
+    <nav class="account-menu">
+  <div class="menu-item" [class.active]="selectedMenu === 'personal'" (click)="selectedMenu = 'personal'">
+  <span class="menu-icon personal-icon"></span> <span class="menu-text">Personal Information</span>
+</div>
+
+<div class="menu-item" [class.active]="selectedMenu === 'password'" (click)="selectedMenu = 'password'">
+  <span class="menu-icon password-icon"></span> <span class="menu-text">Change Password</span>
+</div>
+
+<div class="menu-item" [class.active]="selectedMenu === 'logout'" (click)="selectedMenu = 'logout'">
+  <span class="menu-icon logout-icon"></span> <span class="menu-text">Log Out</span>
+</div>
+</nav>
+
+    
+  </aside>
+
+</div>
