@@ -1,31 +1,40 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/register.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  imports: [],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './register.html',
-  styleUrl: './register.css',
+  styleUrl: './register.css'
 })
 export class RegisterComponent {
+  // Данные из формы
   userForm = {
-    username: '',
     email: '',
-    password: '',
-    confirm_password: ''
+    password: ''
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   onCreateAccount() {
-    this.authService.register(this.userForm).subscribe({
+    const registerData = {
+      username: this.userForm.email, // используем почту как логин
+      email: this.userForm.email,
+      password: this.userForm.password,
+      confirm_password: this.userForm.password 
+    };
+
+    this.authService.register(registerData).subscribe({
       next: (response) => {
-        alert('Пользователь успешно создан!');
-        console.log(response);
+        console.log('Пользователь создан!', response);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.error('Ошибка:', err.error);
-        alert('Ошибка регистрации: ' + JSON.stringify(err.error));
+        console.error('Ошибка регистрации:', err);
       }
     });
   }

@@ -20,15 +20,15 @@
         <div class="card">
             <form class="register">
                 <label for="email">Email address:</label>
-                <input type="email" placeholder="Enter email address..." name="email">
+                <input type="email" [(ngModel)]="userForm.email" placeholder="Enter email address..." name="email">
 
 
                 <label for="password">Password:</label>
-                <input type="password" id="password" placeholder="Enter password..." name="password">
+                <input type="password" [(ngModel)]="userForm.password" id="password" placeholder="Enter password..." name="password">
 
 
                 <div class="but">
-                    <button type="submit" class="submit">Create account</button>
+                    <button type="button" (click)="onCreateAccount()" class="submit">Create account</button>
                 </div>
                 <p class="or">or</p>
                 <div class="s">
