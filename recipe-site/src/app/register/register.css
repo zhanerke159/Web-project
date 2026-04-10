@@ -38,11 +38,12 @@
 }
 
 
-.top{
+.top {
     font-family: 'Great Vibes', cursive;
     font-size: 25px;
     margin-top: -65px;
 }
+
 .title {
     font-family: 'Days One';
     color: #FCD81B;
@@ -114,7 +115,7 @@ input {
     font-weight: 700;
 }
 
-.s{
+.s {
     margin-top: -15px;
 }
 .signin {
