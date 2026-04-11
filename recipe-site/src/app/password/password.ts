@@ -2,16 +2,17 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-//import { AppRoutingModule } from "../app-routing.module";
+import { LogoutComponent } from '../logout/logout';
 
 @Component({
   selector: 'app-password',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive /*AppRoutingModule*/], // FormsModule міндетті түрде керек
+  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive, LogoutComponent], // FormsModule міндетті түрде керек
   templateUrl: './password.html',
   styleUrls: ['./password.css']
 })
 export class PasswordComponent implements OnInit {
+  isLogoutOpen: boolean = false;
   isError: boolean = false;
   constructor(private cdr: ChangeDetectorRef) {}
 

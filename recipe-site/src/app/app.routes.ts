@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register';
 import { StepsComponent } from './steps/steps';
 import { PersonalComponent } from './personal/personal';
 import { PasswordComponent } from './password/password';
+import { LogoutComponent } from './logout/logout';
 
 export const routes: Routes = [{
     path: '', component: HomeComponent},
@@ -24,5 +25,6 @@ export const routes: Routes = [{
     {path: 'steps', component: StepsComponent},
     { path: 'personal-info', component: PersonalComponent},
     { path: 'change-password', component: PasswordComponent},
-    { path: 'home', component: HomeComponent}
+    { path: 'home', component: HomeComponent},
+    { path: 'logout', component: LogoutComponent},
 ];

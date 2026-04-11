@@ -2,16 +2,19 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-//import { AppRoutingModule } from "../app-routing.module";
+import { LogoutComponent } from '../logout/logout';
+
 
 @Component({
   selector: 'app-personal',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive /*AppRoutingModule*/], // FormsModule міндетті түрде керек
+  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive, LogoutComponent], // FormsModule міндетті түрде керек
   templateUrl: './personal.html',
   styleUrls: ['./personal.css']
 })
 export class PersonalComponent implements OnInit {
+  isLogoutOpen: boolean = false;
+
   selectedMenu: string = 'personal';
   constructor(private cdr: ChangeDetectorRef) {}
   // Пайдаланушы мәліметтері
