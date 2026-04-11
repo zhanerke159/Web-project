@@ -91,17 +91,10 @@
       }
     </div>
 
-    <input type="file" #fileInput style="display: none;" accept="image/*" (change)="onFileSelected($event)">
 
-    <button class="edit-icon-btn" (click)="fileInput.click()">
-      <img src="https://iconsvg.co/icon/08dbb3cd-1438-4934-8f33-71be3e0411fc.svg" alt="edit" class="pen-icon-img">
-    </button>
+    
 
-    @if (userFields.avatar) {
-      <button class="delete-icon-btn" (click)="deletePhoto()" title="Delete Photo">
-        ✕
-      </button>
-    }
+    
   </div>
 
   <h2 class="user-name">{{ userFields.username || 'Username' }}</h2>

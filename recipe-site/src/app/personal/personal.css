@@ -377,3 +377,27 @@
 .calendar-img-btn:active img {
   transform: scale(0.9);
 }
+
+.delete-icon-btn {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  background: #dc3545;
+  border: 2px solid #031521;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 25;
+  transition: transform 0.2s;
+}
+
+.delete-icon-btn:hover {
+  transform: scale(1.1);
+  background: #c82333;
+}

@@ -79,28 +79,30 @@
   <aside class="profile-sidebar">
 
     <div class="avatar-section">
-      <div class="image-container">
-        <div class="image-circle">
-
+    <div class="image-container">
+      <div class="image-circle">
         @if (userFields.avatar) {
-
           <img [src]="userFields.avatar" alt="User Avatar">
-
+        } @else {
+          <img src="https://img.freepik.com/premium-vector/people-avatar-icons-cook_755164-20671.jpg" alt="Default Avatar">
         }
-
-        </div>
-        <button class="edit-icon-btn">
-          <img src="https://iconsvg.co/icon/08dbb3cd-1438-4934-8f33-71be3e0411fc.svg" 
-          alt="edit" 
-          class="pen-icon-img">
-        </button>
       </div>
 
-    
+      <input type="file" #fileInput style="display: none;" accept="image/*" (change)="onFileSelected($event)">
 
-      <h2 class="user-name">{{ userFields.username || 'Username' }}</h2>
+      <button class="edit-icon-btn" (click)="fileInput.click()">
+        <img src="https://iconsvg.co/icon/08dbb3cd-1438-4934-8f33-71be3e0411fc.svg" alt="edit" class="pen-icon-img">
+      </button>
 
+      @if (userFields.avatar) {
+        <button class="delete-icon-btn" (click)="deletePhoto()" type="button">
+          ✕
+        </button>
+      }
     </div>
+
+    <h2 class="user-name">{{ userFields.username || 'Username' }}</h2>
+  </div>
 
     <nav class="account-menu">
   <div class="menu-item" 
