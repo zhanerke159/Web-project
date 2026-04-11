@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from "../app-routing.module";
+//import { AppRoutingModule } from "../app-routing.module";
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, FormsModule, AppRoutingModule], // FormsModule міндетті түрде керек
+  imports: [CommonModule, FormsModule /*AppRoutingModule*/ ],
   templateUrl: './account.html',
   styleUrls: ['./account.css']
 })
