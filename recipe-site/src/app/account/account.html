@@ -12,7 +12,7 @@
       <div class="banner-text">
         <h1>
           <span>Hi,</span>
-          <span>{{ user.name || 'Chef' }}!</span>
+          <span>{{ userFields.username || 'Chef' }}!</span>
         </h1>
         <p>Ready to cook something delicious today?</p>
       </div>
@@ -48,10 +48,10 @@
     <section class="my-recipes-section">
       <div class="section-header">
         <div class="add-recipe-container">
-          <button class="add-recipe-btn">
+          <button type="button" class="add-recipe-btn" routerLink="/own-recipe">
           <span class="plus-icon">+</span>
           </button>
-          <span class="add-text"><a routerLink="/add-recipe">Add my recipes</a></span>
+          <span class="add-text">Add my recipes</span>
         </div>
         <div class="title-with-lines">My recipes</div>
         <a href="javascript:void(0)" class="view-all-container" (click)="showAllMyRecipes = !showAllMyRecipes">
@@ -85,9 +85,9 @@
       <div class="image-container">
         <div class="image-circle">
 
-        @if (user.avatar) {
+        @if (userFields.avatar) {
 
-          <img [src]="user.avatar" alt="User Avatar">
+          <img [src]="userFields.avatar" alt="User Avatar">
 
         }
 
@@ -101,22 +101,31 @@
 
     
 
-      <h2 class="user-name">{{ user.name || '' }}</h2>
+      <h2 class="user-name">{{ userFields.username || '' }}</h2>
 
     </div>
 
     <nav class="account-menu">
-  <div class="menu-item" [class.active]="selectedMenu === 'personal'" (click)="selectedMenu = 'personal'">
-  <span class="menu-icon personal-icon"></span> <span class="menu-text">Personal Information</span>
-</div>
+  <div class="menu-item" 
+       routerLink="/personal-info"
+       routerLinkActive="active">
+    <span class="menu-icon personal-icon"></span> 
+    <span class="menu-text">Personal Information</span>
+  </div>
 
-<div class="menu-item" [class.active]="selectedMenu === 'password'" (click)="selectedMenu = 'password'">
-  <span class="menu-icon password-icon"></span> <span class="menu-text">Change Password</span>
-</div>
+  <div class="menu-item" 
+       routerLink="/change-password" 
+       routerLinkActive="active">
+    <span class="menu-icon password-icon"></span> 
+    <span class="menu-text">Change Password</span>
+  </div>
 
-<div class="menu-item" [class.active]="selectedMenu === 'logout'" (click)="selectedMenu = 'logout'">
-  <span class="menu-icon logout-icon"></span> <span class="menu-text">Log Out</span>
-</div>
+  <div class="menu-item" 
+       routerLink="/logout" 
+       routerLinkActive="active">
+    <span class="menu-icon logout-icon"></span> 
+    <span class="menu-text">Log Out</span>
+  </div>
 </nav>
 
     

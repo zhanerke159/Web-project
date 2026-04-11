@@ -1,29 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 //import { AppRoutingModule } from "../app-routing.module";
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, FormsModule /*AppRoutingModule*/ ],
+  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive /*AppRoutingModule*/], 
   templateUrl: './account.html',
   styleUrls: ['./account.css']
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   selectedMenu: string = 'personal';
-  // Пайдаланушы мәліметтері
-  user = {
-    name: 'Cristiano Ronaldo',
-    avatar: null, // Немесе өз суретіңнің жолы
-    status: 'Ready to cook something delicious today?'
+
+  // Ескі 'user' объектісінің орнына Personal бетіндегідей 'userFields' қолданамыз
+  userFields = {
+    username: '',
+    avatar: null
   };
 
-  // Рецепттер тізімі (Favorites бөлімі үшін)
+  // Рецепттер айнымалылары қала береді
   showAllFavorites: boolean = false;
   showAllMyRecipes: boolean = false;
   favorites: any[] = [];
-  myRecipes: any[]=[];
-  
+  myRecipes: any[] = [];
+
+  ngOnInit() {
+    // Бет ашылғанда LocalStorage-дан деректерді оқимыз
+    const data = localStorage.getItem('userProfile');
+    if (data) {
+      this.userFields = JSON.parse(data);
+    }
+  }
 }
 

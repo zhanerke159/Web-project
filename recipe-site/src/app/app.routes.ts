@@ -8,6 +8,7 @@ import { RecipeComponent } from './recipe/recipe';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { StepsComponent } from './steps/steps';
+import { PersonalComponent } from './personal/personal';
 
 export const routes: Routes = [{
     path: '', component: HomeComponent},
@@ -19,6 +20,11 @@ export const routes: Routes = [{
     {path: 'recipe/:name', component: RecipeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
+<<<<<<< HEAD
     {path: 'steps', component: StepsComponent}
     
+=======
+    {path: 'steps', component: StepsComponent},
+    { path: 'personal-info', component: PersonalComponent}
+>>>>>>> personal-page
 ];
