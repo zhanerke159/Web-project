@@ -27,9 +27,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   slides = [
-    'https://i.pinimg.com/1200x/86/2b/a7/862ba759d5444daddbf03bd07e94eb4d.jpg',
-    'https://i.pinimg.com/1200x/e3/0e/56/e30e5616b2b6abc44dff773d15539614.jpg',
-    'https://i.pinimg.com/1200x/ba/b3/18/bab31873cf89cde0aae2635159ca508a.jpg'
+    'https://t3.ftcdn.net/jpg/07/09/78/76/360_F_709787664_mkpcdGMyquDqROLcXev1buwXmzor2XDK.jpg',
+    'https://i.pinimg.com/1200x/89/7f/f0/897ff0ef441e38e9192d4d0e93f1cebc.jpg',
+    'https://i.pinimg.com/1200x/25/ed/36/25ed36330a13dadb1a698bd7e4a37612.jpg',
+    'https://i.pinimg.com/1200x/61/2a/8f/612a8ff49ee0d75ee1b72a34278c98a2.jpg'
   ];
 
   ngOnInit(): void {
@@ -48,13 +49,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   nextSlide(): void {
-    this.currentSlideIndex = (this.currentSlideIndex + 1) % this.slides.length;
+    if (this.currentSlideIndex < this.slides.length - 1) {
+      this.currentSlideIndex++;
+    } else {
+      this.stopAutoSlide();
+    }
+
   }
 
   prevSlide(): void {
-    this.currentSlideIndex =
-      (this.currentSlideIndex - 1 + this.slides.length) % this.slides.length;
-    this.resetAutoSlide();
+    if (this.currentSlideIndex > 0) {
+      this.currentSlideIndex--;
+      this.resetAutoSlide();
+    }
+  }
+  stopAutoSlide(): void {
+    if (this.slideInterval) {
+      clearInterval(this.slideInterval);
+    }
   }
   goToSlide(index: number): void {
     this.currentSlideIndex = index;
@@ -66,8 +78,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   nextSlideManual(): void {
-    this.nextSlide();
-    this.resetAutoSlide();
+    if (this.currentSlideIndex < this.slides.length - 1) {
+      this.nextSlide();
+      this.resetAutoSlide();
+    }
   }
 
 
