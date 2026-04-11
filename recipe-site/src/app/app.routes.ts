@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { StepsComponent } from './steps/steps';
 import { PersonalComponent } from './personal/personal';
+import { PasswordComponent } from './password/password';
 
 export const routes: Routes = [{
     path: '', component: HomeComponent},
@@ -21,5 +22,7 @@ export const routes: Routes = [{
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'steps', component: StepsComponent},
-    { path: 'personal-info', component: PersonalComponent}
+    { path: 'personal-info', component: PersonalComponent},
+    { path: 'change-password', component: PasswordComponent},
+    { path: 'home', component: HomeComponent}
 ];

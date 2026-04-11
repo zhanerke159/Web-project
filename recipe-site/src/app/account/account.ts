@@ -11,7 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrls: ['./account.css']
 })
 export class AccountComponent implements OnInit {
-  selectedMenu: string = 'personal';
+  //selectedMenu: string = 'personal';
 
   // Ескі 'user' объектісінің орнына Personal бетіндегідей 'userFields' қолданамыз
   userFields = {
