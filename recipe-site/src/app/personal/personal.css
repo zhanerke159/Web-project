@@ -44,85 +44,7 @@
   margin-bottom: -15px;
   font-weight: 400;
 }
-/* Логотип пен поискті қатар қою */
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
 
-/* Іздеу блогының стилі */
-.search-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: white;
-  border: 1px solid #000000;
-  border-radius: 20px; /* Сопақша пішін */
-  padding: 6px 10px;
-  width: 220px;
-}
-
-.search-input {
-  border: none;
-  outline: none;
-  background: transparent;
-  width: 100%;
-  font-size: 14px;
-  padding: 5px;
-  font-family: 'Inter', sans-serif; /* Негізгі шрифтің */
-}
-
-
-
-/* Кішкене сұрлау жазу (placeholder) */
-.search-input::placeholder {
-  color: #999;
-  font-size: 12px;
-}
-
-/* БАННЕР */
-.user-banner {
-  height: 400px;
-  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-              url('https://img.freepik.com/premium-psd/indian-food-feast-delicious-spread-flavors_957244-29994.jpg?semt=ais_hybrid&w=740') center/cover;
-  border-radius: 30px;
-  display: flex;
-  align-items: flex-start;
-  padding: 50px 0 0 40px; 
-  color: white;
-  margin-bottom: 30px;
-}
-
-/* Мәтін блогы */
-.banner-text {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.banner-text h1 {
-  font-size: 55px;
-  line-height: 1.1;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  font-weight: normal;
-  gap: 10px;
-}
-
-.banner-text h1 span {
-  display: block;
-}
-
-.banner-text p {
-  font-size: 16px;
-  color: #ffffff;
-  margin: 0;
-  font-weight: normal;
-  line-height: 1.4;
-}
 
 /* ОҢ ЖАҚТАҒЫ КӨК ПАНЕЛЬ - САҚЫЛАУДЫ ЖОЮ ҮШІН ЖАҢАРТЫЛДЫ */
 .profile-sidebar {
@@ -312,148 +234,146 @@
   font-size: 14px;
 }
 
-/* РЕЦЕПТ КАРТОЧКАЛАРЫ */
-.recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  margin-bottom: 40px;
+.personal-form-section {
+  margin-top: 30px;
 }
 
-.recipe-card {
-  background: #FCD81B;
-  border-radius: 30px;
-  padding: 15px;
+.section-title {
+  font-size: 24px;
+  color: #031521;
+  margin-bottom: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Екі бағанды тор */
+  gap: 25px 40px;
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
-.recipe-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-.see-ingredients {
-  background: none;
-  border: 1.5px solid #000;
-  border-radius: 15px;
-  padding: 8px;
-  font-family: 'Inter', sans-serif;
+.form-group label {
+  font-size: 16px;
   font-weight: bold;
-  cursor: pointer;
+  color: #444444;
 }
 
-.empty-favorites {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 50px;
-  border: 2px dashed #FCD81B;
-  border-radius: 20px;
-  color: #999;
-}
-/* СЕКЦИЯ ТАҚЫРЫПТАРЫ (СЫЗЫҚПЕН) */
-.section-header {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-  gap: 20px;
-}
-
-.title-with-lines {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  font-size: 24px;
-  gap: 15px;
-}
-
-.title-with-lines::before, .title-with-lines::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #000000;
-}
-
-/* VIEW ALL БАТЫРМАСЫ */
-.view-all-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
-  font-size: 14px;
-  color: rgba(3, 21, 33, 0.7);
-}
-
-.view-all-btn {
-  background: #031521;
-  color: #FCD81B;
+.form-group input {
+  background-color: #E9E9E9; /* Сұрғылт фон */
   border: none;
-  border-radius: 6px;
-  width: 30px;
-  height: 22px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* "Add my recipes" контейнері */
-.add-recipe-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  white-space: nowrap; /* Мәтін келесі жолға түсіп кетпеуі үшін */
-}
-
-/* Көк жиекті қара батырма */
-.add-recipe-btn {
-  background-color: #031521; /* Негізгі қара-көк түс */
-  border-radius: 8px; /* Сәл домалақ квадрат */
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-/* Сары плюс белгісі */
-.plus-icon {
-  color: #F3E38B; /* Мәзірдегідей сары түс */
-  font-size: 24px;
-  line-height: 1;
-  font-weight: bold;
-}
-
-/* "Add my recipes" мәтіні */
-.add-text {
+  border-radius: 15px;
+  padding: 15px 20px;
   font-family: 'Days One', sans-serif;
   font-size: 14px;
-  color: #031521;
-  cursor: default; /* Курсор қол белгісіне (pointer) өзгермейді */
-  user-select: none; /* Мәтінді кездейсоқ белгілеп алмас үшін */
+  outline: none;
 }
 
-.add-recipe-btn {
-  cursor: pointer; /* Тек батырмада ғана "басу" белгісі болады */
+.full-width {
+  grid-column: span 2;
+  margin-top: 20px;
 }
 
-/* Тақырыпты ортаға бағыттау үшін түзету */
-.section-header {
+/* Иконкасы бар input-тар */
+.input-with-icon {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Элементтерді шетке жаю */
-  margin: 30px 0 20px 0;
 }
 
-.title-with-lines {
-  flex: 1; /* Ортадағы бос орынды толтыру */
-  text-align: center;
+.input-with-icon input {
+  width: 100%;
+}
+
+/* Верифайд жазуының орны */
+.verified-tag {
+  position: absolute;
+  right: 15px;
+  color: #28a745; /* Жасыл түс */
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Қате болғандағы стиль */
+.error-tag {
+  position: absolute;
+  right: 15px;
+  color: #dc3545; /* Қызыл түс */
+  font-size: 12px;
+  font-weight: bold;
+}
+.calendar-icon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+/* Батырмалар */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 20px;
+  
+}
+
+.btn-discard {
+  flex: 1;
+  background: white;
+  border: 2px solid #FCD81B;
+  color: #000;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Days One', sans-serif;
+}
+
+.btn-save {
+  flex: 1;
+  background: #FCD81B;
+  border: none;
+  color: #000;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Days One', sans-serif;
+}
+
+.txt{
+    text-align: center;
+    color: #28a745;
+}
+
+#dob-input::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.calendar-img-btn {
+  position: absolute;
+  right: 10px; /* Инпуттың ішінде, оң жақта тұрады */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Суреттің өлшемі мен дөңгелектігі */
+.calendar-img-btn img {
+  width: 20px; /* Өлшемін қалауыңызша өзгертіңіз */
+  height: 20px;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+/* Басқанда кішірейту эффектісі */
+.calendar-img-btn:active img {
+  transform: scale(0.9);
 }

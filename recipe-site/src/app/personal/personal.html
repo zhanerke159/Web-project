@@ -1,0 +1,131 @@
+<div class="account-container">
+  
+  <main class="account-main">
+    <div class="header-top">
+      <div class="logo">FoodieBook</div>
+    </div>
+
+    <section class="personal-form-section">
+      <h2 class="section-title">Personal Information</h2>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" [(ngModel)]="userFields.firstName" placeholder="Enter your first name">
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" [(ngModel)]="userFields.lastName" placeholder="Enter your last name">
+        </div>
+
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" [(ngModel)]="userFields.username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+  <label>Email</label>
+  <div class="input-with-icon">
+    <input type="email" [(ngModel)]="userFields.email" placeholder="Email">
+    
+    @if (userFields.email) {
+      @if (isValidEmail()) {
+        <span class="verified-tag">✓ Verified</span>
+      } @else {
+        <span class="error-tag">✕ Invalid Email</span>
+      }
+    }
+  </div>
+</div>
+
+        <div class="form-group">
+  <label>Phone Number</label>
+  <input type="tel" 
+         [(ngModel)]="userFields.phone" 
+         (input)="validatePhone($event)"
+         placeholder="Phone Number">
+</div>
+
+        <div class="form-group">
+  <label>Date of Birth</label>
+  <div class="input-with-icon">
+    <input type="date" [(ngModel)]="userFields.dob" id="dob-input">
+    
+    <button type="button" class="calendar-img-btn" (click)="openPicker()">
+      <img src="https://i.pinimg.com/736x/41/8f/99/418f996bcadfd203f72cd331797088ad.jpg" 
+           alt="calendar icon">
+    </button>
+  </div>
+</div>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Social Links</label>
+        <input type="text" [(ngModel)]="userFields.social" placeholder="Link to your profile">
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-discard" (click)="discardChanges()">Discard Changes</button>
+        <button class="btn-save" (click)="saveChanges()">Save Changes</button>
+      </div>
+      <p class="txt">{{txt}}</p>
+    </section>
+    
+
+    
+  </main>
+
+  <aside class="profile-sidebar">
+
+    <div class="avatar-section">
+      <div class="image-container">
+        <div class="image-circle">
+
+        @if (userFields.avatar) {
+
+          <img [src]="userFields.avatar" alt="User Avatar">
+
+        }
+
+        </div>
+        <button class="edit-icon-btn">
+          <img src="https://iconsvg.co/icon/08dbb3cd-1438-4934-8f33-71be3e0411fc.svg" 
+          alt="edit" 
+          class="pen-icon-img">
+        </button>
+      </div>
+
+    
+
+      <h2 class="user-name">{{ userFields.username || 'Username' }}</h2>
+
+    </div>
+
+    <nav class="account-menu">
+  <div class="menu-item" 
+       routerLink="/personal-info"
+       routerLinkActive="active">
+    <span class="menu-icon personal-icon"></span> 
+    <span class="menu-text">Personal Information</span>
+  </div>
+
+  <div class="menu-item" 
+       routerLink="/change-password" 
+       routerLinkActive="active">
+    <span class="menu-icon password-icon"></span> 
+    <span class="menu-text">Change Password</span>
+  </div>
+
+  <div class="menu-item" 
+       routerLink="/logout" 
+       routerLinkActive="active">
+    <span class="menu-icon logout-icon"></span> 
+    <span class="menu-text">Log Out</span>
+  </div>
+</nav>
+
+    
+  </aside>
+
+</div>
