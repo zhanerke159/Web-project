@@ -1,3 +1,32 @@
 <!--<app-header></app-header>-->
 
-<p>category works!</p>
+<div class="page-wrapper">
+  <div class="title-container">
+    <span class="line"></span>
+    <h1 class="main-title">{{ categoryName | titlecase }}</h1>
+    <span class="line"></span>
+  </div>
+
+  <div class="recipes-grid">
+    <div class="recipe-card" *ngFor="let recipe of filteredProducts">
+      <div class="recipe-image">
+        <img [src]="recipe.image" [alt]="recipe.name">
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <h2 class="recipe-name">{{ recipe.name }}</h2>
+          <span class="recipe-time">{{ recipe.time }}</span>
+        </div>
+        <p class="recipe-description">{{ recipe.description }}</p>
+        <div class="card-buttons">
+          <button (click)="seeIngredients(recipe.id)" class="btn">See the ingredients</button>
+          <button (click)="addToFavorites(recipe.id)" class="btn">Add to Favorites</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredProducts.length === 0" class="no-products">
+    <p>No products found for "{{ categoryName }}".</p>
+  </div>
+</div>
