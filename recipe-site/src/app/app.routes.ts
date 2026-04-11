@@ -20,11 +20,6 @@ export const routes: Routes = [{
     {path: 'recipe/:name', component: RecipeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-<<<<<<< HEAD
-    {path: 'steps', component: StepsComponent}
-    
-=======
     {path: 'steps', component: StepsComponent},
     { path: 'personal-info', component: PersonalComponent}
->>>>>>> personal-page
 ];
