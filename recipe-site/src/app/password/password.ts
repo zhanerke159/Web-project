@@ -39,26 +39,41 @@ export class PasswordComponent implements OnInit {
   }
 
   updatePassword() {
+    // 1. Толтырылмаған өрістерді тексеру
     if (!this.passwords.current || !this.passwords.new || !this.passwords.confirm) {
       this.txt = "Please fill all fields!";
-      this.isError = true; // Қате! (Қызыл болады)
+      this.isError = true;
       return;
-  }
+    }
 
-  // 2. Парольдер сәйкес келмесе
-      if (this.passwords.new !== this.passwords.confirm) {
-        this.txt = "Passwords do not match!";
-        this.isError = true; // Қате! (Қызыл болады)
-        this.passwords = { current: '', new: '', confirm: '' };
-        return;
-      }
+    // 2. Парольдер сәйкес келмесе (Мұнда тазаламай-ақ қойған дұрыс, адам қатесін түзете алуы үшін)
+    if (this.passwords.new !== this.passwords.confirm) {
+      this.txt = "Passwords do not match!";
+      this.isError = true;
+      // Бұл жерден тазалауды алып тастадым
+      return;
+    }
   
-  // 3. Бәрі дұрыс болса
-      this.txt = "Password updated successfully! ✓";
-      this.isError = false; // Қате емес! (Жасыл болады)
-    // Осы жерде серверге запрос жіберуге болады
-    this.passwords = { current: '', new: '', confirm: '' };
-    console.log('Updating password...', this.passwords);
+    // 3. Бәрі дұрыс болса
+    this.txt = "Password updated successfully! ✓";
+    this.isError = false;
     
+    // Сәтті аяқталғанда ғана тазалаймыз
+    this.passwords = { current: '', new: '', confirm: '' };
+    console.log('Password updated successfully');
+  }
+  cancelChanges() {
+    // Инпуттарды тазалаймыз
+    this.passwords = {
+      current: '',
+      new: '',
+      confirm: ''
+    };
+    
+    // Хабарламаны өшіреміз (қалауыңша)
+    this.txt = '';
+    this.isError = false;
+
+    console.log('Inputs cleared');
   }
 }
