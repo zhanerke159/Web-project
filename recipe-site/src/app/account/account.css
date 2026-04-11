@@ -192,6 +192,38 @@
   height: 180px;
   margin-bottom: 15px;
 }
+.avatar-section .image-container {
+  position: relative; /* Батырмаларды контейнерге байлау үшін */
+}
+/* Өшіру батырмасының стилі (✕) */
+.delete-icon-btn {
+  position: absolute;
+  bottom: 5px; 
+  left: 5px; /* Сол жақ төменгі бұрыш */
+  background: #dc3545; /* Қызыл түс */
+  border: 2px solid #031521;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 25;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.delete-icon-btn:hover {
+  transform: scale(1.1);
+  background: #c82333;
+}
+
+.delete-icon-btn:active {
+  transform: scale(0.9);
+}
 
 /* Сары дөңгелек батырма (Edit Button) */
 .edit-icon-btn {

@@ -8,17 +8,8 @@ import { Category } from '../models/category';
 
 @Component({
   selector: 'app-category',
-<<<<<<< HEAD
-<<<<<<< HEAD
-  standalone: true,
-  imports: [Header, CommonModule],
-=======
-  imports: [CommonModule, RouterModule, Header],
->>>>>>> 09efdd24afc1db9fd1a96136cd3d0c8e2c57778a
-=======
   standalone: true,
   imports: [Header, CommonModule, RouterModule],
->>>>>>> main
   templateUrl: './category.html',
   styleUrl: './category.css'
 })
