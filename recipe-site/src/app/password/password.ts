@@ -12,6 +12,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrls: ['./password.css']
 })
 export class PasswordComponent implements OnInit {
+  isError: boolean = false;
   constructor(private cdr: ChangeDetectorRef) {}
 
   userFields = { username: '', avatar: null };
@@ -40,15 +41,24 @@ export class PasswordComponent implements OnInit {
   updatePassword() {
     if (!this.passwords.current || !this.passwords.new || !this.passwords.confirm) {
       this.txt = "Please fill all fields!";
+      this.isError = true; // Қате! (Қызыл болады)
       return;
-    }
-    if (this.passwords.new !== this.passwords.confirm) {
-      this.txt = "Passwords do not match!";
-      return;
-    }
-    
-    this.txt = "Password updated successfully! ✓";
+  }
+
+  // 2. Парольдер сәйкес келмесе
+      if (this.passwords.new !== this.passwords.confirm) {
+        this.txt = "Passwords do not match!";
+        this.isError = true; // Қате! (Қызыл болады)
+        this.passwords = { current: '', new: '', confirm: '' };
+        return;
+      }
+  
+  // 3. Бәрі дұрыс болса
+      this.txt = "Password updated successfully! ✓";
+      this.isError = false; // Қате емес! (Жасыл болады)
     // Осы жерде серверге запрос жіберуге болады
+    this.passwords = { current: '', new: '', confirm: '' };
     console.log('Updating password...', this.passwords);
+    
   }
 }
