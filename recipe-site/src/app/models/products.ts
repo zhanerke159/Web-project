@@ -4,4 +4,5 @@ export interface Products{
     description: string;
     category: number;
     image: string;
+    time?: string;
 }

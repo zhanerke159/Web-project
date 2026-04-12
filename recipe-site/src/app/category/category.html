@@ -1,21 +1,36 @@
-<div class="categories-page">
-  <h1 class="categories-title">{{ categoryName }}</h1>
+<div class="page-wrapper">
+  <div class="title-container">
+    <span class="line"></span>
+    <h1 class="main-title">{{ categoryName | titlecase }}</h1>
+    <span class="line"></span>
+  </div>
 
-  <div class="categories-grid">
-    <div class="category-box" *ngFor="let product of filteredProducts" [routerLink]="['/recipe', product.id]">
-      
-      <div class="image-wrapper">
-        <img [src]="product.image" [alt]="product.name">
+  <div class="recipes-grid">
+    <div class="recipe-card" *ngFor="let recipe of filteredProducts">
+      <div class="recipe-image">
+        <img [src]="recipe.image" [alt]="recipe.name">
       </div>
-
-      <div class="category-name">
-        {{ product.name }}
+      <div class="card-content">
+        <div class="card-header">
+          <h2 class="recipe-name">{{ recipe.name }}</h2>
+          <div class="recipe-time" *ngIf="recipe?.time">
+  <svg class="time-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+    <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <span>{{ recipe?.time }}</span>
+</div>
+        </div>
+        <p class="recipe-description">{{ recipe.description }}</p>
+        <div class="card-buttons">
+          <button (click)="seeIngredients(recipe.id)" class="btn">See the ingredients</button>
+          <button (click)="addToFavorites(recipe.id)" class="btn">Add to Favorites</button>
+        </div>
       </div>
-
     </div>
   </div>
 
-  <div *ngIf="filteredProducts.length === 0" style="text-align: center; margin-top: 20px;">
-    <p>No products found in this category.</p>
+  <div *ngIf="filteredProducts.length === 0" class="no-products">
+    <p>No products found for "{{ categoryName }}".</p>
   </div>
 </div>
