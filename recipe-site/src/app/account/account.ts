@@ -7,29 +7,24 @@ import { LogoutComponent } from '../logout/logout';
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive, LogoutComponent /*AppRoutingModule*/], 
+  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive, LogoutComponent], 
   templateUrl: './account.html',
   styleUrls: ['./account.css']
 })
 export class AccountComponent implements OnInit {
-  // account.ts ішінде
   isLogoutOpen: boolean = false;
-  //selectedMenu: string = 'personal';
 
-  // Ескі 'user' объектісінің орнына Personal бетіндегідей 'userFields' қолданамыз
   userFields = {
     username: '',
     avatar: null
   };
 
-  // Рецепттер айнымалылары қала береді
   showAllFavorites: boolean = false;
   showAllMyRecipes: boolean = false;
   favorites: any[] = [];
   myRecipes: any[] = [];
 
   ngOnInit() {
-    // Бет ашылғанда LocalStorage-дан деректерді оқимыз
     const data = localStorage.getItem('userProfile');
     if (data) {
       this.userFields = JSON.parse(data);

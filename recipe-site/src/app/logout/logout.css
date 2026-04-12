@@ -4,8 +4,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Фонды сәл қараңғылау */
-  backdrop-filter: blur(10px);    /* МЫНАУ АРТЫН БҰЛЫҢҒЫР ҚЫЛАДЫ */
+  background: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(10px);   
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +39,7 @@
 .btn-secondary { background: #E9E9E9; color: #031521; }
 .btn-primary { background: #FCD81B; color: #031521; }
 .icon-warning {
-  font-size: 80px;      /* Осы жерде өлшемді қалауыңша өзгерт (мысалы: 100px, 120px) */
-  margin-bottom: 20px;  /* Астындағы мәтінмен арақашықтық */
-  display: block;       /* Ортада тұруы үшін */
+  font-size: 80px;     
+  margin-bottom: 20px; 
+  display: block;     
 }

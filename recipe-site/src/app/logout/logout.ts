@@ -16,6 +16,6 @@ export class LogoutComponent {
   }
 
   cancel() {
-    this.close.emit(); // Жабу оқиғасын жіберу
+    this.close.emit(); 
   }
 }
