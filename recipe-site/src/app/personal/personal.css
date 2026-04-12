@@ -35,82 +35,41 @@
 .logo {
   font-family: 'Island Moments', cursive;
   font-size: 65px;
-  color: #031521;
+  color: #031521; 
   margin-bottom: -15px;
   font-weight: 400;
 }
 
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.search-box {
-  position: relative;
+.breadcrumbs {
   display: flex;
   align-items: center;
-  background: white;
-  border: 1px solid #000000;
-  border-radius: 20px;
-  padding: 6px 10px;
-  width: 220px;
-}
-
-.search-input {
-  border: none;
-  outline: none;
-  background: transparent;
-  width: 100%;
+  gap: 8px;
+  margin-top: 12px; 
+  margin-bottom: 20px;
   font-size: 14px;
-  padding: 5px;
-  font-family: 'Inter', sans-serif; 
+  font-family: 'Days One', sans-serif;
 }
 
-.search-input::placeholder {
-  color: #999;
-  font-size: 12px;
+.breadcrumb-item {
+  color: #888888; 
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
-.user-banner {
-  height: 400px;
-  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-              url('https://img.freepik.com/premium-psd/indian-food-feast-delicious-spread-flavors_957244-29994.jpg?semt=ais_hybrid&w=740') center/cover;
-  border-radius: 30px;
-  display: flex;
-  align-items: flex-start;
-  padding: 50px 0 0 40px; 
-  color: white;
-  margin-bottom: 30px;
+.breadcrumb-item:hover {
+  color: #FCD81B; 
 }
 
-.banner-text {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+.breadcrumb-item.active {
+  color: #031521;
+  cursor: default;
+  pointer-events: none;
 }
 
-.banner-text h1 {
-  font-size: 55px;
-  line-height: 1.1;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  font-weight: normal;
-  gap: 10px;
-}
-
-.banner-text h1 span {
-  display: block;
-}
-
-.banner-text p {
-  font-size: 16px;
-  color: #ffffff;
-  margin: 0;
-  font-weight: normal;
-  line-height: 1.4;
+.separator {
+  color: #CCCCCC;
+  user-select: none; 
 }
 
 .profile-sidebar {
@@ -123,26 +82,23 @@
   flex-direction: column;
   align-items: center;
   margin: 0;
-  
   border-radius: 30px 0 0 30px; 
-  
   margin-left: -60px; 
   position: relative;
   z-index: 10;
 }
-
 
 .image-circle {
   width: 180px;
   height: 180px;
   border-radius: 50%; 
   border: 4px solid #FCD81B;
-  overflow: hidden; 
+  overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0; 
+  background-color: #f0f0f0;
   background-image: url('https://img.freepik.com/premium-vector/people-avatar-icons-cook_755164-20671.jpg');
   background-repeat: no-repeat;
   background-position: center;
@@ -152,9 +108,13 @@
 .image-circle img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; 
   border-radius: 50%; 
   display: block;
+}
+
+.edit-icon {
+  z-index: 2; 
 }
 
 .avatar-section {
@@ -165,11 +125,37 @@
   width: 140px; 
   margin: 0 auto;
 }
+
 .image-container {
   position: relative;
   width: 180px;
   height: 180px;
   margin-bottom: 15px;
+}
+
+.edit-icon-btn {
+  position: absolute;
+  bottom: 5px; 
+  right: 5px; 
+  background: #FCD81B;
+  border: 2px solid #031521;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20; 
+}
+
+.pen-icon-img {
+  width: 18px; 
+  height: 18px;
+  object-fit: contain;
+}
+
+.edit-icon-btn:active {
+  transform: scale(0.9);
 }
 
 .user-name {
@@ -178,10 +164,8 @@
   text-align: center;
   margin-top: 10px;
   width: 100%;
+  margin-bottom: 40px;
 }
-
-.user-name { color: #FCD81B; font-size: 20px; text-align: center; margin-bottom: 40px; }
-
 
 .menu-item {
   width: 280px; 
@@ -238,7 +222,6 @@
   background-color: #031521 !important; 
 }
 
-
 .name-input {
   background: transparent;
   border: none;
@@ -248,172 +231,162 @@
   font-size: 14px;
 }
 
-.recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  margin-bottom: 40px;
+.personal-form-section {
+  margin-top: 2px;
 }
 
-.recipe-card {
-  background: #FCD81B;
-  border-radius: 30px;
-  padding: 15px;
+.section-title {
+  font-size: 24px;
+  color: #031521;
+  margin-bottom: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 25px 40px;
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
-.recipe-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-.see-ingredients {
-  background: none;
-  border: 1.5px solid #000;
-  border-radius: 15px;
-  padding: 8px;
-  font-family: 'Inter', sans-serif;
+.form-group label {
+  font-size: 16px;
   font-weight: bold;
+  color: #444444;
+}
+
+.form-group input {
+  background-color: #E9E9E9; 
+  border: none;
+  border-radius: 15px;
+  padding: 15px 20px;
+  font-family: 'Days One', sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.full-width {
+  grid-column: span 2;
+  margin-top: 20px;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon input {
+  width: 100%;
+}
+
+.verified-tag {
+  position: absolute;
+  right: 15px;
+  color: #28a745; 
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.error-tag {
+  position: absolute;
+  right: 15px;
+  color: #dc3545; 
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 15px;
   cursor: pointer;
 }
 
-.empty-favorites {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 50px;
-  border: 2px dashed #FCD81B;
-  border-radius: 20px;
-  color: #999;
-}
-.section-header {
+.form-actions {
   display: flex;
-  align-items: center;
-  margin: 20px 0;
+  justify-content: space-between;
+  margin-top: 40px;
   gap: 20px;
 }
 
-.title-with-lines {
+.btn-discard {
   flex: 1;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  font-size: 24px;
-  gap: 15px;
-}
-
-.title-with-lines::before, .title-with-lines::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #000000;
-}
-
-.view-all-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
+  background: white;
+  border: 2px solid #FCD81B;
   color: #000;
-  font-weight: bold;
-  font-size: 14px;
-  color: rgba(3, 21, 33, 0.7);
-}
-
-.view-all-btn {
-  background: #031521;
-  color: #FCD81B;
-  border: none;
-  border-radius: 6px;
-  width: 30px;
-  height: 22px;
+  padding: 15px;
+  border-radius: 15px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.add-recipe-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.add-recipe-btn {
-  background-color: #031521;
-  border-radius: 8px; 
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.plus-icon {
-  color: #F3E38B; 
-  font-size: 24px;
-  line-height: 1;
-  font-weight: bold;
-}
-
-.add-text {
   font-family: 'Days One', sans-serif;
-  font-size: 14px;
-  color: #031521;
-  cursor: default; 
-  user-select: none; 
 }
 
-.add-recipe-btn {
-  cursor: pointer;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; 
-  margin: 30px 0 20px 0;
-}
-
-.title-with-lines {
+.btn-save {
   flex: 1;
-  text-align: center;
-}
-
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-  margin-bottom: 20px;
-  font-size: 14px;
+  background: #FCD81B;
+  border: none;
+  color: #000;
+  padding: 15px;
+  border-radius: 15px;
+  cursor: pointer;
   font-family: 'Days One', sans-serif;
 }
 
-.breadcrumb-item {
-  color: #888888; 
-  text-decoration: none;
+.txt {
+  text-align: center;
+  color: #28a745;
+}
+
+#dob-input::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.calendar-img-btn {
+  position: absolute;
+  right: 10px; 
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  transition: color 0.2s;
+  display: flex;
+  align-items: center;
 }
 
-.breadcrumb-item:hover {
-  color: #FCD81B;
+.calendar-img-btn img {
+  width: 20px; 
+  height: 20px;
+  object-fit: cover;
+  transition: transform 0.2s;
 }
 
-.breadcrumb-item.active {
-  color: #031521; 
-  cursor: default;
-  pointer-events: none;
+.calendar-img-btn:active img {
+  transform: scale(0.9);
 }
 
-.separator {
-  color: #CCCCCC;
-  user-select: none; 
+.delete-icon-btn {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  background: #dc3545;
+  border: 2px solid #031521;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 25;
+  transition: transform 0.2s;
+}
+
+.delete-icon-btn:hover {
+  transform: scale(1.1);
+  background: #c82333;
 }

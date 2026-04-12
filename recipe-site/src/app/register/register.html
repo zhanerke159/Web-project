@@ -1,1 +1,41 @@
-<p>register works!</p>
+<div class="main">
+    <div class="left">
+        <div class="image">
+            <img src="https://i.pinimg.com/1200x/a4/b7/bc/a4b7bcd358596407681f03d1996500e3.jpg" alt="Fresh ingredients" class="ingredients-image">
+        </div>
+        <div class="text">
+            <h1 class="mast-txt">Share Your Masterpiece</h1>
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="top">
+            <h2 class="logo-text">FoodieBook</h2>
+        </div>
+        <div class="logo">
+            <h1 class="title">Create account</h1>
+            <p class="subtitle">Let’s cook together!</p>
+        </div>
+
+        <div class="card">
+            <form class="register">
+                <label for="email">Email address:</label>
+                <input type="email" [(ngModel)]="userForm.email" placeholder="Enter email address..." name="email">
+
+
+                <label for="password">Password:</label>
+                <input type="password" [(ngModel)]="userForm.password" id="password" placeholder="Enter password..." name="password">
+
+
+                <div class="but">
+                    <button type="button" (click)="onCreateAccount()" class="submit">Create account</button>
+                </div>
+                <p class="or">or</p>
+                <div class="s">
+                    <button class="signin">
+                        <a routerLink="/login">sign in</a></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

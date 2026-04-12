@@ -1,0 +1,45 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(10px);   
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.logout-card {
+  background: white;
+  padding: 40px;
+  border-radius: 30px;
+  text-align: center;
+  width: 350px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-secondary, .btn-primary {
+  flex: 1;
+  padding: 15px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Days One', sans-serif;
+}
+
+.btn-secondary { background: #E9E9E9; color: #031521; }
+.btn-primary { background: #FCD81B; color: #031521; }
+.icon-warning {
+  font-size: 80px;     
+  margin-bottom: 20px; 
+  display: block;     
+}

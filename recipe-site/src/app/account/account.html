@@ -1,1 +1,135 @@
-<p>account works!</p>
+<div class="account-container">
+  
+  <main class="account-main">
+    <div class="header-top">
+      <div class="logo">FoodieBook</div>
+      <div class="search-box">
+        <input type="text" placeholder="Search favorites recipes..." class="search-input">
+        </div>
+    </div>
+
+    <nav class="breadcrumbs">
+      <span class="breadcrumb-item" routerLink="/home">Home</span>
+      <span class="separator">/</span>
+      <span class="breadcrumb-item active">Account</span>
+    </nav>
+
+    <section class="user-banner">
+      <div class="banner-text">
+        <h1>
+          <span>Hi,</span>
+          <span>{{ userFields.username || 'Chef' }}!</span>
+        </h1>
+        <p>Ready to cook something delicious today?</p>
+      </div>
+    </section>
+
+    <section class="favorites-section">
+      <div class="section-header">
+        <div class="title-with-lines">Favorites</div>
+        <a href="javascript:void(0)" class="view-all-container" (click)="showAllFavorites = !showAllFavorites">
+          <span class="view-all-text">{{ showAllFavorites ? 'Hide' : 'View all' }}</span>
+          <button class="view-all-btn">{{ showAllFavorites ? '▲' : '➔' }}</button>
+        </a>
+      </div>
+      
+      <div class="recipe-grid">
+        @if (favorites.length > 0) {
+          @for (recipe of (showAllFavorites ? favorites : favorites.slice(0, 3)); track recipe.title) {
+            <div class="recipe-card">
+              <img [src]="recipe.img">
+              <div class="recipe-info">
+                <h3>{{ recipe.title }}</h3>
+                <p>{{ recipe.desc }}</p>
+                <button class="see-ingredients">See the ingredients</button>
+              </div>
+            </div>
+          }
+        } @else {
+          <div class="empty-favorites"><p>You haven't added any favorite recipes yet.</p></div>
+        }
+      </div>
+    </section>
+
+    <section class="my-recipes-section">
+      <div class="section-header">
+        <div class="add-recipe-container">
+          <button type="button" class="add-recipe-btn" routerLink="/own-recipe">
+          <span class="plus-icon">+</span>
+          </button>
+          <span class="add-text">Add my recipes</span>
+        </div>
+        <div class="title-with-lines">My recipes</div>
+        <a href="javascript:void(0)" class="view-all-container" (click)="showAllMyRecipes = !showAllMyRecipes">
+          <span class="view-all-text">{{ showAllMyRecipes ? 'Hide' : 'View all' }}</span>
+          <button class="view-all-btn">{{ showAllMyRecipes ? '▲' : '➔' }}</button>
+        </a>
+      </div>
+      
+      <div class="recipe-grid">
+        @if (myRecipes.length > 0) {
+          @for (recipe of (showAllMyRecipes ? myRecipes : myRecipes.slice(0, 3)); track recipe.title) {
+            <div class="recipe-card">
+              <img [src]="recipe.img">
+              <div class="recipe-info">
+                <h3>{{ recipe.title }}</h3>
+                <p>{{ recipe.desc }}</p>
+                <button class="see-ingredients">See the ingredients</button>
+              </div>
+            </div>
+          }
+        } @else {
+          <div class="empty-favorites"><p>You haven't created any recipes yet.</p></div>
+        }
+      </div>
+    </section>
+  </main>
+
+  <aside class="profile-sidebar">
+
+    <div class="avatar-section">
+  <div class="image-container">
+    <div class="image-circle">
+      @if (userFields.avatar) {
+        <img [src]="userFields.avatar" alt="User Avatar">
+      } @else {
+        <img src="https://img.freepik.com/premium-vector/people-avatar-icons-cook_755164-20671.jpg" alt="Default Avatar">
+      }
+    </div>
+
+
+    
+
+    
+  </div>
+
+  <h2 class="user-name">{{ userFields.username || 'Username' }}</h2>
+</div>
+
+    <nav class="account-menu">
+  <div class="menu-item" 
+       routerLink="/personal-info"
+       routerLinkActive="active">
+    <span class="menu-icon personal-icon"></span> 
+    <span class="menu-text">Personal Information</span>
+  </div>
+
+  <div class="menu-item" 
+       routerLink="/change-password" 
+       routerLinkActive="active">
+    <span class="menu-icon password-icon"></span> 
+    <span class="menu-text">Change Password</span>
+  </div>
+
+  <div class="menu-item" (click)="isLogoutOpen = true">
+  <span class="menu-icon logout-icon"></span>
+  <span class="menu-text">Log Out</span>
+</div>
+</nav>
+
+    
+  </aside>
+@if (isLogoutOpen) {
+  <app-logout (close)="isLogoutOpen = false"></app-logout>
+}
+</div>

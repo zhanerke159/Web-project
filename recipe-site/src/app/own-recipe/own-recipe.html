@@ -1,1 +1,82 @@
-<p>own-recipe works!</p>
+<div class="overlay">
+    <div class="main">
+        <span class="t">
+            <h2 class="title">Add recipe</h2>
+        </span>
+
+        <form #recipeForm="ngForm">
+            <div class="form">
+                <label class="txt">Meal name:</label>
+                <input type="text" [(ngModel)]="recipe.name" name="foodName" class="styled-input"
+                    placeholder="Enter name...">
+            </div>
+
+            <div class="form">
+                <label>Upload photo:</label>
+
+                <div class="file-drop-zone">
+
+                    @if (recipe.photos.length > 0) {
+                    <div class="preview-container">
+                        @for (photo of recipe.photos; track $index) {
+                        <div class="preview-item">
+                            <img [src]="photo" alt="Recipe photo preview" class="preview-img">
+                            <button type="button" class="remove-btn" (click)="removePhoto($index)">×</button>
+                        </div>
+                        }
+
+                        <div class="add-more-card" (click)="fileInput.click()">
+                            <span>+</span>
+                        </div>
+                    </div>
+                    }
+
+                    @if (recipe.photos.length === 0) {
+                    <div class="click-area" (click)="fileInput.click()">
+                        <div class="camera-icon">📷</div>
+                        <span class="click">Click to upload photos...</span>
+                    </div>
+                    }
+                </div>
+
+                <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" multiple
+                    style="display: none;">
+            </div>
+
+
+
+            <div class="form">
+                <label class="txt">Ingredients:</label>
+                <input type="text" [(ngModel)]="recipe.ingredients" name="ingredients" class="styled-input"
+                    placeholder="List ingredients...">
+            </div>
+
+            <div class="steps-container">
+                <h3>Cooking steps</h3>
+                <div class="step-card">
+                    <div class="step-item" *ngFor="let step of recipe.steps; let i = index"
+                        style="margin-bottom: 15px;">
+                        <label>Step {{ i + 1 }}:</label>
+                        <div class="step-input-wrapper">
+                            <input type="text" [(ngModel)]="recipe.steps[i]" name="step{{i}}"
+                                placeholder="Describe this step...">
+
+                            <button *ngIf="recipe.steps.length > 1" type="button" class="delete"
+                                (click)="removeStep(i)">
+                                x
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="add-btn-div">
+                        <button type="button" class="add-btn" (click)="addStep()">+</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="save-btn">
+            <button type="submit"  class="save">Save</button>
+        </div>
+    </div>
+</div>
