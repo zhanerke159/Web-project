@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink,  CommonModule, FormsModule],
+  imports: [RouterOutlet, RouterLink, CommonModule, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -15,17 +15,26 @@ export class App {
   title = 'recipe-site';
 
   scrollToSection(sectionId: string) {
-    const section = document.getElementById(sectionId);
-    section?.scrollIntoView({ behavior: 'smooth' });
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          const section = document.getElementById(sectionId);
+          section?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      });
+    } else {
+      const section = document.getElementById(sectionId);
+      section?.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   searchResults: any[] = [];
   searchQuery: string = '';
 
- constructor(
-    private apiService: ApiService, 
+  constructor(
+    private apiService: ApiService,
     private router: Router
-  ) {}
+  ) { }
 
   onSearch() {
     if (!this.searchQuery || this.searchQuery.trim() === '') {
@@ -46,7 +55,7 @@ export class App {
 
   goToRecipe(id: number) {
     this.router.navigate(['/recipe', id]);
-    this.searchQuery = ''; 
+    this.searchQuery = '';
     this.searchResults = [];
   }
 } 
