@@ -25,7 +25,7 @@ export class LoginComponent {
         localStorage.setItem('access_token', response.access);
         localStorage.setItem('refresh_token', response.refresh);
 
-        this.router.navigate(['/account']); 
+        this.router.navigate(['/']); 
       },
       error: (err) => {
         console.error('Ошибка входа:', err);
