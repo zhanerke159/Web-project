@@ -12,26 +12,32 @@ import { Router } from '@angular/router';
   styleUrl: './register.css'
 })
 export class RegisterComponent {
-  // Данные из формы
   userForm = {
     email: '',
     password: ''
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   onCreateAccount() {
     const registerData = {
-      username: this.userForm.email, 
+      username: this.userForm.email,
       email: this.userForm.email,
       password: this.userForm.password,
-      confirm_password: this.userForm.password 
+      confirm_password: this.userForm.password
     };
 
     this.authService.register(registerData).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log('Пользователь создан!', response);
-        this.router.navigate(['/login']);
+
+        localStorage.setItem('user_token', response.token || 'true');
+
+       
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('Ошибка регистрации:', err);
