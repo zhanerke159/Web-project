@@ -3,12 +3,23 @@
     <a routerLink="/register" class="btn-signup">sign up</a>
     <a routerLink="/login" class="btn-signin">sign in</a>
   </div>
-  
+
   <div class="logo">
     <h1>FoodieBook</h1>
   </div>
   <div class="box">
-    <input type="text" placeholder="Search recipes..." class="search-input" />
+    <div class="search-cont">
+      <input type="text" placeholder="Search recipes..." class="search-input" [(ngModel)]="searchQuery"
+        (input)="onSearch()" />
+      <ul class="search-results" *ngIf="searchResults.length > 0 && searchQuery.length > 0">
+        <li *ngFor="let recipe of searchResults" (click)="goToRecipe(recipe.id)">
+          <img [src]="recipe.image" class="mini-recipe-img">
+          <span>{{ recipe.title }}</span>
+        </li>
+      </ul>
+    </div>
+
+
     <nav class="search-nav">
       <a routerLink="/" class="nav-link">Home</a>
       <a (click)="scrollToSection('categories')" class="nav-link">Categories</a>
