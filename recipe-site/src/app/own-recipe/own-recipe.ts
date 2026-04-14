@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { ApiService } from '../services/recipe'
+import { OwnRecipe } from '../models/own-recipe';
 @Component({
   selector: 'app-own-recipe',
   standalone: true,
@@ -12,14 +14,20 @@ import { FormsModule } from '@angular/forms';
 export class OwnRecipeComponent {
   recipe = {
     name: '',
+    description: '',
     ingredients: '',
-    photos: [] as File[],
+    categoryId: 1,
+    prepTime: '',
+    photos: [] as any[],
     steps: ['']
   };
 
   selectedFileName: string = '';
 
-  constructor(private cdr: ChangeDetectorRef, private zone: NgZone) { }
+  constructor(private cdr: ChangeDetectorRef,
+    private zone: NgZone,
+    private apiService: ApiService,
+    private router: Router) { }
   onFileSelected(event: any) {
     const files: FileList = event.target.files;
     if (files.length > 0) {
@@ -28,9 +36,9 @@ export class OwnRecipeComponent {
           const reader = new FileReader();
 
           reader.onload = (e: any) => {
-           this.zone.run(() => {
+            this.zone.run(() => {
               this.recipe.photos.push(e.target.result);
-              this.cdr.detectChanges(); 
+              this.cdr.detectChanges();
             });
           };
 
@@ -55,5 +63,29 @@ export class OwnRecipeComponent {
     if (this.recipe.steps.length > 1) {
       this.recipe.steps.splice(index, 1);
     }
+  }
+
+
+  saveRecipe() {
+    const newRecipe: OwnRecipe = {
+      title: this.recipe.name,
+      image: this.recipe.photos.length > 0 ? this.recipe.photos[0] : '',
+      description: this.recipe.description,
+      category: Number(this.recipe.categoryId),
+      ingredients: this.recipe.ingredients,
+      prep_time: Number(this.recipe.prepTime) || 15,
+      instructions: this.recipe.steps.join('\n'), 
+
+    };
+
+    this.apiService.createRecipe(newRecipe).subscribe({
+      next: (res) => {
+        alert('Recipe created successfully!');
+        this.router.navigate(['/account']);
+      },
+      error: (err) => {
+        console.error('Check fields or terminal:', err);
+      }
+    });
   }
 }

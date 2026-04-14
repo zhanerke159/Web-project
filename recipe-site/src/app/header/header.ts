@@ -36,22 +36,17 @@ export class Header {
     private router: Router
   ) { }
 
-  onSearch() {
-    if (!this.searchQuery || this.searchQuery.trim() === '') {
-      this.searchResults = [];
-      return;
-    }
-    const queryObj = { title: this.searchQuery };
-
-    this.apiService.searchRecipes(queryObj).subscribe({
-      next: (data: any) => {
-        this.searchResults = data;
-      },
-      error: (err) => {
-        console.error('Ошибка при поиске:', err);
-      }
-    });
-  }
+  onSearch(event: any) {
+  const query = event.target.value;
+  
+  this.apiService.searchRecipes({ title: query }).subscribe({
+    next: (data) => {
+      this.searchResults = data; 
+      console.log('Данные получены:', this.searchResults);
+    },
+    error: (err) => console.error(err)
+  });
+}
 
   goToRecipe(id: number) {
     this.router.navigate(['/recipe', id]);

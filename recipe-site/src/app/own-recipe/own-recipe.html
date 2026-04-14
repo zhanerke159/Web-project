@@ -43,6 +43,33 @@
                     style="display: none;">
             </div>
 
+            <div class="form">
+                <label class="txt">Description:</label>
+                <textarea [(ngModel)]="recipe.description" name="description" class="styled-input"
+                    placeholder="Tell us a bit about this dish..." rows="3">
+                 </textarea>
+            </div>
+
+
+            <label>Category</label>
+            <div class="category">
+
+                <select class="category-list" [(ngModel)]="recipe.categoryId" name="categorySelect">
+                    <option value="" disabled selected>Choose the category..</option>
+                    <option value="1">Fast-Food
+                    </option>
+                    <option value="2">Desserts
+                    </option>
+                    <option value="3">Drinks
+                    </option>
+                    <option value="4">Main Dishes
+                    </option>
+                    <option value="5">Chinese cuisine
+                    </option>
+                    <option value="6">Salads
+                    </option>
+                </select>
+            </div>
 
 
             <div class="form">
@@ -50,6 +77,14 @@
                 <input type="text" [(ngModel)]="recipe.ingredients" name="ingredients" class="styled-input"
                     placeholder="List ingredients...">
             </div>
+
+
+            <div class="form">
+                <label class="txt">Cooking time (minutes):</label>
+                <input type="number" [(ngModel)]="recipe.prepTime" name="prepTime" class="styled-input"
+                    placeholder="e.g. 30">
+            </div>
+
 
             <div class="steps-container">
                 <h3>Cooking steps</h3>
@@ -76,7 +111,7 @@
         </form>
 
         <div class="save-btn">
-            <button type="submit"  class="save">Save</button>
+            <button type="submit" class="save" (click)="saveRecipe()">Save</button>
         </div>
     </div>
 </div>

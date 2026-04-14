@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/register.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,24 +12,23 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   loginData = {
-    username: '', 
+    username: '',
     password: ''
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
+
 
   onLogin() {
     this.authService.login(this.loginData).subscribe({
       next: (response: any) => {
-        console.log('Успешный вход!', response);
-        localStorage.setItem('access_token', response.access);
-        localStorage.setItem('refresh_token', response.refresh);
-
-        this.router.navigate(['/']); 
+        console.log('Вход выполнен!', response);
+        localStorage.setItem('user_token', response.access);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('Ошибка входа:', err);
-        alert('Неверный email или пароль');
+        alert('Неверный логин или пароль');
       }
     });
   }

@@ -37,8 +37,7 @@ header {
 .btn-signin {
     background-color: #000;
     color: white;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -101,10 +100,11 @@ header {
 
     transform: scale(1.09);
 }
+
 .search-cont {
     position: relative;
     width: 100%;
-    max-width: 500px; 
+    max-width: 500px;
     margin: 0 auto;
 }
 
@@ -118,16 +118,16 @@ header {
 
 .search-results {
     position: absolute;
-    top: 105%; 
+    top: 105%;
     left: 0;
     right: 0;
     background: white;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     list-style: none;
     padding: 0;
     margin: 0;
-    z-index: 999; 
+    z-index: 999;
     max-height: 300px;
     overflow-y: auto;
 }
@@ -143,8 +143,9 @@ header {
 }
 
 .search-results li:hover {
-    background-color: #FCD81B; 
+    background-color: #FCD81B;
 }
+
 .mini-recipe-img {
     width: 45px;
     height: 45px;
@@ -156,4 +157,29 @@ header {
     font-weight: 600;
     font-family: 'Darker Grotesque', sans-serif;
     color: #333;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    /* Прямо под инпутом */
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    z-index: 1000;
+    list-style: none;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-dropdown li {
+    padding: 8px;
+    cursor: pointer;
+    color: black;
+}
+
+.search-dropdown li:hover {
+    background-color: #f0f0f0;
 }

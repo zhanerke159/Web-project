@@ -1,10 +1,9 @@
-export interface Recipe{
+export interface Recipe {
     title: string;
-    description: string;
-    ingredients: string;
-    steps: string;
-    category: number;
-    user: number;
     image?: string;
-    
+    description: string;
+    category: number;
+    ingredients: string;
+    prep_time: number;
+    instructions: string;
 }

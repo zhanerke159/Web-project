@@ -18,15 +18,15 @@ from django.contrib import admin
 from recipes.views import search_recipes, register_user
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from recipes.views import CategoryViewSet, ProductViewSet, RecipeViewSet, ReviewViewSet, UserProfileViewSet
+from recipes.views import CategoryViewSet, ProductViewSet, RecipeViewSet, ReviewViewSet, UserProfileViewSet, create_recipe
 from rest_framework_simplejwt import views as jwt_views
-from recipes.views import search_recipes
+from recipes.views import search_recipes, add_to_favorites, get_my_profile
 
 router = DefaultRouter()
 router.register(r'category', CategoryViewSet)
 router.register(r'products', ProductViewSet)
 router.register(r'review', ReviewViewSet)
-router.register(r'recipe', RecipeViewSet)
+router.register(r'recipes', RecipeViewSet)
 router.register(r'user', UserProfileViewSet)
 
 
@@ -35,7 +35,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/', include(router.urls)), 
+
     path('api/recipes/search/', search_recipes, name='search_recipes'),
     path('api/register/', register_user, name='register'),
+    path('api/user/me/', get_my_profile, name='my_profile'),
+    path('api/favorite/<int:pk>/', add_to_favorites, name='add_favorite'),
+    
+    path('api/', include(router.urls)), 
 ]

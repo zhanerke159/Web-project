@@ -4,7 +4,7 @@ from .models import Category, Product, Recipe, Review, UserProfile
 class CategorySerializers(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name']
 
 
 class ProductSerializers(serializers.ModelSerializer):
@@ -15,7 +15,9 @@ class ProductSerializers(serializers.ModelSerializer):
 class RecipeSerializers(serializers.ModelSerializer):
     class Meta:
         model = Recipe
-        fields = ['id', 'title', 'description', 'ingredients', 'steps', 'user', 'category', 'image']
+        fields = ['id', 'title', 'image', 'description', 'category', 'ingredients', 'prep_time', 'instructions']
+
+        read_only_fields = ['author']
 
 class ReviewSerializers(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +27,10 @@ class ReviewSerializers(serializers.ModelSerializer):
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['user', 'avatar', 'bio']
+        fields = [
+            'user', 'first_name', 'user_name', 'last_name', 
+            'phone_number', 'birth_date', 'avatar', 'bio'
+        ]
 
 class UserRegistrationSerializers(serializers.Serializer):
         username = serializers.CharField(max_length =100)

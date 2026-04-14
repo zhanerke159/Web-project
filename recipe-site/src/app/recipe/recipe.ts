@@ -23,7 +23,6 @@ export class RecipeComponent implements OnInit {
         description: 'Juicy beef burger with fresh vegetables.' 
       }
     ],
-    // ... остальные категории
   };
 
   constructor(private route: ActivatedRoute) {}
@@ -39,11 +38,11 @@ export class RecipeComponent implements OnInit {
   }
   addToFavorites(recipeId: number) {
     console.log('Added to favorites:', recipeId);
-    // Здесь будет логика добавления в избранное
   }
 
   seeIngredients(recipeId: number) {
     console.log('Opening ingredients for:', recipeId);
-    // Здесь будет логика перехода к ингредиентам
   }
+
+  
 }

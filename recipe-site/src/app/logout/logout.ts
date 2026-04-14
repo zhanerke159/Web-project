@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-logout',
   standalone: true,
@@ -9,13 +9,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class LogoutComponent {
   @Output() close = new EventEmitter<void>();
-
+  constructor(private router: Router) { }
   confirmLogout() {
     localStorage.clear();
-    window.location.href = '/register';
+    this.router.navigate(['/login']);
   }
-
   cancel() {
-    this.close.emit(); 
+    this.close.emit();
   }
 }

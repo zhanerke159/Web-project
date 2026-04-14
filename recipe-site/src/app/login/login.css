@@ -92,7 +92,7 @@ input {
     font-family: 'Darker Grotesque', sans-serif;
     font-weight: bold;
     background-color: #FCD81B;
-
+    cursor: pointer;
 }
 
 .right {
