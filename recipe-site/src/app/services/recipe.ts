@@ -33,13 +33,9 @@ export class ApiService {
     return this.http.put<Recipe>(`${this.baseUrl}/recipes-update/${id}/`, recipeData);
   }
 
-  searchRecipes(query: any): Observable<any> {
-    let params = new HttpParams();
-    if (query.title) params = params.append('title', query.title);
-    if (query.category) params = params.append('category', query.category);
-    return this.http.get(`${this.baseUrl}/recipes/search/`, { params });
+  searchRecipes(title: string) {
+    return this.http.get(`http://127.0.0.1:8000/api/recipes/search/?title=${title}`);
   }
-
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.baseUrl}/categories/`);
   }
@@ -75,5 +71,12 @@ export class ApiService {
     const token = localStorage.getItem('user_token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     return this.http.patch(`http://127.0.0.1:8000/api/user/me/`, userData, { headers });
-}
+  }
+
+  change_password(passwordData: any) {
+    const token = localStorage.getItem('user_token')
+    return this.http.post('http://127.0.0.1:8000/api/user/change-password/', passwordData, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+  }
 }

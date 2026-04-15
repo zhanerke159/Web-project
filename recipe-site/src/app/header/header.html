@@ -20,7 +20,7 @@
 
       <ul class="search-dropdown" *ngIf="searchResults.length > 0">
         <li *ngFor="let recipe of searchResults" (click)="goToRecipe(recipe.id)">
-          {{ recipe.title }}
+          {{ recipe.name }}
         </li>
       </ul>
     </div>

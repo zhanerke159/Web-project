@@ -3,25 +3,26 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LogoutComponent } from '../logout/logout';
+import { ApiService } from '../services/recipe';
 
 @Component({
   selector: 'app-password',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive, LogoutComponent], 
+  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive, LogoutComponent],
   templateUrl: './password.html',
   styleUrls: ['./password.css']
 })
 export class PasswordComponent implements OnInit {
   isLogoutOpen: boolean = false;
   isError: boolean = false;
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private apiService: ApiService) { }
 
   userFields = { username: '', avatar: null };
-  
+
   passwords = {
-    current: '',
-    new: '',
-    confirm: ''
+    current_password: '',
+    new_password: '',
+    confirm_password: ''
   };
 
   showCurrent = false;
@@ -38,34 +39,37 @@ export class PasswordComponent implements OnInit {
   }
 
   updatePassword() {
-    if (!this.passwords.current || !this.passwords.new || !this.passwords.confirm) {
+    if (!this.passwords.current_password || !this.passwords.new_password || !this.passwords.confirm_password) {
       this.txt = "Please fill all fields!";
       this.isError = true;
       return;
     }
-
-    if (this.passwords.new !== this.passwords.confirm) {
+    if (this.passwords.new_password !== this.passwords.confirm_password) {
       this.txt = "Passwords do not match!";
       this.isError = true;
       return;
     }
-  
-    this.txt = "Password updated successfully! ✓";
-    this.isError = false;
-    
-    this.passwords = { current: '', new: '', confirm: '' };
-    console.log('Password updated successfully');
+
+    this.apiService.change_password(this.passwords).subscribe({
+      next: (res: any) => {
+        this.txt = "Password updated successfully! ✓";
+        this.isError = false;
+        this.passwords = { current_password: '', new_password: '', confirm_password: '' };
+        this.cdr.detectChanges();
+      },
+      error: (err:any) => {
+        this.txt = err.error.error || "Server error occurred!";
+        this.isError = true;
+        this.cdr.detectChanges();
+      }
+    });
   }
+
+ 
   cancelChanges() {
-    this.passwords = {
-      current: '',
-      new: '',
-      confirm: ''
-    };
-    
+    this.passwords = { current_password: '', new_password: '', confirm_password: '' };
     this.txt = '';
     this.isError = false;
-
-    console.log('Inputs cleared');
   }
+
 }

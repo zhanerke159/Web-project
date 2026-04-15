@@ -39,9 +39,9 @@ export class Header {
   onSearch(event: any) {
   const query = event.target.value;
   
-  this.apiService.searchRecipes({ title: query }).subscribe({
-    next: (data) => {
-      this.searchResults = data; 
+  this.apiService.searchRecipes(query).subscribe({
+    next: (data: any) => {
+      this.searchResults = data.recipes || data; 
       console.log('Данные получены:', this.searchResults);
     },
     error: (err) => console.error(err)
