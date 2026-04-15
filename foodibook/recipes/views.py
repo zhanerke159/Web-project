@@ -10,6 +10,9 @@ from .serializers import (
     ProductSerializers, CategorySerializers, RecipeSearchSerializer, 
     UserRegistrationSerializers
 )
+from django.contrib.auth import update_session_auth_hash 
+
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -44,20 +47,15 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def search_recipes(request):
-    serializer = RecipeSearchSerializer(data=request.query_params)
-    if serializer.is_valid():
-        filters = {}
-        if 'title' in serializer.validated_data:
-            filters['title__icontains'] = serializer.validated_data['title']
-        if 'category' in serializer.validated_data:
-            filters['category__name__icontains'] = serializer.validated_data['category']
-        if 'ingredient' in serializer.validated_data:
-            filters['ingredients__icontains'] = serializer.validated_data['ingredient']
-        if 'max_time' in serializer.validated_data:
-            filters['prep_time__lte'] = serializer.validated_data['max_time']
-        recipes = Recipe.objects.filter(**filters)
-        return Response({"recipes": [recipe.title for recipe in recipes]})
-    return Response(serializer.errors, status=400)
+    title = request.query_params.get('title', '')
+    query = request.query_params.get('title', '') 
+
+    products = Product.objects.filter(name__icontains=query)
+    
+    serializer = ProductSerializers(products, many=True)
+    
+    return Response(serializer.data)
+
 
 @api_view(['PUT'])
 def update_recipe(request, pk):
@@ -70,6 +68,10 @@ def update_recipe(request, pk):
         serializer.save() 
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -138,3 +140,23 @@ def create_recipe(request):
         serializer.save(author=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+    user = request.user
+    current_password = request.data.get("current_password")
+    new_password = request.data.get("new_password")
+
+    if not user.check_password(current_password):
+        return Response({'error': 'Старый пароль введен неправильно'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if new_password:
+        user.set_password(new_password) 
+        user.save()                     
+        update_session_auth_hash(request, user)
+        return Response({"message": "Пароль успешно изменен"}, status=200)
+
+    return Response({"error": "Новый пароль не указан"}, status=400)
