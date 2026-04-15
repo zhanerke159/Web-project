@@ -145,11 +145,9 @@ header {
     color: #333;
 }
 
-/* --- Обновленный блок поиска --- */
 
 .search-cont {
     position: relative;
-    /* Чтобы список прилип к инпуту */
     display: flex;
     align-items: center;
 }
@@ -158,7 +156,6 @@ header {
     background-color: white;
     border: none;
     border-radius: 25px;
-    /* Сделал более округлым под стиль .box */
     padding: 10px 20px;
     width: 400px;
     outline: none;

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
-  standalone:true,
+  standalone: true,
   imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
@@ -30,6 +30,7 @@ export class Header {
 
   searchResults: any[] = [];
   searchQuery: string = '';
+  searchError: string = '';
 
   constructor(
     private apiService: ApiService,
@@ -37,16 +38,25 @@ export class Header {
   ) { }
 
   onSearch(event: any) {
-  const query = event.target.value;
-  
-  this.apiService.searchRecipes(query).subscribe({
-    next: (data: any) => {
-      this.searchResults = data.recipes || data; 
-      console.log('Данные получены:', this.searchResults);
-    },
-    error: (err) => console.error(err)
-  });
-}
+    const query = event.target.value;
+    if (!query.trim()) {
+      this.searchResults = []; 
+      return;
+    }
+    this.apiService.searchRecipes(query).subscribe({
+      next: (data: any) => {
+        this.searchResults = data.recipes || data;
+        if (this.searchResults.length == 0) {
+          this.searchError = "Nothing was found."
+        }
+        console.log('Данные получены:', this.searchResults);
+      },
+      error: (err) => {
+        console.error(err);
+        this.searchError = "Error"
+      }
+    });
+  }
 
   goToRecipe(id: number) {
     this.router.navigate(['/recipe', id]);
@@ -55,11 +65,11 @@ export class Header {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('user_token'); 
+    return !!localStorage.getItem('user_token');
   }
 
   logout() {
-    localStorage.removeItem('user_token'); 
+    localStorage.removeItem('user_token');
     this.router.navigate(['/login']);
   }
 }

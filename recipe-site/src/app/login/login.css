@@ -100,7 +100,6 @@ input {
     border-left: #000 3px solid;
     position: relative;
     flex: 1;
-    /* Занимает оставшиеся 50% */
     height: 100vh;
     position: relative;
 
@@ -108,7 +107,6 @@ input {
     background-repeat: no-repeat;
 
     background-size: 100%;
-    /* Растягивает фото, чтобы оно заполнило весь блок */
     background-position: center;
 
 }
