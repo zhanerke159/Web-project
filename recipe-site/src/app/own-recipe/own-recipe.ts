@@ -50,6 +50,9 @@ export class OwnRecipeComponent {
     event.target.value = '';
   }
 
+  goHome() {
+    this.router.navigate(['/']);
+  }
   removePhoto(index: number): void {
     this.recipe.photos.splice(index, 1);
 
@@ -74,7 +77,7 @@ export class OwnRecipeComponent {
       category: Number(this.recipe.categoryId),
       ingredients: this.recipe.ingredients,
       prep_time: Number(this.recipe.prepTime) || 15,
-      instructions: this.recipe.steps.join('\n'), 
+      instructions: this.recipe.steps.join('\n'),
 
     };
 
@@ -87,5 +90,9 @@ export class OwnRecipeComponent {
         console.error('Check fields or terminal:', err);
       }
     });
+  }
+
+  trackByFn(index: number, item: any) {
+    return index;
   }
 }

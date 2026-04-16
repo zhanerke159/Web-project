@@ -16,23 +16,29 @@
         <div class="card-header">
           <h2 class="recipe-name">{{ recipe.name }}</h2>
           <div class="recipe-time" *ngIf="recipe?.time">
-  <svg class="time-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-    <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-  </svg>
-  <span>{{ recipe?.time }}</span>
-</div>
+            <svg class="time-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+              <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <span>{{ recipe?.time }}</span>
+          </div>
         </div>
         <p class="recipe-description">{{ recipe.description }}</p>
         <div class="card-buttons">
-          <button (click)="seeIngredients(recipe.id)" class="btn">See the ingredients</button>  
-          <button (click)="addToFavorites(recipe)" class="btn">Add to Favorites</button>
+          <button (click)="seeIngredients(recipe.id)" class="btn">See the ingredients</button>
+          <button type="button" (click)="toggleFavorite(recipe)" class="favorite-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              [attr.fill]="isFavorite(recipe) ? '#ff4757' : 'none'" [attr.stroke]="'#ff4757'" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" class="heart-icon">
+              <path
+                d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="filteredProducts.length === 0" class="no-products">
-    <p>No products found for "{{ categoryName }}".</p>
+    <div *ngIf="filteredProducts.length === 0" class="no-products">
+      <p>No products found for "{{ categoryName }}".</p>
+    </div>
   </div>
-</div>

@@ -40,7 +40,7 @@ export class Header {
   onSearch(event: any) {
     const query = event.target.value;
     if (!query.trim()) {
-      this.searchResults = []; 
+      this.searchResults = [];
       return;
     }
     this.apiService.searchRecipes(query).subscribe({

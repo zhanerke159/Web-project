@@ -101,17 +101,19 @@
 
 .card-buttons {
   display: flex;
-  gap: 8px;
+  gap: 80px;
   margin-top: auto;
+  justify-content: center;
 }
 
 .btn {
-  flex: 1;
-  background-color: transparent;
+  background-color: #eee786;
+  font-family: 'Darker Grotesque', sans-serif;
   border: 1.5px solid #000;
   border-radius: 20px;
   padding: 8px 2px;
-  font-size: 10px;
+  width:200px;
+  font-size: 18px;
   font-weight: 900;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -127,4 +129,15 @@
 }
 .btn:active {
   transform: translateY(-1px);
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.heart-icon {
+  transition: all 0.3s ease;
 }

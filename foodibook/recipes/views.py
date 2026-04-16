@@ -21,6 +21,16 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        category_id = self.request.query_params.get('category')
+
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+
+        return queryset
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
@@ -69,10 +79,6 @@ def update_recipe(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_user(request):
@@ -101,6 +107,24 @@ def add_to_favorites(request, pk):
         return Response({"error": "Продукт не найден в базе данных!"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['DELETE'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def remove_from_favorites(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+        user_profile = UserProfile.objects.get(user=request.user)
+        
+        if product in user_profile.favorites.all():
+            user_profile.favorites.remove(product)
+            return Response({"message": "Удалено из избранного"}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"error": "Продукта нет в избранном"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    except Product.DoesNotExist:
+        return Response({"error": "Продукт не найден"}, status=status.HTTP_404_NOT_FOUND)
+    
     
 @api_view(['GET', 'PATCH'])
 @authentication_classes([JWTAuthentication])

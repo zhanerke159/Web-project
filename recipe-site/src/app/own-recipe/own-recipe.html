@@ -1,3 +1,7 @@
+<div class="back">
+    <button (click)="goHome()"> ←Back to home</button>
+</div>
+
 <div class="overlay">
     <div class="main">
         <span class="t">
@@ -7,7 +11,7 @@
         <form #recipeForm="ngForm">
             <div class="form">
                 <label class="txt">Meal name:</label>
-                <input type="text" [(ngModel)]="recipe.name" name="foodName" class="styled-input"
+                <input type="text" [(ngModel)]="recipe.name" name="foodName" required class="styled-input"
                     placeholder="Enter name...">
             </div>
 
@@ -20,7 +24,7 @@
                     <div class="preview-container">
                         @for (photo of recipe.photos; track $index) {
                         <div class="preview-item">
-                            <img [src]="photo" alt="Recipe photo preview" class="preview-img">
+                            <img [src]="photo" alt="Recipe photo preview" class="preview-img" required>
                             <button type="button" class="remove-btn" (click)="removePhoto($index)">×</button>
                         </div>
                         }
@@ -45,16 +49,16 @@
 
             <div class="form">
                 <label class="txt">Description:</label>
-                <textarea [(ngModel)]="recipe.description" name="description" class="styled-input"
+                <textarea [(ngModel)]="recipe.description" name="description" class="styled-input" required
                     placeholder="Tell us a bit about this dish..." rows="3">
-                 </textarea>
+                    </textarea>
             </div>
 
 
             <label>Category</label>
             <div class="category">
 
-                <select class="category-list" [(ngModel)]="recipe.categoryId" name="categorySelect">
+                <select class="category-list" [(ngModel)]="recipe.categoryId" name="categorySelect" required>
                     <option value="" disabled selected>Choose the category..</option>
                     <option value="1">Fast-Food
                     </option>
@@ -81,7 +85,7 @@
 
             <div class="form">
                 <label class="txt">Cooking time (minutes):</label>
-                <input type="number" [(ngModel)]="recipe.prepTime" name="prepTime" class="styled-input"
+                <input type="number" [(ngModel)]="recipe.prepTime" name="prepTime" class="styled-input" required
                     placeholder="e.g. 30">
             </div>
 
@@ -89,11 +93,10 @@
             <div class="steps-container">
                 <h3>Cooking steps</h3>
                 <div class="step-card">
-                    <div class="step-item" *ngFor="let step of recipe.steps; let i = index"
-                        style="margin-bottom: 15px;">
+                    <div class="step-item" *ngFor="let step of recipe.steps; let i = index; trackBy: trackByFn" style="margin-bottom: 15px;">
                         <label>Step {{ i + 1 }}:</label>
                         <div class="step-input-wrapper">
-                            <input type="text" [(ngModel)]="recipe.steps[i]" name="step{{i}}"
+                            <input type="text" [(ngModel)]="recipe.steps[i]" name="step{{i}}" required
                                 placeholder="Describe this step...">
 
                             <button *ngIf="recipe.steps.length > 1" type="button" class="delete"
@@ -102,16 +105,15 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="add-btn-div">
-                        <button type="button" class="add-btn" (click)="addStep()">+</button>
-                    </div>
+                <div class="add-btn-div">
+                    <button type="button" class="add-btn" (click)="addStep()">+</button>
                 </div>
             </div>
-        </form>
-
-        <div class="save-btn">
-            <button type="submit" class="save" (click)="saveRecipe()">Save</button>
-        </div>
     </div>
+    </form>
+
+    <div class="save-btn">
+        <button type="submit" class="save" (click)="saveRecipe()" [disabled]="recipeForm.invalid">Save</button>
+    </div>
+</div>
 </div>

@@ -338,30 +338,73 @@ h3 {
     border: 1px solid #ccc;
     border-radius: 25px;
     appearance: none;
-    background-color:#E8E9EA;
+    background-color: #E8E9EA;
     cursor: pointer;
     font-family: 'Darker Grotesque', sans-serif;
     font-size: 20px;
 }
 
-.category-list option{
+.category-list option {
     font-weight: 600;
 }
+
 .category {
     position: relative;
 }
+
 .category::after {
     content: '▼';
     font-size: 12px;
     position: absolute;
     right: 25px;
-    top: 20px; /* Отрегулируйте в зависимости от высоты label */
+    top: 20px;
     pointer-events: none;
     color: #888;
 }
 
-.styled-input{
+.styled-input {
     font-family: 'Darker Grotesque', sans-serif;
     font-size: 20px;
     border-radius: 10px;
+}
+
+.back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+}
+
+.back button {
+    background: #f8f8f8;
+    border: 2px #e6c519 solid;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Days One';
+
+}
+
+.back button:hover {
+    background-color: #e6c519;
+    transition: 0.2s;
+}
+
+
+.styled-input.invalid {
+    border: 2px solid #e74c3c !important;
+}
+
+.error-hint {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.save:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    box-shadow: none;
 }

@@ -20,11 +20,11 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from recipes.views import CategoryViewSet, ProductViewSet, RecipeViewSet, ReviewViewSet, UserProfileViewSet, create_recipe
 from rest_framework_simplejwt import views as jwt_views
-from recipes.views import search_recipes, add_to_favorites, get_my_profile, change_password
+from recipes.views import search_recipes, add_to_favorites, get_my_profile, change_password, remove_from_favorites
 
 router = DefaultRouter()
 router.register(r'category', CategoryViewSet)
-router.register(r'products', ProductViewSet)
+router.register(r'products', ProductViewSet, basename='products')
 router.register(r'review', ReviewViewSet)
 router.register(r'recipes', RecipeViewSet)
 router.register(r'user', UserProfileViewSet)
@@ -40,6 +40,7 @@ urlpatterns = [
     path('api/register/', register_user, name='register'),
     path('api/user/me/', get_my_profile, name='my_profile'),
     path('api/favorite/<int:pk>/', add_to_favorites, name='add_favorite'),
+    path('api/favorite-remove/<int:pk>/', remove_from_favorites, name='remove_favorite'),
     path('api/user/change-password/', change_password, name='change_password'),
 
     path('api/', include(router.urls)), 
