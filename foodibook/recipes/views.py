@@ -83,14 +83,36 @@ def update_recipe(request, pk):
 @permission_classes([AllowAny])
 def register_user(request):
     serializer = UserRegistrationSerializers(data=request.data)
+
     if serializer.is_valid():
+        username = serializer.validated_data['username']
+        email = serializer.validated_data['email']
+
+        if User.objects.filter(username=username).exists():
+            return Response(
+                {"error": "Username already exists."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if User.objects.filter(email=email).exists():
+            return Response(
+                {"error": "Email already exists."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         user = User.objects.create_user(
-            username=serializer.validated_data['username'],
-            email=serializer.validated_data['email'],
+            username=username,
+            email=email,
             password=serializer.validated_data['password']
         )
-        return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+
+        return Response(
+            {"message": "User created successfully"},
+            status=status.HTTP_201_CREATED
+        )
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])

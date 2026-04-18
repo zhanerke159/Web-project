@@ -83,7 +83,7 @@ export class OwnRecipeComponent {
 
     this.apiService.createRecipe(newRecipe).subscribe({
       next: (res) => {
-        alert('Recipe created successfully!');
+        console.log('Receipt created successfully');
         this.router.navigate(['/account']);
       },
       error: (err) => {

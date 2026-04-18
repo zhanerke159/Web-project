@@ -18,6 +18,8 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
+  
+    txt: string = '';
 
   onLogin() {
     this.authService.login(this.loginData).subscribe({
@@ -28,7 +30,7 @@ export class LoginComponent {
       },
       error: (err) => {
         console.error('Ошибка входа:', err);
-        alert('Неверный логин или пароль');
+        this.txt = 'Invalid username or password';
       }
     });
   }

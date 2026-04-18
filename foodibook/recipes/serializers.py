@@ -8,16 +8,16 @@ class CategorySerializers(serializers.ModelSerializer):
 
 
 class ProductSerializers(serializers.ModelSerializer):
+    author_name = serializers.CharField(source='author.username', read_only=True)
     class Meta:
         model = Product
-        fields = ['id', 'name', 'description', 'category', 'image']
+        fields = ['id', 'name', 'description', 'category', 'image', 'time','author', 'author_name']
 
 class RecipeSerializers(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = ['id', 'title', 'image', 'description', 'category', 'ingredients', 'prep_time', 'instructions']
 
-        read_only_fields = ['author']
 
 class ReviewSerializers(serializers.ModelSerializer):
     class Meta:

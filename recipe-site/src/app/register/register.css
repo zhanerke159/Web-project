@@ -105,7 +105,7 @@ input {
     font-family: 'Darker Grotesque', sans-serif;
     font-weight: bold;
     background-color: #FCD81B;
-
+    cursor: pointer;
 }
 
 .or {
@@ -127,4 +127,5 @@ input {
     border-radius: 25px;
     background-color: #FCD81B;
     text-align: center;
+    cursor: pointer;
 }

@@ -28,6 +28,8 @@ class Product(models.Model):
     description = models.TextField()
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     image = models.CharField(max_length=500, blank=True, null=True)
+    time = models.IntegerField(blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name

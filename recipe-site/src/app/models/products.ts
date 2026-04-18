@@ -4,5 +4,7 @@ export interface Products{
     description: string;
     category: number;
     image: string;
-    time?: string;
+    time?: number|null;
+    author: number | null;
+    author_name?: string;
 }

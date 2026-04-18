@@ -20,10 +20,13 @@
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
               <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
             </svg>
-            <span>{{ recipe?.time }}</span>
+            <span>{{ recipe?.time }} min</span>
           </div>
         </div>
         <p class="recipe-description">{{ recipe.description }}</p>
+        <p class="chef-name" *ngIf="recipe.author_name">
+          Chef: {{ recipe.author_name }}
+        </p>
         <div class="card-buttons">
           <button (click)="seeIngredients(recipe.id)" class="btn">See the ingredients</button>
           <button type="button" (click)="toggleFavorite(recipe)" class="favorite-btn">

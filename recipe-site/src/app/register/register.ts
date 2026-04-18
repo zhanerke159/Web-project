@@ -30,14 +30,27 @@ export class RegisterComponent {
       confirm_password: this.userForm.password
     };
 
+    const loginData = {
+      username: this.userForm.email,
+      password: this.userForm.password
+    };
+
     this.authService.register(registerData).subscribe({
-      next: (response: any) => {
-        console.log('Пользователь создан!', response);
+      next: () => {
+        console.log('Пользователь создан!');
 
-        localStorage.setItem('user_token', response.token || 'true');
+        this.authService.login(loginData).subscribe({
+          next: (loginResponse: any) => {
+            console.log('Вход выполнен!', loginResponse);
 
-       
-        this.router.navigate(['/']);
+            localStorage.setItem('user_token', loginResponse.access);
+
+            this.router.navigate(['/personal-info']);
+          },
+          error: (err) => {
+            console.error('Ошибка логина:', err);
+          }
+        });
       },
       error: (err) => {
         console.error('Ошибка регистрации:', err);

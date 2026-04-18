@@ -11,14 +11,15 @@ import { StepsComponent } from './steps/steps';
 import { PersonalComponent } from './personal/personal';
 import { PasswordComponent } from './password/password';
 import { LogoutComponent } from './logout/logout';
+import { AuthGuard } from './authGuard/authGuard';
 
 export const routes: Routes = [{
     path: '', component: HomeComponent},
-    {path: 'account', component: AccountComponent},
+    {path: 'account', component: AccountComponent, canActivate: [AuthGuard]},
     {path: 'category', component: CategoryComponent},
     { path: 'category/:name', component: CategoryComponent },
     {path: 'own-recipe', component: OwnRecipeComponent},
-    {path: 'popular-recipe', component: PopularRecipesComponent},
+    {path: 'popular-recipe', component: PopularRecipesComponent, canActivate: [AuthGuard]},
     {path: 'recipe/:name', component: RecipeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},

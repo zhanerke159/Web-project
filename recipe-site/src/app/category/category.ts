@@ -6,6 +6,7 @@ import { Products } from '../models/products';
 import { Category } from '../models/category';
 import { ApiService } from '../services/recipe';
 import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -31,7 +32,8 @@ export class CategoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   seeIngredients(id: number) {
@@ -42,7 +44,12 @@ export class CategoryComponent implements OnInit {
   toggleFavorite(recipe: any) {
     const recipeId = Number(recipe.id);
     const isFav = this.isFavorite(recipe);
+    const token = localStorage.getItem('user_token');
 
+    if (!token) {
+      this.router.navigate(['/register']);
+      return;
+    }
     if (isFav) {
       this.apiService.removeFromFavorites(recipeId).subscribe({
         next: () => {
@@ -104,11 +111,11 @@ export class CategoryComponent implements OnInit {
         this.apiService.getProductsByCategory(foundCategory.id).subscribe({
           next: (data) => {
             this.filteredProducts = data;
-            this.cdr.detectChanges(); // 🔥 добавить
+            this.cdr.detectChanges();
             console.log('filteredProducts:', this.filteredProducts);
             console.log('Найдено продуктов:', this.filteredProducts.length);
           },
-          error: (err) => console.error(err)
+          error: (err) => console.error('CATEGORY ERROR:', err)
         });
 
       } else {

@@ -16,7 +16,6 @@ import { ChangeDetectorRef } from '@angular/core';
 export class AccountComponent implements OnInit {
   isLogoutOpen: boolean = false;
 
-  // 1. Обязательно добавь firstName сюда, чтобы TS его знал
   userFields: any = {
     username: 'Chef',
     firstName: '',
@@ -46,7 +45,6 @@ export class AccountComponent implements OnInit {
       }
     }
 
-    // 2. Вызываем метод загрузки данных с сервера
     this.loadUserData();
   }
 

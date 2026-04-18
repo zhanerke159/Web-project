@@ -15,11 +15,15 @@ export class ApiService {
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('user_token');
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-  }
 
+    if (token) {
+      return new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      });
+    }
+
+    return new HttpHeaders();
+  }
   getRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.baseUrl}/recipes/`);
   }
@@ -52,6 +56,14 @@ export class ApiService {
     return this.http.post<Review>(`${this.baseUrl}/reviews/`, review, {
       headers: this.getHeaders()
     });
+  }
+
+  register(data: any) {
+    return this.http.post('http://127.0.0.1:8000/api/register/', data);
+  }
+
+  login(data: any) {
+    return this.http.post('http://127.0.0.1:8000/api/token/', data);
   }
 
   createRecipe(recipeData: any): Observable<any> {
