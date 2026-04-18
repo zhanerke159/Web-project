@@ -8,10 +8,18 @@ class CategorySerializers(serializers.ModelSerializer):
 
 
 class ProductSerializers(serializers.ModelSerializer):
-    author_name = serializers.CharField(source='author.username', read_only=True)
+    author_name = serializers.SerializerMethodField()
+    def get_author_name(self, obj):
+        profile = getattr(obj.author, 'userprofile', None)
+
+        if profile and profile.user_name:
+            return profile.user_name
+
+        return obj.author.username
     class Meta:
         model = Product
         fields = ['id', 'name', 'description', 'category', 'image', 'time','author', 'author_name']
+
 
 class RecipeSerializers(serializers.ModelSerializer):
     class Meta:
