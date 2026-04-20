@@ -10,13 +10,14 @@
     border-right: #000 3px solid;
 }
 
-.image{
+.image {
     display: flex;
     justify-content: center;
     margin-top: -155px;
 }
-.ingredients-image{
-    width:100%;
+
+.ingredients-image {
+    width: 100%;
     height: 100%;
     mix-blend-mode: multiply;
     object-fit: cover;
@@ -106,6 +107,13 @@ input {
     font-weight: bold;
     background-color: #FCD81B;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submit:hover {
+    background-color: #000000;
+    color: #FCD81B;
 }
 
 .or {
@@ -113,11 +121,13 @@ input {
     font-size: 20px;
     margin-top: 1px;
     font-weight: 700;
+
 }
 
 .s {
     margin-top: -15px;
 }
+
 .signin {
     font-family: 'Darker Grotesque', sans-serif;
     font-size: 20px;
@@ -128,4 +138,16 @@ input {
     background-color: #FCD81B;
     text-align: center;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+}
+
+.signin a{
+    text-decoration: none;
+    color: inherit;
+}
+.signin:hover {
+    background-color: #000000;
+    color: #FCD81B;
 }

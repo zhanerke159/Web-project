@@ -24,6 +24,7 @@ export class ApiService {
 
     return new HttpHeaders();
   }
+
   getRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.baseUrl}/recipes/`);
   }
@@ -45,25 +46,25 @@ export class ApiService {
   }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.baseUrl}/categories/`);
+    return this.http.get<Category[]>(`${this.baseUrl}/category/`);
   }
 
   getReviews(): Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.baseUrl}/reviews/`);
+    return this.http.get<Review[]>(`${this.baseUrl}/review/`);
   }
 
   createReview(review: Review): Observable<Review> {
-    return this.http.post<Review>(`${this.baseUrl}/reviews/`, review, {
+    return this.http.post<Review>(`${this.baseUrl}/review/`, review, {
       headers: this.getHeaders()
     });
   }
 
   register(data: any) {
-    return this.http.post('http://127.0.0.1:8000/api/register/', data);
+    return this.http.post(`${this.baseUrl}/register/`, data);
   }
 
   login(data: any) {
-    return this.http.post('http://127.0.0.1:8000/api/token/', data);
+    return this.http.post(`${this.baseUrl}/token/`, data);
   }
 
   createRecipe(recipeData: any): Observable<any> {
@@ -116,6 +117,13 @@ export class ApiService {
 
   removeFromFavorites(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/favorite-remove/${id}/`, {
+      headers: this.getHeaders()
+    });
+  }
+
+
+  deleteRecipe(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/recipes/${id}/`, {
       headers: this.getHeaders()
     });
   }

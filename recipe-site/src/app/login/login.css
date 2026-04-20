@@ -31,7 +31,7 @@
     font-size: 20px;
     font-weight: 600;
     color: #000;
-    
+
 }
 
 
@@ -93,6 +93,13 @@ input {
     font-weight: bold;
     background-color: #FCD81B;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submit:hover {
+    background-color: #000000;
+    color: #FCD81B;
 }
 
 .right {

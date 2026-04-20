@@ -5,6 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LogoutComponent } from '../logout/logout';
 import { ApiService } from '../services/recipe';
 import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -29,7 +30,8 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class AccountComponent implements OnInit {
         this.userFields.username = data.username;
 
         if (data.profile && data.profile.user_name) {
-          this.userFields.username = data.profile.user_name; 
+          this.userFields.username = data.profile.user_name;
           this.userFields.firstName = data.profile.user_name;
         }
 
@@ -63,6 +65,50 @@ export class AccountComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err: any) => console.error('Error:', err)
+    });
+  }
+
+  removeFavorite(recipe: any) {
+    const token = localStorage.getItem('user_token');
+
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+
+    this.apiService.removeFromFavorites(recipe.id).subscribe({
+      next: () => {
+        console.log('Удалено из избранного');
+        this.loadUserData();
+
+        this.favorites = this.favorites.filter(
+          (item) => item.id !== recipe.id
+        );
+      },
+      error: (err) => console.error('Ошибка удаления', err)
+    });
+  }
+
+  removeMyRecipe(recipe: any) {
+    const token = localStorage.getItem('user_token');
+
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.apiService.deleteRecipe(recipe.id).subscribe({
+      next: () => {
+        console.log('Recipe deleted');
+
+        this.myRecipes = this.myRecipes.filter(
+          (item) => item.id !== recipe.id
+        );
+
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error deleting recipe', err)
     });
   }
 }

@@ -9,16 +9,21 @@ class CategorySerializers(serializers.ModelSerializer):
 
 class ProductSerializers(serializers.ModelSerializer):
     author_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'description', 'category', 'image', 'time', 'author', 'author_name']
+
     def get_author_name(self, obj):
+        if not obj.author:
+            return 'Unknown chef'
+
         profile = getattr(obj.author, 'userprofile', None)
 
         if profile and profile.user_name:
             return profile.user_name
 
         return obj.author.username
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'category', 'image', 'time','author', 'author_name']
 
 
 class RecipeSerializers(serializers.ModelSerializer):

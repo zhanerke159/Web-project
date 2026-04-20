@@ -24,9 +24,9 @@ export class CategoryComponent implements OnInit {
     { id: 1, name: 'fast-food' },
     { id: 2, name: 'desserts' },
     { id: 3, name: 'drinks' },
-    { id: 4, name: 'salads' },
+    { id: 4, name: 'Salads' },
     { id: 5, name: 'main dishes' },
-    { id: 6, name: 'chinese cuisine' }
+    { id: 6, name: 'Chinese cuisine' }
   ];
 
   constructor(
