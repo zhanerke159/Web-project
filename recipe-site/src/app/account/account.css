@@ -427,3 +427,15 @@
   color: #CCCCCC;
   user-select: none;
 }
+
+.recipe-rating {
+  margin: 8px 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+.recipe-rating span {
+  color: #777;
+  font-weight: 500;
+}

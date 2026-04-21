@@ -3,12 +3,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/recipe';
 
 @Component({
   selector: 'app-recipe',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './recipe.html',
   styleUrl: './recipe.css'
 })
@@ -18,14 +19,22 @@ export class RecipeComponent implements OnInit {
   selectedIngredients: Set<number> = new Set();
   loading: boolean = true;
   categorySlug: string = '';
+  categoryIdFromQuery: string = '';
+
+  reviews: any[] = [];
+  averageRating: number = 0;
+  showReviewForm: boolean = false;
+
+  newReview = {
+    rating: 5,
+    comment: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
     private cdr: ChangeDetectorRef
   ) { }
-
-  categoryIdFromQuery: string = '';
 
   ngOnInit() {
     this.route.params.pipe(
@@ -45,8 +54,6 @@ export class RecipeComponent implements OnInit {
 
         return this.apiService.getProduct(productId).pipe(
           switchMap(product => {
-            console.log('PRODUCT:', product);
-
             if (!product?.recipe) {
               console.error('This product has no linked recipe');
               this.loading = false;
@@ -56,8 +63,6 @@ export class RecipeComponent implements OnInit {
 
             return this.apiService.getRecipe(product.recipe).pipe(
               switchMap(recipeData => {
-                console.log('RECIPE DATA:', recipeData);
-
                 let ingredients: any[] = [];
                 let instructions: any[] = [];
 
@@ -66,14 +71,27 @@ export class RecipeComponent implements OnInit {
                 } else if (typeof recipeData.ingredients === 'string') {
                   try {
                     const parsed = JSON.parse(recipeData.ingredients);
-                    ingredients = Array.isArray(parsed) ? parsed : [];
+
+                    if (Array.isArray(parsed)) {
+                      ingredients = parsed;
+                    } else {
+                      ingredients = recipeData.ingredients
+                        .split('\n')
+                        .map((line: string) => line.trim())
+                        .filter((line: string) => line.length > 0)
+                        .map((line: string) => ({
+                          name: line,
+                          amount: 0,
+                          unit: ''
+                        }));
+                    }
                   } catch {
                     ingredients = recipeData.ingredients
-                      .split(',')
-                      .map((item: string) => item.trim())
-                      .filter((item: string) => item.length > 0)
-                      .map((item: string) => ({
-                        name: item,
+                      .split('\n')
+                      .map((line: string) => line.trim())
+                      .filter((line: string) => line.length > 0)
+                      .map((line: string) => ({
+                        name: line,
                         amount: 0,
                         unit: ''
                       }));
@@ -96,7 +114,8 @@ export class RecipeComponent implements OnInit {
                   categoryName: product.categoryName || product.category_name || '',
                   time: recipeData.prep_time || product.time || 'No time',
                   ingredients,
-                  instructions
+                  instructions,
+                  productId: product.id
                 };
 
                 return of(normalizedRecipe);
@@ -115,12 +134,14 @@ export class RecipeComponent implements OnInit {
 
         this.recipe = normalizedRecipe;
 
-        const fromCategory = this.route.snapshot.queryParamMap.get('fromCategory');
-
         const fromCategoryId = this.route.snapshot.queryParamMap.get('fromCategoryId');
         this.categoryIdFromQuery = fromCategoryId || '';
 
-        console.log('categorySlug:', this.categorySlug);
+        this.categorySlug = (this.recipe.categoryName || '')
+          .toLowerCase()
+          .replaceAll(' ', '-');
+
+        this.loadReviews();
 
         this.loading = false;
         this.cdr.detectChanges();
@@ -139,14 +160,56 @@ export class RecipeComponent implements OnInit {
     });
   }
 
+  loadReviews() {
+    this.apiService.getReviews().subscribe({
+      next: (data: any[]) => {
+        this.reviews = data.filter(review => review.recipe === this.recipe.id);
+
+        if (this.reviews.length > 0) {
+          const total = this.reviews.reduce((sum, review) => sum + review.rating, 0);
+          this.averageRating = +(total / this.reviews.length).toFixed(1);
+        } else {
+          this.averageRating = 0;
+        }
+
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error loading reviews:', err);
+      }
+    });
+  }
+
+  submitReview() {
+    if (!this.recipe?.id) return;
+
+    const reviewPayload = {
+      recipe: this.recipe.id,
+      rating: this.newReview.rating,
+      comment: this.newReview.comment
+    };
+
+    this.apiService.createReview(reviewPayload).subscribe({
+      next: () => {
+        this.newReview = {
+          rating: 5,
+          comment: ''
+        };
+        this.showReviewForm = false;
+        this.loadReviews();
+      },
+      error: (err) => {
+        console.error('Error creating review:', err);
+      }
+    });
+  }
+
   plus() {
     this.serves++;
   }
 
   minus() {
-    if (this.serves > 1) {
-      this.serves--;
-    }
+    if (this.serves > 1) this.serves--;
   }
 
   toggleIngredient(index: number) {

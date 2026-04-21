@@ -34,6 +34,13 @@
           Chef: {{ recipe.author_name }}
         </p>
 
+        <div class="recipe-rating" *ngIf="recipe.average_rating > 0; else noRating">
+          <i class="fa-solid fa-star star"></i> {{ recipe.average_rating }} <span>({{ recipe.reviews_count }})</span>
+        </div>
+
+        <ng-template #noRating>
+          <div class="recipe-rating">No rating yet</div>
+        </ng-template>
         <div class="card-buttons">
           <button (click)="seeIngredients(recipe.id)" class="btn">
             See the ingredients

@@ -54,11 +54,13 @@ export class ApiService {
   }
 
   getReviews(): Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.baseUrl}/review/`);
+    return this.http.get<Review[]>(`${this.baseUrl}/review/`, {
+      headers: this.getHeaders()
+    });
   }
 
-  createReview(review: Review): Observable<Review> {
-    return this.http.post<Review>(`${this.baseUrl}/review/`, review, {
+  createReview(review: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/review/`, review, {
       headers: this.getHeaders()
     });
   }
