@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Header } from '../header/header';
+import { ApiService } from '../services/recipe';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentSlideIndex = 0;
   private slideInterval: any;
 
+  popularRecipes: any[] = [];
+
   categories = [
     { id: 1, name: 'Fast Food', image: 'https://i.pinimg.com/736x/72/6a/57/726a57da3fb47a280dc1131790848fc9.jpg' },
     { id: 2, name: 'Desserts', image: 'https://i.pinimg.com/736x/4b/b9/8b/4bb98b8eb28c027087aad8b164ae3b03.jpg' },
@@ -25,6 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     { id: 5, name: 'Main dishes', image: 'https://i.pinimg.com/736x/2e/ef/c2/2eefc20ea967eb58909a1864beebed27.jpg' },
     { id: 6, name: 'Chinese cuisine', image: 'https://i.pinimg.com/736x/09/08/b7/0908b72c952b9a1c6399a1a29bafe36f.jpg' }
   ];
+
   slides = [
     'https://t3.ftcdn.net/jpg/07/09/78/76/360_F_709787664_mkpcdGMyquDqROLcXev1buwXmzor2XDK.jpg',
     'https://i.pinimg.com/1200x/89/7f/f0/897ff0ef441e38e9192d4d0e93f1cebc.jpg',
@@ -32,8 +36,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     'https://i.pinimg.com/1200x/61/2a/8f/612a8ff49ee0d75ee1b72a34278c98a2.jpg'
   ];
 
+  constructor(private apiService: ApiService) { }
+
   ngOnInit(): void {
     this.startAutoSlide();
+    this.loadPopularRecipes();
+  }
+
+  loadPopularRecipes(): void {
+    this.apiService.getPopularProducts().subscribe({
+      next: (data) => {
+        console.log('POPULAR DATA:', data);
+        this.popularRecipes = data;
+      },
+      error: (err) => {
+        console.error('Popular recipes load error:', err);
+      }
+    });
   }
 
   startAutoSlide(): void {
@@ -53,7 +72,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       this.stopAutoSlide();
     }
-
   }
 
   prevSlide(): void {
@@ -62,11 +80,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.resetAutoSlide();
     }
   }
+
   stopAutoSlide(): void {
     if (this.slideInterval) {
       clearInterval(this.slideInterval);
     }
   }
+
   goToSlide(index: number): void {
     this.currentSlideIndex = index;
     this.resetAutoSlide();
@@ -82,7 +102,4 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.resetAutoSlide();
     }
   }
-
-
-
 }

@@ -16,6 +16,14 @@
   overflow: hidden;
 }
 
+.popular-rating {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5d000;
+  text-align: center;
+}
+
 .slides {
   display: flex;
   width: 100%;

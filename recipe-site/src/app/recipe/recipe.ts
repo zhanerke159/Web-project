@@ -63,62 +63,68 @@ export class RecipeComponent implements OnInit {
 
             return this.apiService.getRecipe(product.recipe).pipe(
               switchMap(recipeData => {
-                let ingredients: any[] = [];
-                let instructions: any[] = [];
+                return this.apiService.getCategories().pipe(
+                  switchMap(categories => {
+                    let ingredients: any[] = [];
+                    let instructions: any[] = [];
 
-                if (Array.isArray(recipeData.ingredients)) {
-                  ingredients = recipeData.ingredients;
-                } else if (typeof recipeData.ingredients === 'string') {
-                  try {
-                    const parsed = JSON.parse(recipeData.ingredients);
+                    if (Array.isArray(recipeData.ingredients)) {
+                      ingredients = recipeData.ingredients;
+                    } else if (typeof recipeData.ingredients === 'string') {
+                      try {
+                        const parsed = JSON.parse(recipeData.ingredients);
 
-                    if (Array.isArray(parsed)) {
-                      ingredients = parsed;
-                    } else {
-                      ingredients = recipeData.ingredients
-                        .split('\n')
-                        .map((line: string) => line.trim())
-                        .filter((line: string) => line.length > 0)
-                        .map((line: string) => ({
-                          name: line,
-                          amount: 0,
-                          unit: ''
-                        }));
+                        if (Array.isArray(parsed)) {
+                          ingredients = parsed;
+                        } else {
+                          ingredients = recipeData.ingredients
+                            .split('\n')
+                            .map((line: string) => line.trim())
+                            .filter((line: string) => line.length > 0)
+                            .map((line: string) => ({
+                              name: line,
+                              amount: 0,
+                              unit: ''
+                            }));
+                        }
+                      } catch {
+                        ingredients = recipeData.ingredients
+                          .split('\n')
+                          .map((line: string) => line.trim())
+                          .filter((line: string) => line.length > 0)
+                          .map((line: string) => ({
+                            name: line,
+                            amount: 0,
+                            unit: ''
+                          }));
+                      }
                     }
-                  } catch {
-                    ingredients = recipeData.ingredients
-                      .split('\n')
-                      .map((line: string) => line.trim())
-                      .filter((line: string) => line.length > 0)
-                      .map((line: string) => ({
-                        name: line,
-                        amount: 0,
-                        unit: ''
-                      }));
-                  }
-                }
 
-                if (typeof recipeData.instructions === 'string') {
-                  instructions = recipeData.instructions
-                    .split(/\n(?=\d+\.)|\n\s*\n/)
-                    .map((step: string) => step.trim())
-                    .filter((step: string) => step.length > 0)
-                    .map((step: string) => ({ description: step }));
-                } else if (Array.isArray(recipeData.instructions)) {
-                  instructions = recipeData.instructions;
-                }
+                    if (typeof recipeData.instructions === 'string') {
+                      instructions = recipeData.instructions
+                        .split(/\n(?=\d+\.)|\n\s*\n/)
+                        .map((step: string) => step.trim())
+                        .filter((step: string) => step.length > 0)
+                        .map((step: string) => ({ description: step }));
+                    } else if (Array.isArray(recipeData.instructions)) {
+                      instructions = recipeData.instructions;
+                    }
 
-                const normalizedRecipe = {
-                  ...recipeData,
-                  name: recipeData.title || 'No name',
-                  categoryName: product.categoryName || product.category_name || '',
-                  time: recipeData.prep_time || product.time || 'No time',
-                  ingredients,
-                  instructions,
-                  productId: product.id
-                };
+                    const foundCategory = categories.find((cat: any) => cat.id === product.category);
 
-                return of(normalizedRecipe);
+                    const normalizedRecipe = {
+                      ...recipeData,
+                      name: recipeData.title || 'No name',
+                      categoryName: foundCategory ? foundCategory.name : 'No category',
+                      time: recipeData.prep_time || product.time || 'No time',
+                      ingredients,
+                      instructions,
+                      productId: product.id
+                    };
+
+                    return of(normalizedRecipe);
+                  })
+                );
               })
             );
           })
