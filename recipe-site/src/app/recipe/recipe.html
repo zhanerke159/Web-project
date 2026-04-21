@@ -66,21 +66,69 @@
                 </div>
 
                 <ul class="ingredients-list">
-                    <li *ngFor="let ing of recipe.ingredients || []; let i = index" [class.selected]="isSelected(i)"
+                    <li *ngFor="let ing of (recipe.ingredients || []); let i = index" [class.selected]="isSelected(i)"
                         (click)="toggleIngredient(i)">
-                        <input type="checkbox" [checked]="isSelected(i)" class="ingredient-checkbox" readonly />
+
+                        <input type="checkbox" [checked]="isSelected(i)" class="ingredient-checkbox" readonly>
 
                         <span class="ingredient-name">
-                            {{ ing.name || ing || 'Unnamed ingredient' }}
+                            {{ ing.name || 'Unnamed ingredient' }}
                         </span>
 
                         <span class="ingredient-amount">
-                            {{ ing.amount != null ? ing.amount * serves : '' }}
-                            {{ ing.unit || '' }}
+                            {{ ing.amount ? ing.amount * serves : '' }} {{ ing.unit || '' }}
                         </span>
                     </li>
                 </ul>
             </div>
+            <div class="rating-summary">
+                <span class="rating-stars">⭐ {{ averageRating || 0 }}</span>
+                <span class="rating-count">({{ reviews.length }} reviews)</span>
+
+                <button class="rate-btn" type="button" (click)="showReviewForm = !showReviewForm">
+                    {{ showReviewForm ? 'Hide review form' : 'Rate this recipe' }}
+                </button>
+            </div>
+
+
+            <div class="review-form" *ngIf="showReviewForm">
+                <h3>Leave a review</h3>
+
+                <label for="rating">Rating:</label>
+                <select id="rating" [(ngModel)]="newReview.rating">
+                    <option [value]="5">5</option>
+                    <option [value]="4">4</option>
+                    <option [value]="3">3</option>
+                    <option [value]="2">2</option>
+                    <option [value]="1">1</option>
+                </select>
+
+                <label for="comment">Comment:</label>
+                <textarea id="comment" [(ngModel)]="newReview.comment" rows="4"
+                    placeholder="Write your thoughts..."></textarea>
+
+                <button type="button" class="submit-review-btn" (click)="submitReview()">
+                    Submit review
+                </button>
+            </div>
+            <div class="reviews-section">
+                <h3>Reviews</h3>
+
+                <div *ngIf="reviews.length === 0" class="no-reviews">
+                    No reviews yet.
+                </div>
+
+                <div *ngFor="let review of reviews" class="review-card">
+                    <div class="review-top">
+                        <span class="review-rating">⭐ {{ review.rating }}</span>
+                        <span class="review-user">{{ review.username }}</span>
+                        <span class="review-date">{{ review.created_at | date:'mediumDate' }}</span>
+                    </div>
+
+                    <p class="review-comment">{{ review.comment || 'No comment' }}</p>
+                </div>
+            </div>
         </aside>
+
     </div>
 </div>

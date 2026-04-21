@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../services/recipe';
 import { Header } from '../header/header';
 
+
 @Component({
   selector: 'app-category',
   standalone: true,
@@ -103,11 +104,17 @@ export class CategoryComponent implements OnInit {
   }
 
   toggleFavorite(recipe: any) {
+    const token = localStorage.getItem('user_token');
+
+    if (!token) {
+      this.router.navigate(['/register']);
+      return;
+    }
+
     if (this.isFavorite(recipe)) {
       this.apiService.removeFromFavorites(recipe.id).subscribe({
         next: () => {
           this.favorites = this.favorites.filter((fav: any) => fav.id !== recipe.id);
-          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Remove favorite error:', err);
@@ -117,7 +124,6 @@ export class CategoryComponent implements OnInit {
       this.apiService.addToFavorites(recipe.id).subscribe({
         next: () => {
           this.favorites.push(recipe);
-          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Add favorite error:', err);
