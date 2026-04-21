@@ -138,4 +138,8 @@ export class ApiService {
       headers: this.getHeaders()
     });
   }
+
+  getPopularProducts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/products/popular/`);
+  }
 }

@@ -26,7 +26,6 @@
 
 
 
-
 <section class="txt">
   <div class="line"></div>
   <h1 class="title">Popular Recipes</h1>
@@ -34,39 +33,15 @@
 </section>
 
 <div class="pop-rec">
-  <div class="category-item" [routerLink]="['/recipe', 'pizza']">
+  <div class="category-item" *ngFor="let recipe of popularRecipes" [routerLink]="['/recipe', recipe.id]">
     <div class="circle-img">
-      <img src="https://i.pinimg.com/736x/37/b6/60/37b660cb40988dda83c8d345f62c83da.jpg" alt="pizza">
+      <img [src]="recipe.image" [alt]="recipe.name">
     </div>
-    <span>pizza</span>
-  </div>
+    <span>{{ recipe.name }}</span>
 
-  <div class="category-item" [routerLink]="['/recipe', 'ceasar']">
-    <div class="circle-img">
-      <img src="https://i.pinimg.com/1200x/21/b7/90/21b790f325afe3e574ccf65783f1bf09.jpg" alt="Caesar">
+    <div class="popular-rating" *ngIf="recipe.average_rating > 0">
+      ★ {{ recipe.average_rating }} ({{ recipe.reviews_count }})
     </div>
-    <span>caesar</span>
-  </div>
-
-  <div class="category-item" [routerLink]="['/recipe', 'pasta']">
-    <div class="circle-img">
-      <img src="https://i.pinimg.com/1200x/46/43/27/4643272b80e0da1c64b6d36ed7ada357.jpg" alt="pasta">
-    </div>
-    <span>pasta</span>
-  </div>
-
-  <div class="category-item" [routerLink]="['/recipe', 'mojito']">
-    <div class="circle-img">
-      <img src="https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg" alt="mojito">
-    </div>
-    <span>mojito</span>
-  </div>
-
-  <div class="category-item" [routerLink]="['/recipe', 'apple pie']">
-    <div class="circle-img">
-      <img src="https://i.pinimg.com/736x/bf/d2/39/bfd239d78b130687d3262b6bb2520cfe.jpg" alt="apple pie">
-    </div>
-    <span>apple pie</span>
   </div>
 </div>
 

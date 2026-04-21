@@ -4,6 +4,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from django.contrib.auth.models import User
+from django.db.models import Count, Avg
+from rest_framework.decorators import action
 from django.contrib.auth import update_session_auth_hash
 
 from .models import Product, Category, Recipe, Review, UserProfile
@@ -23,7 +25,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializers
     permission_classes = [AllowAny]
 
-
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
@@ -38,7 +39,15 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    @action(detail=False, methods=['get'], permission_classes=[AllowAny])
+    def popular(self, request):
+        products = Product.objects.all().annotate(
+            reviews_count_calc=Count('recipe__reviews'),
+            average_rating_calc=Avg('recipe__reviews__rating')
+        ).order_by('-reviews_count_calc', '-average_rating_calc', '-id')[:5]
 
+        serializer = self.get_serializer(products, many=True)
+        return Response(serializer.data)
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer

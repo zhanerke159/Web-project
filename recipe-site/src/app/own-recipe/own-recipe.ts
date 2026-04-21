@@ -87,18 +87,48 @@ export class OwnRecipeComponent {
       .map(step => step.trim())
       .filter(step => step.length > 0);
 
+    const cleanedIngredients = this.recipe.ingredients
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      .map(line => {
+        const parts = line.split(':');
+        const name = parts[0]?.trim() || '';
+
+        if (!name) {
+          return null;
+        }
+
+        const valuePart = parts[1]?.trim() || '';
+        const valueTokens = valuePart.split(' ').filter(token => token.length > 0);
+
+        let amount = 0;
+        let unit = '';
+
+        if (valueTokens.length > 0) {
+          const parsedAmount = Number(valueTokens[0]);
+          amount = isNaN(parsedAmount) ? 0 : parsedAmount;
+          unit = valueTokens.slice(1).join(' ');
+        }
+
+        return {
+          name,
+          amount,
+          unit
+        };
+      })
+      .filter(item => item !== null);
+
     const newRecipe: OwnRecipe = {
       title: this.recipe.name.trim(),
       image: this.recipe.photos.length > 0 ? this.recipe.photos[0] : '',
       description: this.recipe.description.trim(),
       category: Number(this.recipe.categoryId),
 
-      // Django models.py ждёт TextField, не массив
-      ingredients: this.recipe.ingredients.trim(),
+      // сохраняем как JSON-строку, чтобы потом recipe.ts мог сделать JSON.parse()
+      ingredients: JSON.stringify(cleanedIngredients),
 
       prep_time: Number(this.recipe.prepTime) || 15,
-
-      // Django models.py ждёт TextField, не массив
       instructions: cleanedSteps.join('\n')
     };
 
