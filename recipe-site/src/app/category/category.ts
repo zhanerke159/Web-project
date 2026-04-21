@@ -107,6 +107,7 @@ export class CategoryComponent implements OnInit {
     const token = localStorage.getItem('user_token');
 
     if (!token) {
+      alert('Please login to add recipes to favorites.');
       this.router.navigate(['/register']);
       return;
     }
