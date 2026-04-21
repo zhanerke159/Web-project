@@ -107,32 +107,35 @@ export class CategoryComponent implements OnInit {
     const token = localStorage.getItem('user_token');
 
     if (!token) {
-      alert('Please login to add recipes to favorites.');
       this.router.navigate(['/register']);
       return;
     }
 
-    if (this.isFavorite(recipe)) {
-      this.apiService.removeFromFavorites(recipe.id).subscribe({
-        next: () => {
-          this.favorites = this.favorites.filter((fav: any) => fav.id !== recipe.id);
-        },
-        error: (err) => {
-          console.error('Remove favorite error:', err);
-        }
-      });
-    } else {
-      this.apiService.addToFavorites(recipe.id).subscribe({
-        next: () => {
-          this.favorites.push(recipe);
-        },
-        error: (err) => {
-          console.error('Add favorite error:', err);
-        }
-      });
-    }
-  }
+    const previousFavorites = [...this.favorites];
+    const isCurrentlyFav = this.isFavorite(recipe);
 
+    if (isCurrentlyFav) {
+      this.favorites = this.favorites.filter(fav => fav.id !== recipe.id);
+    } else {
+      this.favorites = [...this.favorites, recipe];
+    }
+    this.cdr.detectChanges();
+
+    const apiCall = isCurrentlyFav 
+      ? this.apiService.removeFromFavorites(recipe.id) 
+      : this.apiService.addToFavorites(recipe.id);
+
+    apiCall.subscribe({
+    next: () => {
+      console.log('Sync success');
+    },
+    error: (err) => {
+      console.error('Favorite error:', err);
+      this.favorites = previousFavorites;
+      this.cdr.detectChanges();
+    }
+    });
+  }
   seeIngredients(recipeId: number) {
     this.router.navigate(['/recipe', recipeId], {
       queryParams: { fromCategoryId: this.categoryId }
