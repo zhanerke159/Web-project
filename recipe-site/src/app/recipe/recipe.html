@@ -5,9 +5,17 @@
                 <div class="logo">FoodieBook</div>
 
                 <nav class="breadcrumb">
-                    <a [routerLink]="['/category', categoryIdFromQuery]" class="highlight">
+                    <a *ngIf="categoryIdFromQuery; else backHome" [routerLink]="['/category', categoryIdFromQuery]"
+                        class="back-btn">
                         Back
                     </a>
+
+                    <ng-template #backHome>
+                        <a (click)="goBack()" class="back-btn">
+                            Back
+                        </a>
+                    </ng-template>
+
                     /
                     <span class="highlight">
                         {{ (recipe.name || 'recipe') | lowercase }}

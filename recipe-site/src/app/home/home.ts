@@ -1,7 +1,8 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 import { Header } from '../header/header';
 import { ApiService } from '../services/recipe';
 
@@ -10,13 +11,13 @@ import { ApiService } from '../services/recipe';
   standalone: true,
   imports: [FormsModule, CommonModule, RouterModule, Header],
   templateUrl: './home.html',
-  styleUrl: './home.css',
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './home.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   currentSlideIndex = 0;
   private slideInterval: any;
+  private routerSubscription?: Subscription;
 
   popularRecipes: any[] = [];
 
@@ -36,18 +37,31 @@ export class HomeComponent implements OnInit, OnDestroy {
     'https://i.pinimg.com/1200x/61/2a/8f/612a8ff49ee0d75ee1b72a34278c98a2.jpg'
   ];
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.startAutoSlide();
     this.loadPopularRecipes();
+
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        if (event.urlAfterRedirects === '/' || event.urlAfterRedirects === '/home') {
+          this.loadPopularRecipes();
+        }
+      });
   }
 
   loadPopularRecipes(): void {
     this.apiService.getPopularProducts().subscribe({
       next: (data) => {
         console.log('POPULAR DATA:', data);
-        this.popularRecipes = data;
+        this.popularRecipes = [...data];
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Popular recipes load error:', err);
@@ -94,6 +108,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.slideInterval);
+
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 
   nextSlideManual(): void {

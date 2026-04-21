@@ -41,13 +41,14 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], permission_classes=[AllowAny])
     def popular(self, request):
-        products = Product.objects.all().annotate(
-            reviews_count_calc=Count('recipe__reviews'),
-            average_rating_calc=Avg('recipe__reviews__rating')
+        products = Product.objects.annotate(
+            average_rating_calc=Avg('recipe__reviews__rating'),
+            reviews_count_calc=Count('recipe__reviews')
         ).order_by('-reviews_count_calc', '-average_rating_calc', '-id')[:5]
 
         serializer = self.get_serializer(products, many=True)
         return Response(serializer.data)
+    
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer

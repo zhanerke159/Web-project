@@ -32,19 +32,19 @@
   <div class="line"></div>
 </section>
 
-<div class="pop-rec">
-  <div class="category-item" *ngFor="let recipe of popularRecipes" [routerLink]="['/recipe', recipe.id]">
-    <div class="circle-img">
+<div class="popular-recipes-section">
+  <div class="popular-recipe-card" *ngFor="let recipe of popularRecipes" [routerLink]="['/recipe', recipe.id]">
+    <div class="popular-recipe-image">
       <img [src]="recipe.image" [alt]="recipe.name">
     </div>
-    <span>{{ recipe.name }}</span>
+
+    <span class="popular-recipe-name">{{ recipe.name }}</span>
 
     <div class="popular-rating" *ngIf="recipe.average_rating > 0">
       ★ {{ recipe.average_rating }} ({{ recipe.reviews_count }})
     </div>
   </div>
 </div>
-
 
 
 <section class="cat" id="categories">

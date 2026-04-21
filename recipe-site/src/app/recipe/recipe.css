@@ -722,3 +722,13 @@
   margin-left: -150px;
 }
 
+.back-btn {
+  cursor: pointer;
+  color: #858585;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.back-btn:hover {
+  color: #fcd81b;
+}

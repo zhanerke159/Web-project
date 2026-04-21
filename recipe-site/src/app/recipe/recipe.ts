@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../services/recipe';
+import { ApiService } from '../services/recipe'
+import { Location } from '@angular/common';;
 
 @Component({
   selector: 'app-recipe',
@@ -33,7 +34,8 @@ export class RecipeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -229,4 +231,8 @@ export class RecipeComponent implements OnInit {
   isSelected(index: number): boolean {
     return this.selectedIngredients.has(index);
   }
+
+  goBack() {
+  this.location.back();
+}
 }
