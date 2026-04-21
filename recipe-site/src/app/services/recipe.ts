@@ -26,11 +26,15 @@ export class ApiService {
   }
 
   getRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${this.baseUrl}/recipes/`);
+    return this.http.get<Recipe[]>(`${this.baseUrl}/recipes/`, {
+      headers: this.getHeaders()
+    });
   }
 
   getRecipe(id: number): Observable<Recipe> {
-    return this.http.get<Recipe>(`${this.baseUrl}/recipes/${id}/`);
+    return this.http.get<Recipe>(`${this.baseUrl}/recipes/${id}/`, {
+      headers: this.getHeaders()
+    });
   }
 
   updateRecipe(id: number, recipeData: Partial<Recipe>): Observable<Recipe> {
@@ -91,6 +95,12 @@ export class ApiService {
     });
   }
 
+  getProduct(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/products/${id}/`, {
+      headers: this.getHeaders()
+    });
+  }
+
   updateUserProfile(userData: any): Observable<any> {
     return this.http.patch(`${this.baseUrl}/user/me/`, userData, {
       headers: this.getHeaders()
@@ -120,7 +130,6 @@ export class ApiService {
       headers: this.getHeaders()
     });
   }
-
 
   deleteRecipe(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/recipes/${id}/`, {

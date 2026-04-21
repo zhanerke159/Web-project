@@ -1,0 +1,86 @@
+<div *ngIf="!loading && recipe" class="recipe-wrapper">
+    <div class="recipe-card">
+        <section class="recipe-left">
+            <header class="recipe-header">
+                <div class="logo">FoodieBook</div>
+
+                <nav class="breadcrumb">
+                    <a [routerLink]="['/category', categoryIdFromQuery]" class="highlight">
+                        Back
+                    </a>
+                    /
+                    <span class="highlight">
+                        {{ (recipe.name || 'recipe') | lowercase }}
+                    </span>
+                </nav>
+            </header>
+
+            <div class="hero-text">
+                <h1 class="recipe-title">{{ recipe.name || 'No name' }}</h1>
+                <p class="recipe-sub">{{ recipe.description || 'No description' }}</p>
+            </div>
+
+            <div class="method-card">
+                <div class="section-title">
+                    <span class="section-tag">Method</span>
+                </div>
+
+                <div class="steps-list">
+                    <article class="step-card" *ngFor="let step of recipe.instructions || []; let i = index">
+                        <div class="step-index">Step {{ i + 1 }}</div>
+                        <p>{{ step.description || step || 'No step text' }}</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <div class="image-panel">
+            <img [src]="recipe.image || ''" [alt]="recipe.name || 'recipe image'" />
+        </div>
+
+        <aside class="recipe-right">
+            <div class="info-panel">
+                <div class="meta-row">
+                    <div class="meta-item time-block">
+                        <img src="https://i.pinimg.com/originals/35/e6/64/35e6649f8c90ad8c1e75213627923993.png"
+                            alt="time" class="meta-icon clock-icon" />
+                        {{ recipe.time || 'No time' }}
+                    </div>
+
+                    <div class="meta-item category-block">
+                        <img src="https://iconsvg.co/icon/08dbb3cd-117c-488b-801d-66c0d4d7566d.svg" alt="category"
+                            class="meta-icon category-icon" />
+                        {{ recipe.categoryName || 'No category' }}
+                    </div>
+                </div>
+
+                <h2>Ingredients</h2>
+
+                <div class="serves-row">
+                    <span>Serves</span>
+                    <div class="serves-controls">
+                        <button type="button" (click)="minus()">-</button>
+                        <span class="count">{{ serves }}</span>
+                        <button type="button" (click)="plus()">+</button>
+                    </div>
+                </div>
+
+                <ul class="ingredients-list">
+                    <li *ngFor="let ing of recipe.ingredients || []; let i = index" [class.selected]="isSelected(i)"
+                        (click)="toggleIngredient(i)">
+                        <input type="checkbox" [checked]="isSelected(i)" class="ingredient-checkbox" readonly />
+
+                        <span class="ingredient-name">
+                            {{ ing.name || ing || 'Unnamed ingredient' }}
+                        </span>
+
+                        <span class="ingredient-amount">
+                            {{ ing.amount != null ? ing.amount * serves : '' }}
+                            {{ ing.unit || '' }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>

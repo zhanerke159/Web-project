@@ -66,11 +66,11 @@
                     </option>
                     <option value="3">Drinks
                     </option>
-                    <option value="4">Main Dishes
+                    <option value="4">Salads
                     </option>
-                    <option value="5">Chinese cuisine
+                    <option value="5">Main dishes
                     </option>
-                    <option value="6">Salads
+                    <option value="6">Chinese cuisine
                     </option>
                 </select>
             </div>
@@ -93,7 +93,8 @@
             <div class="steps-container">
                 <h3>Cooking steps</h3>
                 <div class="step-card">
-                    <div class="step-item" *ngFor="let step of recipe.steps; let i = index; trackBy: trackByFn" style="margin-bottom: 15px;">
+                    <div class="step-item" *ngFor="let step of recipe.steps; let i = index"
+                        style="margin-bottom: 15px;">
                         <label>Step {{ i + 1 }}:</label>
                         <div class="step-input-wrapper">
                             <input type="text" [(ngModel)]="recipe.steps[i]" name="step{{i}}" required
@@ -105,15 +106,15 @@
                             </button>
                         </div>
                     </div>
-                <div class="add-btn-div">
-                    <button type="button" class="add-btn" (click)="addStep()">+</button>
+                    <div class="add-btn-div">
+                        <button type="button" class="add-btn" (click)="addStep()">+</button>
+                    </div>
                 </div>
             </div>
-    </div>
-    </form>
+        </form>
 
-    <div class="save-btn">
-        <button type="submit" class="save" (click)="saveRecipe()" [disabled]="recipeForm.invalid">Save</button>
+        <div class="save-btn">
+            <button type="submit" class="save" (click)="saveRecipe()" [disabled]="recipeForm.invalid">Save</button>
+        </div>
     </div>
-</div>
 </div>

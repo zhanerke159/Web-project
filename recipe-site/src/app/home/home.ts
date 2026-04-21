@@ -18,14 +18,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   private slideInterval: any;
 
   categories = [
-    { name: 'Fast Food', image: 'https://i.pinimg.com/736x/72/6a/57/726a57da3fb47a280dc1131790848fc9.jpg' },
-    { name: 'Desserts', image: 'https://i.pinimg.com/736x/4b/b9/8b/4bb98b8eb28c027087aad8b164ae3b03.jpg' },
-    { name: 'Drinks', image: 'https://i.pinimg.com/736x/d2/88/28/d28828f724f103296937917acd48988e.jpg' },
-    { name: 'Salads', image: 'https://i.pinimg.com/736x/a0/e1/86/a0e186e9f46b4de9cbed7ee4f172abd8.jpg' },
-    { name: 'Main dishes', image: 'https://i.pinimg.com/736x/2e/ef/c2/2eefc20ea967eb58909a1864beebed27.jpg' },
-    { name: ' Chinese cuisine', image: 'https://i.pinimg.com/736x/09/08/b7/0908b72c952b9a1c6399a1a29bafe36f.jpg' }
+    { id: 1, name: 'Fast Food', image: 'https://i.pinimg.com/736x/72/6a/57/726a57da3fb47a280dc1131790848fc9.jpg' },
+    { id: 2, name: 'Desserts', image: 'https://i.pinimg.com/736x/4b/b9/8b/4bb98b8eb28c027087aad8b164ae3b03.jpg' },
+    { id: 3, name: 'Drinks', image: 'https://i.pinimg.com/736x/d2/88/28/d28828f724f103296937917acd48988e.jpg' },
+    { id: 4, name: 'Salads', image: 'https://i.pinimg.com/736x/a0/e1/86/a0e186e9f46b4de9cbed7ee4f172abd8.jpg' },
+    { id: 5, name: 'Main dishes', image: 'https://i.pinimg.com/736x/2e/ef/c2/2eefc20ea967eb58909a1864beebed27.jpg' },
+    { id: 6, name: 'Chinese cuisine', image: 'https://i.pinimg.com/736x/09/08/b7/0908b72c952b9a1c6399a1a29bafe36f.jpg' }
   ];
-
   slides = [
     'https://t3.ftcdn.net/jpg/07/09/78/76/360_F_709787664_mkpcdGMyquDqROLcXev1buwXmzor2XDK.jpg',
     'https://i.pinimg.com/1200x/89/7f/f0/897ff0ef441e38e9192d4d0e93f1cebc.jpg',
@@ -83,7 +82,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.resetAutoSlide();
     }
   }
-  
+
 
 
 }

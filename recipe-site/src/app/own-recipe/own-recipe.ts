@@ -2,8 +2,9 @@ import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/recipe'
+import { ApiService } from '../services/recipe';
 import { OwnRecipe } from '../models/own-recipe';
+
 @Component({
   selector: 'app-own-recipe',
   standalone: true,
@@ -16,46 +17,59 @@ export class OwnRecipeComponent {
     name: '',
     description: '',
     ingredients: '',
-    categoryId: 1,
+    categoryId: '',
     prepTime: '',
-    photos: [] as any[],
+    photos: [] as string[],
     steps: ['']
   };
 
   selectedFileName: string = '';
 
-  constructor(private cdr: ChangeDetectorRef,
+  constructor(
+    private cdr: ChangeDetectorRef,
     private zone: NgZone,
     private apiService: ApiService,
-    private router: Router) { }
-  onFileSelected(event: any) {
-    const files: FileList = event.target.files;
-    if (files.length > 0) {
-      Array.from(files).forEach(file => {
-        if (file.type.match(/image.*/)) {
-          const reader = new FileReader();
+    private router: Router
+  ) { }
 
-          reader.onload = (e: any) => {
-            this.zone.run(() => {
-              this.recipe.photos.push(e.target.result);
-              this.cdr.detectChanges();
-            });
-          };
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const files = input.files;
 
-          reader.readAsDataURL(file);
-        }
-      });
+    if (!files || files.length === 0) {
+      return;
     }
 
-    event.target.value = '';
+    Array.from(files).forEach((file) => {
+      if (!file.type.match(/image.*/)) {
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const result = e.target?.result;
+        if (typeof result === 'string') {
+          this.zone.run(() => {
+            this.recipe.photos.push(result);
+            this.cdr.detectChanges();
+          });
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    input.value = '';
   }
 
   goHome() {
     this.router.navigate(['/']);
   }
+
   removePhoto(index: number): void {
     this.recipe.photos.splice(index, 1);
-
+    this.cdr.detectChanges();
   }
 
   addStep() {
@@ -68,31 +82,37 @@ export class OwnRecipeComponent {
     }
   }
 
-
   saveRecipe() {
-    const newRecipe: OwnRecipe = {
-      title: this.recipe.name,
-      image: this.recipe.photos.length > 0 ? this.recipe.photos[0] : '',
-      description: this.recipe.description,
-      category: Number(this.recipe.categoryId),
-      ingredients: this.recipe.ingredients,
-      prep_time: Number(this.recipe.prepTime) || 15,
-      instructions: this.recipe.steps.join('\n'),
+    const cleanedSteps = this.recipe.steps
+      .map(step => step.trim())
+      .filter(step => step.length > 0);
 
+    const newRecipe: OwnRecipe = {
+      title: this.recipe.name.trim(),
+      image: this.recipe.photos.length > 0 ? this.recipe.photos[0] : '',
+      description: this.recipe.description.trim(),
+      category: Number(this.recipe.categoryId),
+
+      // Django models.py ждёт TextField, не массив
+      ingredients: this.recipe.ingredients.trim(),
+
+      prep_time: Number(this.recipe.prepTime) || 15,
+
+      // Django models.py ждёт TextField, не массив
+      instructions: cleanedSteps.join('\n')
     };
 
+    console.log('SENDING:', newRecipe);
+
     this.apiService.createRecipe(newRecipe).subscribe({
-      next: (res) => {
-        console.log('Receipt created successfully');
+      next: () => {
+        console.log('Recipe created successfully');
         this.router.navigate(['/account']);
       },
       error: (err) => {
         console.error('Check fields or terminal:', err);
+        console.error('Backend error body:', err.error);
       }
     });
-  }
-
-  trackByFn(index: number, item: any) {
-    return index;
   }
 }

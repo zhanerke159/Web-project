@@ -1,6 +1,6 @@
 .page-wrapper {
   max-width: 1200px;
-  margin: 0 auto;   
+  margin: 0 auto;
   padding: 20px;
 }
 
@@ -18,13 +18,15 @@
   height: 1px;
   background-color: #ccc;
 }
+
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #fff7c9; 
+  background-color: #ffffff;
   margin: 0;
   padding: 0;
 }
+
 .main-title {
   font-family: 'Arial Black', sans-serif;
   font-size: 42px;
@@ -41,14 +43,14 @@
 }
 
 .recipe-card {
-  background-color: #feea94; 
+  background-color: #ffffff;
   border-radius: 35px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
-  border: 1px solid #000000; 
-  
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000000;
+
   transition: transform 0.3s ease;
 }
 
@@ -65,12 +67,12 @@
 .recipe-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
   display: block;
 }
 
 .card-content {
-  padding: 20px; 
+  padding: 20px;
 }
 
 .card-header {
@@ -110,14 +112,527 @@
   border-radius: 25px;
   border: 1.5px solid #000;
   background-color: #fff090;
-  color:#000000;
+  color: #000000;
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .btn:hover {
   background-color: #f6e866;
+}
+
+
+
+
+
+:host {
+  display: block;
+  min-height: 100vh;
+
+  color: #e6edf6;
+  padding: 30px;
+  font-family: 'Days One', sans-serif;
+}
+
+.recipe-wrapper {
+  max-width: 1450px;
+  margin: 0 auto;
+  background: transparent;
+}
+
+.recipe-card {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 28px;
+  background: radial-gradient(circle at top left, rgba(84, 219, 255, 0.06), transparent 20%),
+    linear-gradient(180deg, #061523 0%, #02111f 100%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 40px;
+  overflow: hidden;
+  padding: 40px;
+  min-height: 82vh;
+  position: relative;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.recipe-left {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 700px;
+  padding-right: 100px;
+
+}
+
+.recipe-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.logo {
+  font-family: var(--logo-font);
+  font-size: 60px;
+  font-weight: 100;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+.breadcrumb {
+  color: rgba(230, 237, 246, 0.72);
+  font-size: 13px;
+  text-transform: capitalize;
+  position: static;
+  top: auto;
+  right: auto;
+  margin: 0;
+}
+
+.category-link {
+  color: rgba(230, 237, 246, 0.72);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.category-link:hover {
+  color: #f8c94e;
+}
+
+.highlight {
+  color: #f8c94e;
+  font-weight: 700;
+}
+
+.hero-text {
+  max-width: 520px;
+  width: 100%;
+  margin-top: 55px;
+}
+
+.recipe-sub {
+  max-width: 380px;
+  width: 100%;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(230, 237, 246, 0.658);
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  padding-top: 20px;
+}
+
+.recipe-title {
+  margin: 0 0 18px;
+  font-size: 50px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  font-weight: normal;
+  max-width: 300px;
+  display: block;
+
+}
+
+
+.method-card {
+  position: relative;
+  border-radius: 32px;
+  padding: 32px;
+  bottom: -40px;
+  right: 30px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+
+.section-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8c94e;
+  padding: 10px 2px;
+  font-size: 28px;
+  font-weight: 300;
+  width: fit-content;
+  margin-bottom: 24px;
+}
+
+.section-tag {
+  transform: translateY(-30px);
+
+}
+
+.steps-list {
+  display: grid;
+  gap: 18px;
+}
+
+.step-card {
+  display: flex;
+  align-items: center;
+  /* Ортаға теңестіру */
+  justify-content: flex-start;
+  padding: 16px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  transition: all 0.3s ease;
+
+  /* Бұл маңызды: элемент басқалардың үстіне шығуы үшін */
+  position: relative;
+  z-index: 1;
+
+  /* Азғантай көлеңке (негізгі күйде) */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  /* Батырма мен мәтін арасын сәл жақындаттық */
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.step-card:hover {
+  /* КӨТЕРІЛУ: Элементті 10 пиксельге ЖОҒАРЫ жылжытамыз */
+  transform: translateY(-10px);
+
+  /* КӨЛЕҢКЕ: Көтерілгенін көрсету үшін үлкенірек көлеңке қосамыз */
+  box-shadow: 0 15px 30px rgba(248, 201, 78, 0.3);
+
+  /* ФОН (optional): Сәл ашығырақ қылуға болады */
+  background: rgba(255, 218, 68, 0.739);
+
+  /* Бұл блоктың басқалардан жоғары тұруын қамтамасыз етеді */
+  z-index: 10;
+}
+
+.step-card:hover .step-index {
+  color: #031521;
+  background: rgba(0, 0, 0, 0.1);
+
+}
+
+.step-card:hover p {
+  color: #031521;
+  font-weight: 500;
+}
+
+.step-index {
+
+  min-width: 30px;
+  height: 70px;
+  padding: 10px 4px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  /* Ортаға теңестіру */
+  justify-content: center;
+  background: rgba(248, 201, 78, 0.15);
+  transition: all 0.3s ease;
+  color: #f8c94e;
+  font-weight: 100;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-align: center;
+
+  margin-left: 0;
+  /* Карточканың ішкі padding-ін жеңу үшін */
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.step-card p {
+  margin: 0;
+  color: rgba(230, 237, 246, 0.88);
+  line-height: 1.75;
+  font-size: 1rem;
+  font-weight: 100;
+}
+
+.recipe-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.image-panel {
+  position: absolute;
+  width: 450px;
+  /* Ені */
+  height: 300px;
+  min-height: 280px;
+  border-radius: 40px;
+  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.35), 20px 0 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 100;
+  margin-top: -50px;
+  left: 50%;
+  top: 190px;
+  /* Немесе суретке қарай 40% */
+  transform: translate(-50%);
+  pointer-events: none;
+}
+
+.image-panel img {
+  width: 100%;
+  /* Рамканың енін толық алсын */
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.info-panel {
+  background: #ffffff;
+  border-radius: 38px;
+  padding: 32px;
+  color: #19212a;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+
+}
+
+
+
+.meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  color: #1f2937;
+  font-weight: 100;
+  font-size: 1.1rem;
+}
+
+
+
+.clock-icon {
+  width: 45px;
+  /* Ені */
+  height: 45px;
+  /* Биіктігі */
+  object-fit: contain;
+}
+
+.category-icon {
+  width: 30px;
+  /* Ені */
+  height: 35px;
+  /* Биіктігі */
+  object-fit: contain;
+  margin-right: 9px;
+}
+
+.time-block {
+  margin-left: -1px;
+}
+
+.category-block {
+  margin-left: 6px;
+}
+
+
+.info-panel h2 {
+  margin: 0 10px 20px;
+  color: #FCD81B;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.serves-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 24px;
+  margin-left: 10px;
+  gap: 25px;
+}
+
+.serves-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #FCD81B;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.serves-controls button {
+  background: #031521;
+  color: #ffffff;
+  border: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+
+}
+
+.serves-controls button:first-child {
+  padding-bottom: 3px;
+}
+
+.count {
+  min-width: 32px;
+  text-align: center;
+  font-weight: 100;
+  color: #031521;
+}
+
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.ingredients-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: #f8fafc;
+  border-radius: 24px;
+  color: #031521;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ingredients-list li:hover {
+  background: #FCD81B;
+}
+
+
+.ingredient-checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #031521;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+}
+
+.ingredient-checkbox:checked {
+  background: #031521;
+}
+
+.ingredient-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FCD81B;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.ingredient-name {
+  flex: 1;
+}
+
+.ingredient-amount {
+  font-weight: 700;
+  color: #374151;
+}
+
+.loading-state {
+  color: #ffffff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+@media (max-width: 1080px) {
+  .recipe-card {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-right {
+    order: -1;
+  }
+}
+
+@media (max-width: 720px) {
+  :host {
+    padding: 20px;
+  }
+
+  .recipe-card {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .recipe-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-text {
+    padding-right: 0;
+  }
+
+  .recipe-title {
+    font-size: 3rem;
+  }
+
+  .image-panel {
+    min-height: 260px;
+  }
+}
+
+.recipe-loading {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+  border: 4px solid #ddd;
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.highlight{
+  text-decoration: none;
 }

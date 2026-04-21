@@ -12,7 +12,7 @@ class ProductSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'description', 'category', 'image', 'time', 'author', 'author_name']
+        fields = ['id', 'name', 'description', 'category', 'image', 'time', 'author', 'author_name', 'recipe']
 
     def get_author_name(self, obj):
         if not obj.author:
@@ -26,10 +26,31 @@ class ProductSerializers(serializers.ModelSerializer):
         return obj.author.username
 
 
-class RecipeSerializers(serializers.ModelSerializer):
+class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
-        fields = ['id', 'title', 'image', 'description', 'category', 'ingredients', 'prep_time', 'instructions']
+        fields = '__all__'
+        read_only_fields = ['author']
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+
+        recipe = Recipe.objects.create(
+            author=request.user,
+            **validated_data
+        )
+
+        Product.objects.create(
+            name=recipe.title,
+            description=recipe.description,
+            category=recipe.category,
+            image=recipe.image,
+            time=recipe.prep_time,
+            author=recipe.author,
+            recipe=recipe
+        )
+
+        return recipe
 
 
 class ReviewSerializers(serializers.ModelSerializer):

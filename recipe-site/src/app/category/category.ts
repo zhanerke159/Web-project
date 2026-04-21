@@ -1,128 +1,134 @@
-import { Component, OnInit } from '@angular/core';
-import { Header } from '../header/header';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Products } from '../models/products';
-import { Category } from '../models/category';
 import { ApiService } from '../services/recipe';
-import { ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [Header, CommonModule, RouterModule],
+  imports: [CommonModule, RouterLink, Header],
   templateUrl: './category.html',
   styleUrl: './category.css'
 })
 export class CategoryComponent implements OnInit {
   categoryName: string = '';
-  filteredProducts: Products[] = [];
-  recipes: any[] = [];
+  categoryId: number = 0;
 
-  categories: Category[] = [
-    { id: 1, name: 'fast-food' },
-    { id: 2, name: 'desserts' },
-    { id: 3, name: 'drinks' },
-    { id: 4, name: 'Salads' },
-    { id: 5, name: 'main dishes' },
-    { id: 6, name: 'Chinese cuisine' }
-  ];
+  products: any[] = [];
+  filteredProducts: any[] = [];
+  favorites: any[] = [];
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private apiService: ApiService,
-    private cdr: ChangeDetectorRef,
-    private router: Router
+    private cdr: ChangeDetectorRef
   ) { }
 
-  seeIngredients(id: number) {
-    console.log('Посмотреть ингредиенты для ID:', id);
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      const idParam = params['id'];
+      const id = Number(idParam);
+
+      if (!idParam || isNaN(id)) {
+        console.error('Invalid category id:', idParam);
+        this.isLoading = false;
+        return;
+      }
+
+      this.categoryId = id;
+      this.isLoading = true;
+      this.products = [];
+      this.filteredProducts = [];
+
+      this.loadCategoryData(id);
+    });
   }
 
-  favoriteIds: number[] = [];
-  toggleFavorite(recipe: any) {
-    const recipeId = Number(recipe.id);
-    const isFav = this.isFavorite(recipe);
-    const token = localStorage.getItem('user_token');
+  loadCategoryData(categoryId: number) {
+    this.apiService.getCategories().subscribe({
+      next: (categories) => {
+        const foundCategory = categories.find((cat: any) => cat.id === categoryId);
 
-    if (!token) {
-      this.router.navigate(['/register']);
-      return;
-    }
-    if (isFav) {
-      this.apiService.removeFromFavorites(recipeId).subscribe({
-        next: () => {
-          console.log('Deleted from server');
-          this.loadFavorites();
-        },
-        error: (err: any) => console.error('Error deleting', err)
-      });
-    } else {
-      this.apiService.addToFavorites(recipeId).subscribe({
-        next: () => {
-          console.log('Saved to server');
-          this.loadFavorites();
-        },
-        error: (err: any) => console.error('Error saving', err)
-      });
-    }
-  }
-  loadFavorites(): void {
-    this.apiService.getFavorites().subscribe({
-      next: (data) => {
-        console.log('favorites data:', data);
+        if (!foundCategory) {
+          console.error('Category not found for id:', categoryId);
+          this.categoryName = 'Unknown category';
+          this.isLoading = false;
+          this.cdr.detectChanges();
+          return;
+        }
 
-        const favorites = data.favorites || [];
+        this.categoryName = foundCategory.name;
 
-        this.favoriteIds = favorites
-          .map((fav: any) => Number(fav.id))
-          .filter((id: number) => !isNaN(id));
-
-        console.log('favoriteIds:', this.favoriteIds);
-        this.cdr.detectChanges();
+        this.apiService.getProductsByCategory(categoryId).subscribe({
+          next: (data) => {
+            this.products = data;
+            this.filteredProducts = data;
+            this.isLoading = false;
+            this.loadFavorites();
+            this.cdr.detectChanges();
+          },
+          error: (err) => {
+            console.error('Products load error:', err);
+            this.filteredProducts = [];
+            this.isLoading = false;
+            this.cdr.detectChanges();
+          }
+        });
       },
-      error: (err: any) => {
-        console.error('Cannot load favorites', err);
-        this.favoriteIds = [];
+      error: (err) => {
+        console.error('Categories load error:', err);
+        this.isLoading = false;
         this.cdr.detectChanges();
       }
     });
   }
 
-  isFavorite(recipe: any): boolean {
-    return this.favoriteIds.includes(Number(recipe.id));
+  loadFavorites() {
+    this.apiService.getFavorites().subscribe({
+      next: (data) => {
+        this.favorites = data?.favorites || [];
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Cannot load favorites', err);
+      }
+    });
   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const nameFromUrl = params['name']?.toLowerCase().trim();
-      console.log('Имя из URL:', nameFromUrl);
+  isFavorite(recipe: any): boolean {
+    return this.favorites.some((fav: any) => fav.id === recipe.id);
+  }
 
-      const foundCategory = this.categories.find(c =>
-        c.name.toLowerCase().replace(/\s/g, '-') === nameFromUrl?.replace(/\s/g, '-')
-      );
+  toggleFavorite(recipe: any) {
+    if (this.isFavorite(recipe)) {
+      this.apiService.removeFromFavorites(recipe.id).subscribe({
+        next: () => {
+          this.favorites = this.favorites.filter((fav: any) => fav.id !== recipe.id);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Remove favorite error:', err);
+        }
+      });
+    } else {
+      this.apiService.addToFavorites(recipe.id).subscribe({
+        next: () => {
+          this.favorites.push(recipe);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Add favorite error:', err);
+        }
+      });
+    }
+  }
 
-      this.loadFavorites();
-
-      if (foundCategory) {
-        this.categoryName = foundCategory.name;
-
-        this.apiService.getProductsByCategory(foundCategory.id).subscribe({
-          next: (data) => {
-            this.filteredProducts = data;
-            this.cdr.detectChanges();
-            console.log('filteredProducts:', this.filteredProducts);
-            console.log('Найдено продуктов:', this.filteredProducts.length);
-          },
-          error: (err) => console.error('CATEGORY ERROR:', err)
-        });
-
-      } else {
-        this.categoryName = 'Category Not Found';
-        this.filteredProducts = [];
-        console.warn('Категория не найдена в списке для:', nameFromUrl);
-      }
+  seeIngredients(recipeId: number) {
+    this.router.navigate(['/recipe', recipeId], {
+      queryParams: { fromCategoryId: this.categoryId }
     });
   }
 }

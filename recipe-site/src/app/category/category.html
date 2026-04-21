@@ -7,14 +7,18 @@
     <span class="line"></span>
   </div>
 
-  <div class="recipes-grid">
+  <div *ngIf="isLoading" class="loading-block"></div>
+
+  <div *ngIf="!isLoading" class="recipes-grid">
     <div class="recipe-card" *ngFor="let recipe of filteredProducts">
       <div class="recipe-image">
         <img [src]="recipe.image" [alt]="recipe.name">
       </div>
+
       <div class="card-content">
         <div class="card-header">
           <h2 class="recipe-name">{{ recipe.name }}</h2>
+
           <div class="recipe-time" *ngIf="recipe?.time">
             <svg class="time-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
@@ -23,12 +27,18 @@
             <span>{{ recipe?.time }} min</span>
           </div>
         </div>
+
         <p class="recipe-description">{{ recipe.description }}</p>
+
         <p class="chef-name" *ngIf="recipe.author_name">
           Chef: {{ recipe.author_name }}
         </p>
+
         <div class="card-buttons">
-          <button (click)="seeIngredients(recipe.id)" class="btn">See the ingredients</button>
+          <button (click)="seeIngredients(recipe.id)" class="btn">
+            See the ingredients
+          </button>
+
           <button type="button" (click)="toggleFavorite(recipe)" class="favorite-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               [attr.fill]="isFavorite(recipe) ? '#ff4757' : 'none'" [attr.stroke]="'#ff4757'" stroke-width="2"
@@ -42,6 +52,7 @@
     </div>
 
     <div *ngIf="filteredProducts.length === 0" class="no-products">
-      <p>No products found for "{{ categoryName }}".</p>
+      <p>No products found for this category.</p>
     </div>
   </div>
+</div>

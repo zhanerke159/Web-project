@@ -7,6 +7,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     image = models.TextField(blank=True, null=True)
@@ -14,15 +15,13 @@ class Recipe(models.Model):
     category = models.ForeignKey(Category, related_name='recipes', on_delete=models.CASCADE)
     ingredients = models.TextField()
     prep_time = models.IntegerField(default=10)
-    instructions = models.TextField() 
-    
+    instructions = models.TextField()
     author = models.ForeignKey(User, related_name='recipes', on_delete=models.CASCADE)
-    
-    
 
     def __str__(self):
         return self.title
-    
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -31,8 +30,17 @@ class Product(models.Model):
     time = models.IntegerField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+    recipe = models.OneToOneField(
+        Recipe,
+        related_name='product',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return self.name
+
 
 class Review(models.Model):
     user = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
@@ -44,10 +52,11 @@ class Review(models.Model):
     def __str__(self):
         return f"Review by {self.user.username} on {self.recipe.title}"
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=True)
-    user_name = models.CharField(max_length=100, blank=True) # Важно!
+    user_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
     birth_date = models.DateField(null=True, blank=True)
