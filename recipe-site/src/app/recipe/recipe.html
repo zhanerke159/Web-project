@@ -131,6 +131,9 @@
                         <span class="review-rating">⭐ {{ review.rating }}</span>
                         <span class="review-user">{{ review.username }}</span>
                         <span class="review-date">{{ review.created_at | date:'mediumDate' }}</span>
+                        <button *ngIf="review.is_owner" type="button" class="delete-review-btn" (click)="deleteReview(review.id)">
+                            <img src="https://avatars.mds.yandex.net/i?id=c4f1fe975359b8f1c28066a6a9e60d5b7d68109f-6405784-images-thumbs&n=13" alt="delete">
+                        </button>
                     </div>
 
                     <p class="review-comment">{{ review.comment || 'No comment' }}</p>

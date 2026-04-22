@@ -26,6 +26,7 @@ export class LoginComponent {
       next: (response: any) => {
         console.log('Вход выполнен!', response);
         localStorage.setItem('user_token', response.access);
+        localStorage.setItem('refresh_token', response.refresh);
         this.router.navigate(['/']);
       },
       error: (err) => {

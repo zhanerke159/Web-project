@@ -25,4 +25,7 @@ export class AuthService {
 
     return this.http.get(`${this.baseUrl}/recipes/search/`, { params });
   }
+  refreshToken(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/token/refresh/`, data);
+  }
 }

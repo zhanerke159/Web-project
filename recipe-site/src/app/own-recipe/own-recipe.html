@@ -78,8 +78,18 @@
 
             <div class="form">
                 <label class="txt">Ingredients:</label>
-                <input type="text" [(ngModel)]="recipe.ingredients" name="ingredients" class="styled-input"
-                    placeholder="List ingredients...">
+                <div class="ingredients-container">
+                    <div class="ingredient-row" *ngFor="let ing of recipe.ingredients; let i = index; trackBy: trackByIndex">
+                    <input type="text" [(ngModel)]="recipe.ingredients[i].name" name="ingName{{i}}"
+                        placeholder="Name (e.g. flour)" class="ing-name">
+                    <input type="number" [(ngModel)]="recipe.ingredients[i].amount" name="ingAmount{{i}}"
+                        placeholder="Amount" class="ing-amount">
+                    <input type="text" [(ngModel)]="recipe.ingredients[i].unit" name="ingUnit{{i}}"
+                        placeholder="Unit (e.g. g)" class="ing-unit">
+                    <button *ngIf="recipe.ingredients.length > 1" type="button" class="delete" (click)="removeIngredient(i)">x</button>
+                    </div>
+                    <button type="button" class="add-ingredient-btn" (click)="addIngredient()">+ Add ingredient</button>
+                </div>
             </div>
 
 
@@ -93,7 +103,7 @@
             <div class="steps-container">
                 <h3>Cooking steps</h3>
                 <div class="step-card">
-                    <div class="step-item" *ngFor="let step of recipe.steps; let i = index"
+                    <div class="step-item" *ngFor="let step of recipe.steps; let i = index; trackBy: trackByIndex"
                         style="margin-bottom: 15px;">
                         <label>Step {{ i + 1 }}:</label>
                         <div class="step-input-wrapper">

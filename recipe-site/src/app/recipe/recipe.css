@@ -719,7 +719,29 @@
 .review-user {
   font-family: 'Darker Grotesque', sans-serif;
   color: #333;
-  margin-left: -150px;
+  margin-left: -100px;
+}
+
+.delete-review-btn {
+  position: absolute;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-top: 25px;
+  margin-left: 420px;
+  display: flex;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  
+}
+.delete-review-btn:hover {
+  opacity: 1;
+}
+
+.delete-review-btn img {
+  width: 35px;
+  height: 23px;
 }
 
 .back-btn {

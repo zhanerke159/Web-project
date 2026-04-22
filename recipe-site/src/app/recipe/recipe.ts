@@ -39,134 +39,108 @@ export class RecipeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.pipe(
-      switchMap(params => {
-        const idParam = params['id'];
-        const productId = Number(idParam);
+  this.route.params.pipe(
+    switchMap(params => {
+      const idParam = params['id'];
+      const recipeId = Number(idParam);
 
-        if (!idParam || isNaN(productId)) {
-          console.error('Invalid product id:', idParam);
-          this.loading = false;
-          this.cdr.detectChanges();
-          return of(null);
-        }
-
-        this.loading = true;
-        this.recipe = null;
-
-        return this.apiService.getProduct(productId).pipe(
-          switchMap(product => {
-            if (!product?.recipe) {
-              console.error('This product has no linked recipe');
-              this.loading = false;
-              this.cdr.detectChanges();
-              return of(null);
-            }
-
-            return this.apiService.getRecipe(product.recipe).pipe(
-              switchMap(recipeData => {
-                return this.apiService.getCategories().pipe(
-                  switchMap(categories => {
-                    let ingredients: any[] = [];
-                    let instructions: any[] = [];
-
-                    if (Array.isArray(recipeData.ingredients)) {
-                      ingredients = recipeData.ingredients;
-                    } else if (typeof recipeData.ingredients === 'string') {
-                      try {
-                        const parsed = JSON.parse(recipeData.ingredients);
-
-                        if (Array.isArray(parsed)) {
-                          ingredients = parsed;
-                        } else {
-                          ingredients = recipeData.ingredients
-                            .split('\n')
-                            .map((line: string) => line.trim())
-                            .filter((line: string) => line.length > 0)
-                            .map((line: string) => ({
-                              name: line,
-                              amount: 0,
-                              unit: ''
-                            }));
-                        }
-                      } catch {
-                        ingredients = recipeData.ingredients
-                          .split('\n')
-                          .map((line: string) => line.trim())
-                          .filter((line: string) => line.length > 0)
-                          .map((line: string) => ({
-                            name: line,
-                            amount: 0,
-                            unit: ''
-                          }));
-                      }
-                    }
-
-                    if (typeof recipeData.instructions === 'string') {
-                      instructions = recipeData.instructions
-                        .split(/\n(?=\d+\.)|\n\s*\n/)
-                        .map((step: string) => step.trim())
-                        .filter((step: string) => step.length > 0)
-                        .map((step: string) => ({ description: step }));
-                    } else if (Array.isArray(recipeData.instructions)) {
-                      instructions = recipeData.instructions;
-                    }
-
-                    const foundCategory = categories.find((cat: any) => cat.id === product.category);
-
-                    const normalizedRecipe = {
-                      ...recipeData,
-                      name: recipeData.title || 'No name',
-                      categoryName: foundCategory ? foundCategory.name : 'No category',
-                      time: recipeData.prep_time || product.time || 'No time',
-                      ingredients,
-                      instructions,
-                      productId: product.id
-                    };
-
-                    return of(normalizedRecipe);
-                  })
-                );
-              })
-            );
-          })
-        );
-      })
-    ).subscribe({
-      next: (normalizedRecipe) => {
-        if (!normalizedRecipe) {
-          this.loading = false;
-          this.cdr.detectChanges();
-          return;
-        }
-
-        this.recipe = normalizedRecipe;
-
-        const fromCategoryId = this.route.snapshot.queryParamMap.get('fromCategoryId');
-        this.categoryIdFromQuery = fromCategoryId || '';
-
-        this.categorySlug = (this.recipe.categoryName || '')
-          .toLowerCase()
-          .replaceAll(' ', '-');
-
-        this.loadReviews();
-
+      if (!idParam || isNaN(recipeId)) {
+        console.error('Invalid recipe id:', idParam);
         this.loading = false;
         this.cdr.detectChanges();
-
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'auto'
-        });
-      },
-      error: (err) => {
-        console.error('Recipe load error:', err);
-        this.loading = false;
-        this.cdr.detectChanges();
+        return of(null);
       }
-    });
-  }
+
+      this.loading = true;
+      this.recipe = null;
+
+      return this.apiService.getRecipe(recipeId).pipe(
+        switchMap(recipeData => {
+          return this.apiService.getCategories().pipe(
+            switchMap(categories => {
+              let ingredients: any[] = [];
+              let instructions: any[] = [];
+
+              if (Array.isArray(recipeData.ingredients)) {
+                ingredients = recipeData.ingredients;
+              } else if (typeof recipeData.ingredients === 'string') {
+                try {
+                  const parsed = JSON.parse(recipeData.ingredients);
+                  if (Array.isArray(parsed)) {
+                    ingredients = parsed;
+                  } else {
+                    ingredients = recipeData.ingredients
+                      .split('\n')
+                      .map((line: string) => line.trim())
+                      .filter((line: string) => line.length > 0)
+                      .map((line: string) => ({ name: line, amount: 0, unit: '' }));
+                  }
+                } catch {
+                  ingredients = recipeData.ingredients
+                    .split('\n')
+                    .map((line: string) => line.trim())
+                    .filter((line: string) => line.length > 0)
+                    .map((line: string) => ({ name: line, amount: 0, unit: '' }));
+                }
+              }
+
+              if (typeof recipeData.instructions === 'string') {
+                instructions = recipeData.instructions
+                  .split(/\n(?=\d+\.)|\n\s*\n/)
+                  .map((step: string) => step.trim())
+                  .filter((step: string) => step.length > 0)
+                  .map((step: string) => ({ description: step }));
+              } else if (Array.isArray(recipeData.instructions)) {
+                instructions = recipeData.instructions;
+              }
+
+              const foundCategory = categories.find((cat: any) => cat.id === recipeData.category);
+
+              const normalizedRecipe = {
+                ...recipeData,
+                name: recipeData.title || 'No name',
+                categoryName: foundCategory ? foundCategory.name : 'No category',
+                time: recipeData.prep_time || 'No time',
+                ingredients,
+                instructions,
+              };
+
+              return of(normalizedRecipe);
+            })
+          );
+        })
+      );
+    })
+  ).subscribe({
+    next: (normalizedRecipe) => {
+      if (!normalizedRecipe) {
+        this.loading = false;
+        this.cdr.detectChanges();
+        return;
+      }
+
+      this.recipe = normalizedRecipe;
+
+      const fromCategoryId = this.route.snapshot.queryParamMap.get('fromCategoryId');
+      this.categoryIdFromQuery = fromCategoryId || '';
+
+      this.categorySlug = (this.recipe.categoryName || '')
+        .toLowerCase()
+        .replaceAll(' ', '-');
+
+      this.loadReviews();
+      this.loading = false;
+      this.cdr.detectChanges();
+
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    },
+    error: (err) => {
+      console.error('Recipe load error:', err);
+      this.loading = false;
+      this.cdr.detectChanges();
+    }
+  });
+}
 
   loadReviews() {
     this.apiService.getReviews().subscribe({
@@ -212,6 +186,16 @@ export class RecipeComponent implements OnInit {
     });
   }
 
+  deleteReview(reviewId: number) {
+    this.apiService.deleteReview(reviewId).subscribe({
+      next: () => {
+        this.reviews = this.reviews.filter(r => r.id !== reviewId);
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error deleting review:', err)
+    });
+  }
+  
   plus() {
     this.serves++;
   }

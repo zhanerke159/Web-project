@@ -16,12 +16,22 @@ export class OwnRecipeComponent {
   recipe = {
     name: '',
     description: '',
-    ingredients: '',
+    ingredients: [{ name: '', amount: '', unit: '' }],
     categoryId: '',
     prepTime: '',
     photos: [] as string[],
     steps: ['']
   };
+
+  addIngredient() {
+   this.recipe.ingredients.push({ name: '', amount: '', unit: '' });
+  }
+
+  removeIngredient(index: number) {
+    if (this.recipe.ingredients.length > 1) {
+      this.recipe.ingredients.splice(index, 1);
+    }
+  }
 
   selectedFileName: string = '';
 
@@ -83,66 +93,42 @@ export class OwnRecipeComponent {
   }
 
   saveRecipe() {
-    const cleanedSteps = this.recipe.steps
-      .map(step => step.trim())
-      .filter(step => step.length > 0);
+  const cleanedSteps = this.recipe.steps
+    .map(step => step.trim())
+    .filter(step => step.length > 0);
 
-    const cleanedIngredients = this.recipe.ingredients
-      .split('\n')
-      .map(line => line.trim())
-      .filter(line => line.length > 0)
-      .map(line => {
-        const parts = line.split(':');
-        const name = parts[0]?.trim() || '';
+  const cleanedIngredients = this.recipe.ingredients
+    .filter(ing => ing.name.trim().length > 0)
+    .map(ing => ({
+      name: ing.name.trim(),
+      amount: Number(ing.amount) || 0,
+      unit: ing.unit.trim()
+    }));
 
-        if (!name) {
-          return null;
-        }
+  const newRecipe: OwnRecipe = {
+    title: this.recipe.name.trim(),
+    image: this.recipe.photos.length > 0 ? this.recipe.photos[0] : '',
+    description: this.recipe.description.trim(),
+    category: Number(this.recipe.categoryId),
+    ingredients: JSON.stringify(cleanedIngredients),
+    prep_time: Number(this.recipe.prepTime) || 15,
+    instructions: cleanedSteps.join('\n')
+  };
 
-        const valuePart = parts[1]?.trim() || '';
-        const valueTokens = valuePart.split(' ').filter(token => token.length > 0);
+  console.log('SENDING:', newRecipe);
 
-        let amount = 0;
-        let unit = '';
-
-        if (valueTokens.length > 0) {
-          const parsedAmount = Number(valueTokens[0]);
-          amount = isNaN(parsedAmount) ? 0 : parsedAmount;
-          unit = valueTokens.slice(1).join(' ');
-        }
-
-        return {
-          name,
-          amount,
-          unit
-        };
-      })
-      .filter(item => item !== null);
-
-    const newRecipe: OwnRecipe = {
-      title: this.recipe.name.trim(),
-      image: this.recipe.photos.length > 0 ? this.recipe.photos[0] : '',
-      description: this.recipe.description.trim(),
-      category: Number(this.recipe.categoryId),
-
-      // сохраняем как JSON-строку, чтобы потом recipe.ts мог сделать JSON.parse()
-      ingredients: JSON.stringify(cleanedIngredients),
-
-      prep_time: Number(this.recipe.prepTime) || 15,
-      instructions: cleanedSteps.join('\n')
-    };
-
-    console.log('SENDING:', newRecipe);
-
-    this.apiService.createRecipe(newRecipe).subscribe({
-      next: () => {
-        console.log('Recipe created successfully');
-        this.router.navigate(['/account']);
-      },
-      error: (err) => {
-        console.error('Check fields or terminal:', err);
-        console.error('Backend error body:', err.error);
-      }
-    });
+  this.apiService.createRecipe(newRecipe).subscribe({
+    next: () => {
+      console.log('Recipe created successfully');
+      this.router.navigate(['/account']);
+    },
+    error: (err) => {
+      console.error('Check fields or terminal:', err);
+      console.error('Backend error body:', err.error);
+    }
+  });
+}
+  trackByIndex(index: number): number {
+    return index;
   }
 }

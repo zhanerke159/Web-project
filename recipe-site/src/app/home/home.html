@@ -33,7 +33,7 @@
 </section>
 
 <div class="popular-recipes-section">
-  <div class="popular-recipe-card" *ngFor="let recipe of popularRecipes" [routerLink]="['/recipe', recipe.id]">
+  <div class="popular-recipe-card" *ngFor="let recipe of popularRecipes" [routerLink]="['/recipe', recipe.recipe_id]">
     <div class="popular-recipe-image">
       <img [src]="recipe.image" [alt]="recipe.name">
     </div>

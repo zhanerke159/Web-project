@@ -19,7 +19,7 @@
         (input)="onSearch($event)" />
 
       <ul class="search-dropdown" *ngIf="searchResults.length > 0">
-        <li *ngFor="let recipe of searchResults" (click)="goToRecipe(recipe.id)">
+        <li *ngFor="let recipe of searchResults" (click)="goToRecipe(recipe.recipe_id)">
           {{ recipe.name }}
         </li>
       </ul>
