@@ -11,13 +11,14 @@ class ProductSerializers(serializers.ModelSerializer):
     author_name = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
     reviews_count = serializers.SerializerMethodField()
+    recipe_id = serializers.IntegerField(source='recipe.id', read_only=True)
 
     class Meta:
         model = Product
         fields = [
             'id', 'name', 'description', 'category', 'image', 'time',
             'author', 'author_name', 'recipe',
-            'average_rating', 'reviews_count'
+            'average_rating', 'reviews_count', 'recipe_id'
         ]
 
     def get_author_name(self, obj):
@@ -76,14 +77,21 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class ReviewSerializers(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
+    is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
-        fields = ['user', 'username', 'recipe', 'rating', 'comment', 'created_at']
+        fields = ['id', 'user', 'username', 'recipe', 'rating', 'comment', 'created_at', 'is_owner']
         read_only_fields = ['user', 'created_at']
 
     def get_username(self, obj):
         return obj.user.username
+
+    def get_is_owner(self, obj):
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            return obj.user == request.user
+        return False
 
     def create(self, validated_data):
         request = self.context.get('request')

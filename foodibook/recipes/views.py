@@ -23,6 +23,7 @@ from .serializers import (
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializers
+    authentication_classes = []
     permission_classes = [AllowAny]
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -53,7 +54,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action in ['retrieve', 'list']:
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -68,7 +73,11 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializers
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -77,7 +86,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
-
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -225,7 +233,7 @@ def create_recipe(request):
     serializer = RecipeSerializer(data=data, context={'request': request})
 
     if serializer.is_valid():
-        recipe = serializer.save()
+        recipe = serializer.save(author=request.user)
         return Response(RecipeSerializer(recipe, context={'request': request}).data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
